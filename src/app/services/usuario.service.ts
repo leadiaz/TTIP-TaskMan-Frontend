@@ -14,7 +14,7 @@ export class UsuarioService {
 	user:Observable<any>;
 
 
-  constructor(public _http:HttpClient, private _authService: AuthService) { 
+  constructor(public _http:HttpClient) { 
   	this.url = "http://localhost:8080";
   }
   	headers: HttpHeaders = new HttpHeaders({
@@ -28,6 +28,9 @@ export class UsuarioService {
   }
   getUserById(id: string){
   	return (this.user = this._http.get<Usuario>(this.url+'/usuario/${id}'));
+  }
+  getUserByUsername(username: string){
+    return (this.user = this._http.get<Usuario>(this.url+'/usuario/buscar/'+username).pipe(map(data=>data)));
   }
 
   save(user:Usuario):Observable<any>{

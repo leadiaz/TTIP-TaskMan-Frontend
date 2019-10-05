@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCardModule} from '@angular/material'; 
+import { MatButtonModule, MatIconModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { NuevoProyectoComponent } from './proyectos/nuevo-proyecto/nuevo-proyecto.component';
+import { NuevaTareaComponent } from './tareas/nueva-tarea/nueva-tarea.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,17 @@ import { NuevoProyectoComponent } from './proyectos/nuevo-proyecto/nuevo-proyect
     UsuariosComponent,
     LoginComponent,
     RegistroComponent,
-    NuevoProyectoComponent
+    NuevoProyectoComponent,
+    NuevaTareaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,29 @@
-<p>tareas works!</p>
+<main role="main">
+  <div *ngIf="task">
+  <div class="proyecto py-5 bg-light">
+    
+
+    <div fxLayout='row' fxLayoutWrap class="cards">
+
+  <div fxFlex="20" class="example-card">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>tareas</mat-card-title>
+        
+
+      </mat-card-header>
+      <mat-card-actions>
+        <button (click)="cambiarDeEstado()" mat-raised-button color="primary">View</button>
+
+        <button mat-raised-button color="warn">
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+  </div>
+</div>
+       
+
+</main>

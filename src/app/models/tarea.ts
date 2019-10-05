@@ -1,5 +1,6 @@
 export class Tarea{
 	constructor(
-		public description: string
+		public titulo:string,
+		public descripcion: string
 	){}
 }
