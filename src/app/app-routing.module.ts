@@ -8,6 +8,7 @@ import { NuevoProyectoComponent } from './proyectos/nuevo-proyecto/nuevo-proyect
 import { NuevaTareaComponent } from './tareas/nueva-tarea/nueva-tarea.component';
 import { ProyectosComponent } from './proyectos/proyectos.component'; 
 import { TareasComponent } from './tareas/tareas.component'
+import { BuscarUsuarioComponent } from './usuarios/buscar-usuario/buscar-usuario.component';
 
 
 
@@ -18,9 +19,11 @@ const routes: Routes = [
 	{path:'registrar', component: RegistroComponent},
 	{path:'home', component: HomeComponent},
 	{path:'nuevo-proyecto', component: NuevoProyectoComponent},
-	{path: 'usuario/proyecto/:id', component: ProyectosComponent},
+	{path: 'proyecto/find-user', component: BuscarUsuarioComponent},
+	{path: 'proyecto/:id', component: ProyectosComponent},
 	{path: 'usuario/proyecto/:id/nueva-tarea', component: NuevaTareaComponent},
 	{path: 'usuario/proyecto/:id/tarea/:idt', component: TareasComponent}
+	
 ];
 
 @NgModule({

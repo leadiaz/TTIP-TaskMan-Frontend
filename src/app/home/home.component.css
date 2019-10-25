@@ -40,3 +40,11 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+.logo{
+
+  margin-bottom: -46px;
+  margin-left: 2px;
+
+  height: 94px;
+  width: 70px;
+}

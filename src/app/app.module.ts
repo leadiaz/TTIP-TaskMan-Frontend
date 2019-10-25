@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { NuevoProyectoComponent } from './proyectos/nuevo-proyecto/nuevo-proyecto.component';
 import { NuevaTareaComponent } from './tareas/nueva-tarea/nueva-tarea.component';
+import { BuscarUsuarioComponent } from './usuarios/buscar-usuario/buscar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NuevaTareaComponent } from './tareas/nueva-tarea/nueva-tarea.component'
     LoginComponent,
     RegistroComponent,
     NuevoProyectoComponent,
-    NuevaTareaComponent
+    NuevaTareaComponent,
+    BuscarUsuarioComponent
   ],
   imports: [
     BrowserModule,

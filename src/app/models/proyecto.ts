@@ -7,7 +7,7 @@ export class Proyecto{
 		public id:number,
 		public creador: Usuario,
 		public nombre: string,
-		public miembros: Array<any>,
-		public tareas: Array<any>
+		public miembros: Array<Usuario>,
+		public tareas: Array<Tarea>
 	){}
 }

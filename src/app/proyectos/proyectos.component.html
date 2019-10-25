@@ -11,13 +11,20 @@
   	</div>
 </header>
 <main role="main">
-  <div *ngIf="task">
+  
+    <section *ngFor="let u of proyecto.miembros">
+        <ul>
+          <li> {{u.nombre}}</li>
+        </ul>
+    </section>
   <div class="proyecto py-5 bg-light">
     
 
     <div fxLayout='row' fxLayoutWrap class="cards">
+      
+      
 
-  <div fxFlex="20" class="example-card" *ngFor="let p of task">
+  <div fxFlex="20" class="example-card" *ngFor="let p of tareas; let i = index">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{p.titulo}}</mat-card-title>
@@ -25,7 +32,7 @@
 
       </mat-card-header>
       <mat-card-actions>
-        <button (click)="view(p.id)" mat-raised-button color="primary">View</button>
+        <button (click)="view(p.id)" mat-raised-button color="primary">{{p.id}} View</button>
 
         <button (click)=eliminarTarea(p.id) mat-raised-button color="warn">
           Delete
@@ -34,7 +41,6 @@
     </mat-card>
   </div>
 </div>
-  </div>
 </div>
        
 

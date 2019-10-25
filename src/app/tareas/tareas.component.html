@@ -1,5 +1,5 @@
 <main role="main">
-  <div *ngIf="task">
+
   <div class="proyecto py-5 bg-light">
     
 
@@ -8,20 +8,21 @@
   <div fxFlex="20" class="example-card">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>tareas</mat-card-title>
-        
+        <mat-card-title>{{tarea.titulo}}</mat-card-title>
+        <mat-card-subtitle>{{tarea.estado}}</mat-card-subtitle>
+              
 
       </mat-card-header>
+      <mat-card-content>{{tarea.descripcion}}</mat-card-content>  
       <mat-card-actions>
-        <button (click)="cambiarDeEstado()" mat-raised-button color="primary">View</button>
+        <button (click)="cambiarDeEstado()" mat-raised-button color="primary">Asignar Usuario</button>
 
-        <button mat-raised-button color="warn">
+        <button (click) ="eliminar()" mat-raised-button color="warn">
           Delete
         </button>
       </mat-card-actions>
     </mat-card>
   </div>
-</div>
   </div>
 </div>
        

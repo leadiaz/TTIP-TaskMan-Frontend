@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Tarea } from '../../models/tarea';
+import { TareaService } from 'src/app/services/tarea.service';
 
 @Component({
   selector: 'app-nueva-tarea',
@@ -17,7 +18,8 @@ export class NuevaTareaComponent implements OnInit {
   constructor(private route: Router, 
               private authService: AuthService, 
               private proyectoService: ProyectoService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private tareaService: TareaService) { }
   titulo:string = '';
   descripcion:string= '';
   idUrl:number;
@@ -27,7 +29,7 @@ export class NuevaTareaComponent implements OnInit {
   }
 
   onCreate(){
-  	this.authService.crearTarea(this.titulo, this.descripcion, this.idUrl).subscribe(data => data);
+  	this.tareaService.crearTarea(this.titulo, this.descripcion, this.idUrl);
   	this.route.navigateByUrl('/home');
 
   }

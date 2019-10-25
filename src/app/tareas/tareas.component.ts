@@ -4,8 +4,9 @@ import { ProyectoService } from '../services/proyecto.service';
 import { Proyecto } from '../models/proyecto';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Tarea } from '../models/tarea';
+import { TareaService } from '../services/tarea.service';
 
 
 @Component({
@@ -14,14 +15,23 @@ import { Tarea } from '../models/tarea';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
-	id_url:number;
+  id_url:number;
+  tarea;
   constructor(private route: Router, 
-              private authService: AuthService, 
+              private authService: AuthService,
+              private tareaService: TareaService,
               private proyectoService: ProyectoService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+    this.tarea = this.tareaService.tareaActual;
+    this.tareaService.tarea$.subscribe(result => this.tarea = result);
+
+  }
 
   ngOnInit() {
-  	this.id_url= this.activatedRoute.snapshot.params.idt;
+  }
+
+  eliminar(){
+    
   }
 
 }

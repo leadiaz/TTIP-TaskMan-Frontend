@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { Login } from '../models/login';
-import { Usuario } from '../models/usuario';
 import { Router, RouterModule, CanActivate } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +10,20 @@ import { Router, RouterModule, CanActivate } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private route: Router, private _authService: AuthService) { }
+  constructor(private route: Router, private _usuarioService: UsuarioService) { }
   user: Login = {username:'', password:''};
 
   ngOnInit() {
   }
   onIngresar():void{
-  	console.log(this.user.username);
-  	this._authService.login(this.user.username, this.user.password);//}
-	//his._authService.login(this.user.usuario, this.user.password);
-  	//subscribe(data => data );
-      this.route.navigateByUrl('/home');
+    console.log(this.user.username);
+    if (! this.user.username || !this.user.password  ){
+        alert("completar los campos")
+    }else{
+      this._usuarioService.login(this.user.username, this.user.password);
+      
+    }
+  	
   }
 
   registrar():void{

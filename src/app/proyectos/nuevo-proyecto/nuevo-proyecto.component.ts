@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { ProyectoInterface } from '../../models/proyectoInterface';
 import { Usuario } from '../../models/usuario';
 import { Router } from '@angular/router';
+import { ProyectoService } from '../../services/proyecto.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-nuevo-proyecto',
@@ -11,21 +13,16 @@ import { Router } from '@angular/router';
 })
 export class NuevoProyectoComponent implements OnInit {
 
-  constructor(private _authService:AuthService, private route:Router) { }
+  constructor(private _proyectoService: ProyectoService, private route:Router) { }
 
-  private proyecto: ProyectoInterface ={
+  nombre : string = '';
 
-  	nombre: ''
-  };
-
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   onCreate():void{
     console.log("onCreate");
-    console.log(this.proyecto.nombre);
-  	this._authService.crearProyecto(this.proyecto).subscribe(data=>data);
+    console.log(this.nombre);
+  	this._proyectoService.crearProyecto(this.nombre);
     this.route.navigateByUrl('/home');
   }
 

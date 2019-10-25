@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../models/usuario';
-import { Proyecto } from '../models/proyecto';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
-
-import {MatCardModule} from '@angular/material/card'; 
-import { map } from 'rxjs/operators';
-
-import { AuthService } from '../services/auth.service';
+import { Observable, Subject } from 'rxjs';
 import { UsuarioService } from'../services/usuario.service';
+import { ProyectoService } from '../services/proyecto.service';
+
 
 @Component({
   selector: 'app-home',
@@ -17,37 +11,45 @@ import { UsuarioService } from'../services/usuario.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  public usuario;
+  
+  public proyectos;
+  public idUsuario:number;
 
-  constructor(private route: Router, 
-              private authService: AuthService, 
-              private usuarioService: UsuarioService){}
+  constructor(private route: Router,  
+              private usuarioService: UsuarioService,
+              private proyectoService: ProyectoService){ 
+    this.usuario = this.usuarioService.usuario;
+    this.proyectos = this.usuarioService.proyectosActuales;
+    this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res;
+                                                    console.log(res)});
+    this.usuarioService.usuario$.subscribe(res => this.usuario = res)
+    }
 
   public app_name = "Home";
-  usuario_logueado:Observable<any>
-  private proyectos:Array<Proyecto>;
 
-  ngOnInit() {
-    if(this.usuario_logueado !== undefined ){
-      this.recargar(this.authService.username)
+  ngOnInit() {  
+  }
 
-    }else
-      this.recargar(JSON.parse(localStorage.getItem("usuario actual"))['usuario']);    
-  }
-  recargar(user:string){
-    console.log("home: "+ user);
-      this.usuario_logueado=this.usuarioService.getUserByUsername(
-                            user).
-                          pipe(map(data =>data));
-      this.usuario_logueado.
-                          subscribe(data => this.proyectos = (data.proyecto));
-  }
   nuevoProyecto():void{
   	console.log("nuevo-proyecto")
   	this.route.navigateByUrl('/nuevo-proyecto');
   }
   view(id:number){
-    this.route.navigateByUrl('/usuario/proyecto/'+id);
+    this.proyectoService.setProyectoActual(id)
+    this.route.navigateByUrl('/proyecto/'+id);
   }
+/*
+  delete(id : number){
+    let proyecto = this.proyectos.find(p => p.id == id);
+    proyecto.tareas.forEach(t => this.tareaService.delete(t.id));
+    this.proyectos = this.proyectos.filter(p => p.id != proyecto.id);
+    this.proyectoService.delete(id);
+  }
+*/
+  /*buscarTarea(tarea: string){
+    return this.tareas.find(t => t.titulo == tarea);
+  }*/
   
 
 }

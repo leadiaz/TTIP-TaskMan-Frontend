@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { Usuario } from '../models/usuario';
@@ -8,86 +8,43 @@ import { Proyecto } from '../models/proyecto';
 import { Tarea } from '../models/tarea';
 import { ProyectoInterface } from '../models/proyectoInterface';
 import { UsuarioService } from './usuario.service';
+import { TareasComponent } from '../tareas/tareas.component';
+import { URL_SERVICIOS } from '../../config/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public username:string;
+  public id : number = null;
+  public usuario_logueado:Usuario
+  public proyectos: Array<Proyecto> = new Array<Proyecto>();
 
   constructor(private _http: HttpClient, private _usuarioService:UsuarioService) { }
   headers: HttpHeaders = new HttpHeaders({
   	"Content-Type": "application/json"
-  	});
-  readonly url_api ='http://localhost:8080';
+  	});  
+ 
+  setId(id:number){
 
-  getToken(){
-  	return 
+    this.id = id;
+    console.log(this.id)
   }
-  setToken(){}
-  registrar(usuario: string, nombre: string,apellido: string, email: string, password:string ){
-  	console.log("entro al service");
-  	const url = this.url_api+'/usuario/';
-  	let r =this._http.post<Usuario>(url,{
-  		usuario: usuario,
-  		nombre: nombre,
-  		apellido: apellido,
-  		email: email, 
-  		password: password
-  		}, {headers: this.headers})
-  		.pipe(map(data => data));
-
-  	console.log(r);
-  	return r;
-  }
-  login(user: string, password: string){
-  	//const url = 'http://)localhost:8080/usuario/login';
-    //let u = this._http.post<Usuario>(url, {user}, {headers: this.headers});
-    console.log("*** AuthService *** "+user);
-    this.username=user;
-    this._usuarioService.getUserByUsername(user).subscribe(data => {
-      localStorage.setItem("usuario actual",JSON.stringify(data));
-      //console.log(data.nombre);
-      })
-  	return user;
-  }
-  crearProyecto(proyecto: Proyecto){
-    const url= this.url_api+'/proyecto/'+ JSON.parse(localStorage.getItem("usuario actual"))['id'];
-    return this._http.post<Proyecto>(url, proyecto, {headers: this.headers}).
-    pipe(map(data =>data));
-  }
-  modificarProyecto(proyecto: Proyecto){
-    const url= this.url_api+'/proyecto/'+ JSON.parse(localStorage.getItem("usuario actual"))['id'];
-    return this._http.put<Proyecto>(url, proyecto, {headers: this.headers}).
-    pipe(map(data =>data));
-  }
-  
-
-
-  setUsuarioActual(username: string){
-    
+  setProyecto(p:Array<Proyecto>){
+    console.log(p)
+    p.forEach(p => this.proyectos.push(p));
+    localStorage.setItem("Proyectos", JSON.stringify(this.proyectos))
   }
   actualizar(usuario: Usuario){
     console.log("actualizar");
     let id_user = JSON.parse(localStorage.getItem("usuario actual"))['id']
-    const url = this.url_api+'/usuario/';
+    const url = URL_SERVICIOS +'/usuario/';
     let r =this._http.put<Usuario>(url, usuario, {headers: this.headers})
-      .pipe(map(data => data));
+      .pipe(map(data =>{
+        this.proyectos = data.proyecto;
+      }));
 
     console.log(r);
     return r;
-  }
-/**** servicio tareas*** luego parsalo a tarea.service ***/
-  eliminarTarea(id: number, idProyecto: number):Observable<{}>{
-    const url = this.url_api+'/tarea/'+id+'/'+idProyecto;
-    console.log(url);
-    return this._http.delete(url, {headers: this.headers}).pipe(map(data=>data));
-  }
-  crearTarea(titulo: string, descripcion:string, id: number){
-    const url=this.url_api+'/tarea/'+id;
-    return this._http.post<Tarea>(url, {
-      titulo: titulo,
-      descripcion: descripcion
-      }, {headers: this.headers}).pipe(map(data =>data));
   }
 }

@@ -8,55 +8,54 @@ import { Observable } from 'rxjs';
 import { Tarea } from '../models/tarea';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
+import { TareaService } from '../services/tarea.service';
+import { MatDialog } from '@angular/material';
+import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuario.component';
+
 
 @Component({
   selector: 'app-proyectos',
   templateUrl: './proyectos.component.html',
   styleUrls: ['./proyectos.component.css']
 })
+
 export class ProyectosComponent implements OnInit {
-	idUrl:number
+  idUrl:number;
+  proyecto;
+  creador:string;
+  tareas;
+
   constructor(private route: Router, 
-              private authService: AuthService, 
               private proyectoService: ProyectoService,
-              private activatedRoute: ActivatedRoute,
-              private usuarioService: UsuarioService) { 
+              private usuarioService: UsuarioService, 
+              private tareaService : TareaService) { 
+    this.proyecto = this.proyectoService.proyecto;
+    this.tareas = this.proyectoService.tareas;
+    this.proyectoService.proyecto$.subscribe(data => this.proyecto = data);
+    this.proyectoService.tareas$.subscribe(data => this.tareas = data);
   	
 
   }
 
-  proyecto: Observable<Proyecto>
-  creador:string;
-  private task:Array<any>
-
-  ngOnInit() {
-  	//this.id.subscribe(data => console.log(data))
-  	//this.proyectoService.getProyecto(this.)
-  	this.idUrl= this.activatedRoute.snapshot.params.id;
-  	this.proyecto=this.proyectoService.getProyecto(this.idUrl).pipe(map(data=>data));
-  	this.proyecto.subscribe(data => localStorage.setItem("proyecto actual", JSON.stringify(data)));
-
-    this.task= JSON.parse(localStorage.getItem("proyecto actual"))['tareas']
-
-    console.log(this.task)
-  }
+  ngOnInit() {}
   nuevoTarea():void{
-  	this.route.navigateByUrl('/usuario/proyecto/'+this.idUrl+'/nueva-tarea');
+  	this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
   }
   view(id: number){
-    this.route.navigateByUrl('/usuario/proyecto/'+this.idUrl+'/tarea/'+id)
+    this.tareaService.setTareaActual(id);
+    this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id +'/tarea/'+id);
   }
 
   eliminarTarea(id:number){
-    this.authService.eliminarTarea(id,this.idUrl);
+    this.tareaService.delete(id);
   }
-  agregarMiembro(user: string){
-    this.usuarioService.getUserByUsername(user).subscribe(data => {
-      this.proyecto.subscribe(res => res.miembros.push(data))
-      });
-    this.authService.modificarProyecto(this.proyecto)
+  agregarMiembro(){
+    this.route.navigateByUrl('/proyecto/find-user');
+    //let usuario;
+    //usuario = this.usuarioService.getUserByUsername(user)
 
-   // this.authService.update(user);
+    //this.proyecto.miembros.push(usuario);
+    //this.proyectoService.modificarProyecto(this.proyecto);
     
 
   }

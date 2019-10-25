@@ -1,0 +1,27 @@
+<section>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+                    <div class="card-register">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <form #formRegistrar="ngForm" (ngSubmit)="agregarAProyecto()">
+                                    <h1 class="h3 mb-3 font-weigth-normal">Buscar Usuario</h1>
+                                    <div class="form-group">
+                                        <input type="text" id="nombreUsuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario" required (blur)="buscar()">
+                                    </div>
+                                    <div class="form-group">
+                                <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+                            </div>
+                                    <button type="submit" class="btn btn-lg btn-primary">
+                                        agregar miembro									
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
