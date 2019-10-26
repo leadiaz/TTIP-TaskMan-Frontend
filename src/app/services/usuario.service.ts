@@ -35,14 +35,14 @@ export class UsuarioService {
 
     return new Promise((resolve, reject) =>{
       this.authFire.auth.signInWithEmailAndPassword(username, password)
-      .then(userData => resolve(userData)
-        /*this.getUserByUsername(username).subscribe(res => {
+      .then(userData => {resolve(userData);
+        this.getUserByUsername(username).subscribe(res => {
           this.usuario = res;
           this.proyectosActuales = res.proyecto;
           this.userSubject.next(this.usuario);
-          this.proyectosSubject.next(this.proyectosActuales);*/
-      ,
-      err => reject(err));
+          this.proyectosSubject.next(this.proyectosActuales);
+        }),
+      err => reject(err)});
     
       console.log(this.proyectosActuales)
     });
@@ -65,6 +65,13 @@ export class UsuarioService {
   }
   setUsuario(u: any){
     this.usuario = u;
+  }
+  register(email: string, password:string ){
+    return new Promise((resolve, reject) => {
+      this.authFire.auth.createUserWithEmailAndPassword(email, password).
+    then(userData => resolve(userData),
+    err => reject(err));
+    })
   }
 
   save(usuario: string, nombre: string,apellido: string, email: string, password:string ):Observable<Usuario>{

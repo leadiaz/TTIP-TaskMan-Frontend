@@ -24,9 +24,13 @@ export class RegistroComponent implements OnInit {
   ngOnInit() {
   }
   onRegistrar():void{
-  	this._usuarioService.save(this.user.usuario,this.user.nombre,this.user.apellido,this.user.email,this.user.password)
-  	.subscribe(data =>console.log(data));
-    this.route.navigateByUrl('/login');
+    this._usuarioService.register(this.user.email,this.user.password).
+    then(res => {
+      this._usuarioService.save(this.user.usuario,this.user.nombre,this.user.apellido,this.user.email,this.user.password).
+      subscribe(data => this.route.navigateByUrl('/login'));
+    })
+  	
+    
   }
 
 }
