@@ -8,6 +8,7 @@ import { URL_SERVICIOS } from 'src/config/config';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto';
+import { AngularFireAuth } from '@angular/fire/auth'
  
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class UsuarioService {
 
 
 
-  constructor(public _http:HttpClient, private route: Router) { 
+  constructor(public _http:HttpClient, private route: Router, private authFire: AngularFireAuth) { 
   	this.url = URL_SERVICIOS;
   }
   headers: HttpHeaders = new HttpHeaders({
@@ -31,14 +32,25 @@ export class UsuarioService {
   })
 
   login(username: string, password: string){
-    this.getUserByUsername(username).subscribe(res => {
-      this.usuario = res;
-      this.proyectosActuales = res.proyecto;
-      this.userSubject.next(this.usuario);
-      this.proyectosSubject.next(this.proyectosActuales);
+
+    return new Promise((resolve, reject) =>{
+      this.authFire.auth.signInWithEmailAndPassword(username, password)
+      .then(userData => resolve(userData)
+        /*this.getUserByUsername(username).subscribe(res => {
+          this.usuario = res;
+          this.proyectosActuales = res.proyecto;
+          this.userSubject.next(this.usuario);
+          this.proyectosSubject.next(this.proyectosActuales);*/
+      ,
+      err => reject(err));
+    
+      console.log(this.proyectosActuales)
     });
-    this.route.navigateByUrl('/home');
-  	return (this.usuario);
+    
+  }
+
+  logout(){
+    return this.authFire.auth.signOut().then((data) => this.route.navigateByUrl('login'))
   }
 
   getUsers()

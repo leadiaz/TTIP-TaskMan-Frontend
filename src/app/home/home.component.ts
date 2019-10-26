@@ -30,7 +30,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {  
   }
-
+  logout(){
+    this.usuarioService.logout();
+  }
   nuevoProyecto():void{
   	console.log("nuevo-proyecto")
   	this.route.navigateByUrl('/nuevo-proyecto');
