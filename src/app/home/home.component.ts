@@ -20,9 +20,16 @@ export class HomeComponent implements OnInit {
               private usuarioService: UsuarioService,
               private proyectoService: ProyectoService){ 
     this.usuario = this.usuarioService.usuario;
+    this.usuarioService.proyectosActuales.forEach(proyecto => {
+      this.proyectoService.getProyecto(proyecto).subscribe(res => this.proyectos.push(res))
+    })
     this.usuarioService.proyectos$.subscribe(data => {
       data.forEach( proyecto => {
-        this.proyectoService.getProyecto(proyecto).subscribe(res => this.proyectos.push(res))
+        this.proyectoService.getProyecto(proyecto).subscribe(res => {
+          this.proyectos.push(res);
+          console.log(res)
+        });
+        console.log(proyecto)
       })
     });
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)

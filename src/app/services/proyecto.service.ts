@@ -33,8 +33,7 @@ export class ProyectoService {
 		});
 
   getProyecto(id:number):Observable<Proyecto>{
-  	this.proyecto = this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`);
-  	return (this.proyecto).pipe(map(data => data));
+  	return this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`).pipe(map(data => data));
   }
 
   crearProyecto(nombre: string){
@@ -60,11 +59,15 @@ export class ProyectoService {
     return this._http.delete(url, {headers: this.headers});
   }
   setProyectoActual(id:number){
-    this.proyecto = this.usuarioService.proyectosActuales.find(p => p.id == id);
-    this.tareas = this.proyecto.tareas;
-    this.proyectoSubject.next(this.proyecto);
-    this.tareasSubject.next(this.tareas); 
-    console.log(this.proyecto);
+    this.getProyecto(id).subscribe(data => {
+      this.proyecto = data;
+      this.tareas = this.proyecto.tareas;
+      this.proyectoSubject.next(this.proyecto);
+      this.tareasSubject.next(this.tareas);
+      console.log(this.proyecto);
+    })
+    //
+
   }
   agregarMiembro(usuario){
     this.proyecto.miembros.push(usuario)

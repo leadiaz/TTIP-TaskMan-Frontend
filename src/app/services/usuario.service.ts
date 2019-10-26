@@ -14,7 +14,7 @@ import { Proyecto } from '../models/proyecto';
 })
 export class UsuarioService {
 	public url:string;
-  public proyectosActuales;
+  public proyectosActuales: any[];
   private proyectosSubject = new Subject<any>();
   public proyectos$ = this.proyectosSubject.asObservable();
   private userSubject = new Subject<any>();
@@ -36,8 +36,9 @@ export class UsuarioService {
       this.proyectosActuales = res.proyecto;
       this.userSubject.next(this.usuario);
       this.proyectosSubject.next(this.proyectosActuales);
+      this.route.navigateByUrl('/home');
     });
-    this.route.navigateByUrl('/home');
+    
   	return (this.usuario);
   }
 
