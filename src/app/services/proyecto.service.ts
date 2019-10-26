@@ -42,7 +42,7 @@ export class ProyectoService {
     let p = this._http.post<Proyecto>(url, {nombre: nombre}, {headers: this.headers}).
     pipe(map(data =>data)); 
 
-    return p.subscribe(data => this.usuarioService.agregarProyecto(data));
+    return p.subscribe(data => this.usuarioService.agregarProyecto(data.id));
   }  
   modificarProyecto(proyecto: Proyecto){
     console.log("modificar")

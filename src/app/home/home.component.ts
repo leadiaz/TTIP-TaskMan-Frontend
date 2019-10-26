@@ -13,16 +13,18 @@ import { ProyectoService } from '../services/proyecto.service';
 export class HomeComponent implements OnInit {
   public usuario;
   
-  public proyectos;
+  public proyectos = new Array<any>();
   public idUsuario:number;
 
   constructor(private route: Router,  
               private usuarioService: UsuarioService,
               private proyectoService: ProyectoService){ 
     this.usuario = this.usuarioService.usuario;
-    this.proyectos = this.usuarioService.proyectosActuales;
-    this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res;
-                                                    console.log(res)});
+    this.usuarioService.proyectos$.subscribe(data => {
+      data.forEach( proyecto => {
+        this.proyectoService.getProyecto(proyecto).subscribe(res => this.proyectos.push(res))
+      })
+    });
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)
     }
 

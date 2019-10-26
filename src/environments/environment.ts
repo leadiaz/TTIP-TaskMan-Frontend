@@ -4,7 +4,17 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://192.168.0.130:8080'
+  apiEndpoint: 'http://192.168.0.130:8080',
+  firebaseConfig: {
+    apiKey: "AIzaSyBluB1w-ga3Va_8FVBf3T-6Tu3x7bwY5uE",
+    authDomain: "taskman-4face.firebaseapp.com",
+    databaseURL: "https://taskman-4face.firebaseio.com",
+    projectId: "taskman-4face",
+    storageBucket: "taskman-4face.appspot.com",
+    messagingSenderId: "1079710720690",
+    appId: "1:1079710720690:web:e5e3478f28a18a0da31fab",
+    measurementId: "G-9LH24QMPWV"
+  }
 };
 
 /*
