@@ -15,7 +15,7 @@
       </mat-card-header>
       <mat-card-content>{{tarea.descripcion}}</mat-card-content>  
       <mat-card-actions>
-        <button (click)="cambiarDeEstado()" mat-raised-button color="primary">Asignar Usuario</button>
+        <button class="btn-primary" data-toggle="modal" data-target="#modalBook" mat-raised-button color="primary">Asignar Usuario</button>
 
         <button (click) ="eliminar()" mat-raised-button color="warn">
           Delete
@@ -25,6 +25,37 @@
   </div>
   </div>
 </div>
+<div class="modal fade" id="modalBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            asignar usuario
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="formBook" #formBook="ngForm" (ngSubmit)="onSaveBook(formBook)">
+  
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="idioma">Idioma</label>
+                <input type="text" id="nombreUsuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario" required (blur)="buscar()">
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save Book</button>
+            </div>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
        
 
 </main>

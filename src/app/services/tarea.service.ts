@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TareaService {
+  proyecto;
   private url_api: string;
   tareaActual;
   private tareaSubject = new Subject<any>();
@@ -28,6 +29,10 @@ export class TareaService {
       descripcion: descripcion
       }, {headers: this.headers}).pipe(map(data =>data));
     t.subscribe(data => this.proyectoService.agregarTarea(data))
+  }
+  update(tarea){
+    console.log("update "+ tarea.id)
+    return this._http.put(URL_SERVICIOS+'/tarea/'+tarea.id, tarea,{headers: this.headers})
   }
   delete(id : number){
     const url = this.url_api+`/tarea/${id}`;

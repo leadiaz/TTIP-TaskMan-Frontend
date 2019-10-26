@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Tarea } from '../models/tarea';
 import { TareaService } from '../services/tarea.service';
+import { tick } from '@angular/core/testing';
+
 
 
 @Component({
@@ -17,6 +19,8 @@ import { TareaService } from '../services/tarea.service';
 export class TareasComponent implements OnInit {
   id_url:number;
   tarea;
+  usuario = '';
+  usuarioSeleccionado;
   constructor(private route: Router, 
               private authService: AuthService,
               private tareaService: TareaService,
@@ -32,6 +36,20 @@ export class TareasComponent implements OnInit {
 
   eliminar(){
     
+  }
+  asignarUsuario(usuario){
+    this.tarea.asignado = usuario;
+    this.tareaService.update(this.tarea)
+  }
+  buscar(){
+    console.log(this.tareaService.proyecto.miembros)
+    let user = this.tareaService.proyecto.miembros.find(user => user.email === this.usuario)
+    console.log(user)
+    if (user == undefined){
+      alert("usuario no encontrado");
+    }else{
+      this.asignarUsuario(user)
+    }
   }
 
 }

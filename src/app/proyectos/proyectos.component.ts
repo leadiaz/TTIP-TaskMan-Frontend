@@ -42,6 +42,8 @@ export class ProyectosComponent implements OnInit {
   	this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
   }
   view(id: number){
+    this.tareaService.proyecto = this.proyecto
+    console.log(this.proyecto)
     this.tareaService.setTareaActual(id);
     this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id +'/tarea/'+id);
   }
