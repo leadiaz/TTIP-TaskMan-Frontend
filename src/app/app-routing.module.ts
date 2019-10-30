@@ -20,7 +20,7 @@ const routes: Routes = [
 	{path:'home', component: HomeComponent},
 	{path:'nuevo-proyecto', component: NuevoProyectoComponent},
 	{path: 'proyecto/find-user', component: BuscarUsuarioComponent},
-	{path: 'proyecto/:id', component: ProyectosComponent},
+	{path: 'proyectos', component: ProyectosComponent},
 	{path: 'usuario/proyecto/:id/nueva-tarea', component: NuevaTareaComponent},
 	{path: 'usuario/proyecto/:id/tarea/:idt', component: TareasComponent}
 	

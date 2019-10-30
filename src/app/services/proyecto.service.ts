@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Proyecto } from '../models/proyecto';
-import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 
 

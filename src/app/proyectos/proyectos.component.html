@@ -11,23 +11,14 @@
   	</div>
 </header>
 <main role="main">
-  
-    <section *ngFor="let u of proyecto.miembros">
-        <ul>
-          <li> {{u.nombre}}</li>
-        </ul>
-    </section>
-  <div class="proyecto py-5 bg-light">
-    
-
     <div fxLayout='row' fxLayoutWrap class="cards">
       
       
 
-  <div fxFlex="20" class="example-card" *ngFor="let p of tareas; let i = index">
+  <div fxFlex="20" class="example-card" *ngFor="let p of proyectos; let i = index">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>{{p.titulo}}</mat-card-title>
+        <mat-card-title>{{p.nombre}}</mat-card-title>
         
 
       </mat-card-header>
@@ -40,7 +31,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
-</div>
+
 </div>
        
 

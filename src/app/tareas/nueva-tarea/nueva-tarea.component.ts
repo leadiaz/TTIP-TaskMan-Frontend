@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../../services/proyecto.service';
 import { Proyecto } from '../../models/proyecto';
-import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Tarea } from '../../models/tarea';
@@ -15,8 +14,7 @@ import { TareaService } from 'src/app/services/tarea.service';
 })
 export class NuevaTareaComponent implements OnInit {
 
-  constructor(private route: Router, 
-              private authService: AuthService, 
+  constructor(private route: Router,
               private proyectoService: ProyectoService,
               private activatedRoute: ActivatedRoute,
               private tareaService: TareaService) { }

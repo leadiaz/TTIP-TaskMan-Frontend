@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../services/proyecto.service';
 import { Proyecto } from '../models/proyecto';
-import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Tarea } from '../models/tarea';
@@ -22,7 +21,6 @@ export class TareasComponent implements OnInit {
   usuario = '';
   usuarioSeleccionado;
   constructor(private route: Router, 
-              private authService: AuthService,
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
               private activatedRoute: ActivatedRoute) {
@@ -43,7 +41,7 @@ export class TareasComponent implements OnInit {
   }
   buscar(){
     console.log(this.tareaService.proyecto.miembros)
-    let user = this.tareaService.proyecto.miembros.find(user => user.email === this.usuario)
+    let user = this.tareaService.proyecto.miembros.find(user => user.email == this.usuario)
     console.log(user)
     if (user == undefined){
       alert("usuario no encontrado");

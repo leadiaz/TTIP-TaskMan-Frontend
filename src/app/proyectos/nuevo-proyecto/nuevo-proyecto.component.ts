@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { ProyectoInterface } from '../../models/proyectoInterface';
 import { Usuario } from '../../models/usuario';
 import { Router } from '@angular/router';
