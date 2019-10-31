@@ -16,6 +16,11 @@ import { RegistroComponent } from './registro/registro.component';
 import { NuevoProyectoComponent } from './proyectos/nuevo-proyecto/nuevo-proyecto.component';
 import { NuevaTareaComponent } from './tareas/nueva-tarea/nueva-tarea.component';
 import { BuscarUsuarioComponent } from './usuarios/buscar-usuario/buscar-usuario.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { from } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -37,9 +42,11 @@ import { BuscarUsuarioComponent } from './usuarios/buscar-usuario/buscar-usuario
     HttpClientModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

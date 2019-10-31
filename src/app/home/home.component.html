@@ -5,36 +5,84 @@
   <a href="home.component.css" rel="stylesheet"></a>
 </head>
 <body>
-    <header>
-      <div class="navbar navbar-white bg-white shadow-sm">
-        <div class="container d-flex justify-content-between">
-          <img src="../../assets/images/logo2.svg" class="logo" width="150" height="50">
-          <button (click)="nuevoProyecto()">Nuevo Proyecto</button>
-        </div>
-      </div>
-    </header>
-    <main role="main">
-      <div>
-        Mis Proyectos
-      </div>
-        <div class="proyecto py-5 bg-light">
-          <div fxLayout='row' fxLayoutWrap class="cards">
-            <div fxFlex="20" class="example-card" *ngFor="let p of proyectos">
-              <mat-card>
-                <mat-card-header>
-                  <mat-card-title>{{p.nombre}}</mat-card-title>
-                  <mat-card-subtitle>Creador: {{p.creador.email}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-actions>
-                  <button (click)="view(p.id)" mat-raised-button color="primary">{{p.id}} View</button>
-                  <button mat-raised-button color="warn">Delete</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-          </div>
-      </div>
-    </main>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Task-man</a>
+<input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search" (keyup)="buscar()">
 
+<form class="form-inline my-2 my-lg-0">
+  <button class="btn btn-outline-light my-2 my-sm-0" (click)="logout()"> Sign up</button>
+</form>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">
+            <span data-feather="home"></span>
+            Dashboard <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file"></span>
+            Tareas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/proyectos">
+            <span data-feather="shopping-cart"></span>
+            Proyectos
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Dashboard</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+      </div>
+    </div>
+    <div *ngIf="tarea" class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{tarea.titulo}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+        <p class="card-text">{{tarea.descripcion}}</p>
+        <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
+        <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+    
+    <h2 style="margin-top: 14px;">Mis tareas</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="misTareas" >
+            <tr *ngFor="let tarea of misTareas; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{tarea.titulo}}</td>
+                <td>{{tarea.descripcion}}</td>
+                <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-</body>
+    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>

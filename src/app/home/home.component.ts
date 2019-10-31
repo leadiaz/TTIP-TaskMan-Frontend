@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { UsuarioService } from'../services/usuario.service';
 import { ProyectoService } from '../services/proyecto.service';
+import { TareaService } from '../services/tarea.service';
+import { map } from 'rxjs/operators';
+
 
 
 @Component({
@@ -12,42 +15,55 @@ import { ProyectoService } from '../services/proyecto.service';
 })
 export class HomeComponent implements OnInit {
   public usuario;
-  
-  public proyectos = new Array<any>();
+
+  tarea ;
+  public proyectos;
+  misTareas:Array<any>;
   public idUsuario:number;
 
   constructor(private route: Router,  
               private usuarioService: UsuarioService,
-              private proyectoService: ProyectoService){ 
+              private proyectoService: ProyectoService,
+              private tareaService: TareaService){ 
     this.usuario = this.usuarioService.usuario;
-    this.usuarioService.proyectosActuales.forEach(proyecto => {
-      this.proyectoService.getProyecto(proyecto).subscribe(res => this.proyectos.push(res))
-    })
-    this.usuarioService.proyectos$.subscribe(data => {
-      data.forEach( proyecto => {
-        this.proyectoService.getProyecto(proyecto).subscribe(res => {
-          this.proyectos.push(res);
-          console.log(res)
-        });
-        console.log(proyecto)
-      })
-    });
+
+    this.proyectos = this.usuarioService.proyectosActuales;
+    this.misTareas = this.usuarioService.tareas
+    this.usuarioService.tareas$.subscribe(data => this.misTareas = data);
+    this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res;
+                                                    console.log(res)});
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)
+  
     }
 
   public app_name = "Home";
 
-  ngOnInit() {  
+  async ngOnInit() { 
+     await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id).pipe(map(data => this.misTareas = data))
   }
-
+  logout(){
+    this.usuarioService.logout();
+  }
   nuevoProyecto():void{
   	console.log("nuevo-proyecto")
   	this.route.navigateByUrl('/nuevo-proyecto');
   }
   view(id:number){
-    this.proyectoService.setProyectoActual(id)
-    this.route.navigateByUrl('/proyecto/'+id);
+    this.tarea = this.misTareas.find(t => t.id === id)
   }
+  terminar(){
+    this.tarea.estado = "Hecha"
+    this.tarea = undefined
+  }
+  cancelar(){
+    this.tarea.estado = "Cancelada";
+    this.tarea.asignado = ""
+  }
+
+  proyectosNavigate(){
+    this.route.navigateByUrl('/proyecto')
+  }
+
 /*
   delete(id : number){
     let proyecto = this.proyectos.find(p => p.id == id);

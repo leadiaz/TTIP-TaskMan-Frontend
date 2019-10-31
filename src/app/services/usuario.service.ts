@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
-import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/config/config';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto';
- 
+import { AngularFireAuth } from '@angular/fire/auth'
+import { Tarea } from '../models/tarea';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,8 +23,13 @@ export class UsuarioService {
   usuario;
 
 
+  /** mis tareas que tengo asignadas**/
+  private tareasSubject = new Subject<any>();
+  tareas$ = this.tareasSubject.asObservable();
+  tareas = new Array<Tarea>();
 
-  constructor(public _http:HttpClient, private route: Router) { 
+
+  constructor(public _http:HttpClient, private route: Router, private authFire: AngularFireAuth) { 
   	this.url = URL_SERVICIOS;
   }
   headers: HttpHeaders = new HttpHeaders({
@@ -31,6 +37,7 @@ export class UsuarioService {
   })
 
   login(username: string, password: string){
+<<<<<<< HEAD
     this.getUserByUsername(username).subscribe(res => {
       this.usuario = res;
       this.proyectosActuales = res.proyecto;
@@ -40,6 +47,34 @@ export class UsuarioService {
     });
     
   	return (this.usuario);
+=======
+
+    return new Promise((resolve, reject) =>{
+      this.authFire.auth.signInWithEmailAndPassword(username, password)
+      .then(userData => {resolve(userData);
+        this.getUserByUsername(username).subscribe(data => {
+          console.log(data)
+          this.usuario = data;
+          this.proyectosActuales = data.proyecto;
+          this.userSubject.next(this.usuario);
+          this.proyectosSubject.next(this.proyectosActuales);
+          this.getTareasAsignadasAUsuario(data.id).subscribe(
+            dataT => {dataT.map(t => this.tareas.push(t));
+                      this.tareasSubject.next(this.tareas)}
+          )
+        }),
+      err => reject(err)});
+
+    });
+    
+  }
+
+  logout(){
+    return this.authFire.auth.signOut().then((data) => this.route.navigateByUrl('login'))
+  }
+  cargarDatosDeUsuario(username: string){
+    
+>>>>>>> devBranch
   }
 
   getUsers()
@@ -54,6 +89,13 @@ export class UsuarioService {
   }
   setUsuario(u: any){
     this.usuario = u;
+  }
+  register(email: string, password:string ){
+    return new Promise((resolve, reject) => {
+      this.authFire.auth.createUserWithEmailAndPassword(email, password).
+    then(userData => resolve(userData),
+    err => reject(err));
+    })
   }
 
   save(usuario: string, nombre: string,apellido: string, email: string, password:string ):Observable<Usuario>{
@@ -74,10 +116,12 @@ export class UsuarioService {
   }
 
   update(usuario){
-    console.log("update");
-    console.log(usuario)
     const url_api = this.url + '/usuario/' +usuario.id;
-    console.log(url_api);
     return this._http.put(url_api, usuario, {headers: this.headers}).pipe(map(data => console.log(data)));
+  }
+  getTareasAsignadasAUsuario(id: number){
+    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers})
+    console.log(tareas)
+    return tareas
   }
 }

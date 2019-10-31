@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../services/proyecto.service';
 import { Proyecto } from '../models/proyecto';
-import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Tarea } from '../models/tarea';
@@ -21,7 +20,7 @@ import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuari
 
 export class ProyectosComponent implements OnInit {
   idUrl:number;
-  proyecto;
+  proyectos;
   creador:string;
   tareas;
 
@@ -29,9 +28,9 @@ export class ProyectosComponent implements OnInit {
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService, 
               private tareaService : TareaService) { 
-    this.proyecto = this.proyectoService.proyecto;
+                this.proyectos = this.usuarioService.proyectosActuales;
     this.tareas = this.proyectoService.tareas;
-    this.proyectoService.proyecto$.subscribe(data => this.proyecto = data);
+    this.usuarioService.proyectos$.subscribe(data => {this.proyectos = data; console.log(data)});
     this.proyectoService.tareas$.subscribe(data => this.tareas = data);
   	
 
@@ -39,11 +38,13 @@ export class ProyectosComponent implements OnInit {
 
   ngOnInit() {}
   nuevoTarea():void{
-  	this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
+  	//this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
   }
   view(id: number){
-    this.tareaService.setTareaActual(id);
-    this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id +'/tarea/'+id);
+   // this.tareaService.proyecto = this.proyectos
+    //console.log(this.proyectos)
+    //this.tareaService.setTareaActual(id);
+    //this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id +'/tarea/'+id);
   }
 
   eliminarTarea(id:number){
