@@ -37,17 +37,6 @@ export class UsuarioService {
   })
 
   login(username: string, password: string){
-<<<<<<< HEAD
-    this.getUserByUsername(username).subscribe(res => {
-      this.usuario = res;
-      this.proyectosActuales = res.proyecto;
-      this.userSubject.next(this.usuario);
-      this.proyectosSubject.next(this.proyectosActuales);
-      this.route.navigateByUrl('/home');
-    });
-    
-  	return (this.usuario);
-=======
 
     return new Promise((resolve, reject) =>{
       this.authFire.auth.signInWithEmailAndPassword(username, password)
@@ -71,10 +60,6 @@ export class UsuarioService {
 
   logout(){
     return this.authFire.auth.signOut().then((data) => this.route.navigateByUrl('login'))
-  }
-  cargarDatosDeUsuario(username: string){
-    
->>>>>>> devBranch
   }
 
   getUsers()
