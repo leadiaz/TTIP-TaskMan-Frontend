@@ -47,10 +47,11 @@ export class UsuarioService {
           this.proyectosActuales = data.proyecto;
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
-          this.getTareasAsignadasAUsuario(data.id).subscribe(
-            dataT => {dataT.map(t => this.tareas.push(t));
-                      this.tareasSubject.next(this.tareas)}
-          )
+          //this.getTareasAsignadasAUsuario(data.id).subscribe(
+          //  dataT => {t => this.tareas = t;
+          //            this.tareasSubject.next(this.tareas)}
+          //);
+          this.route.navigateByUrl('/home')
         }),
       err => reject(err)});
 

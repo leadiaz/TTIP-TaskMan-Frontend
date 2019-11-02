@@ -21,10 +21,6 @@ export class LoginComponent implements OnInit {
         alert("completar los campos")
     }else{
       this._usuarioService.login(this.user.username, this.user.password)
-      .then((res) => {
-        this.route.navigateByUrl('/home');
-      }).catch(err => console.log('err', err));
-      
     }
   	
   }

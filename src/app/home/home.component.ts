@@ -39,7 +39,12 @@ export class HomeComponent implements OnInit {
   public app_name = "Home";
 
   async ngOnInit() { 
-     await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id).pipe(map(data => this.misTareas = data))
+    console.log("onInit")
+     await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
+     .subscribe(data => {console.log(data);
+       this.misTareas = data;
+                console.log(this.misTareas)})
+
   }
   logout(){
     this.usuarioService.logout();
@@ -53,15 +58,12 @@ export class HomeComponent implements OnInit {
   }
   terminar(){
     this.tarea.estado = "Hecha"
+    this.tareaService.update(this.tarea)
     this.tarea = undefined
   }
   cancelar(){
     this.tarea.estado = "Cancelada";
     this.tarea.asignado = ""
-  }
-
-  proyectosNavigate(){
-    this.route.navigateByUrl('/proyecto')
   }
 
 /*
