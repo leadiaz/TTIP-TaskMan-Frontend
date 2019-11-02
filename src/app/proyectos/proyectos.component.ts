@@ -24,19 +24,20 @@ export class ProyectosComponent implements OnInit {
   creador:string;
   tareas;
 
+  proyecto = "";
+
   constructor(private route: Router, 
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService, 
               private tareaService : TareaService) { 
-                this.proyectos = this.usuarioService.proyectosActuales;
-    this.tareas = this.proyectoService.tareas;
+    this.proyectos = this.usuarioService.proyectosActuales;
     this.usuarioService.proyectos$.subscribe(data => {this.proyectos = data; console.log(data)});
-    this.proyectoService.tareas$.subscribe(data => this.tareas = data);
-  	
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.proyectos)
+  }
   nuevoTarea():void{
   	//this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
   }
@@ -49,6 +50,11 @@ export class ProyectosComponent implements OnInit {
 
   eliminarTarea(id:number){
     this.tareaService.delete(id);
+  }
+  onCreate(){
+    //aca hace la peticion de post
+    this.proyectoService.crearProyecto(this.proyecto)
+    console.log("nuevo proyecto: "+ this.proyecto)
   }
   agregarMiembro(){
     this.route.navigateByUrl('/proyecto/find-user');

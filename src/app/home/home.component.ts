@@ -28,8 +28,6 @@ export class HomeComponent implements OnInit {
     this.usuario = this.usuarioService.usuario;
 
     this.proyectos = this.usuarioService.proyectosActuales;
-    this.misTareas = this.usuarioService.tareas
-    this.usuarioService.tareas$.subscribe(data => this.misTareas = data);
     this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res;
                                                     console.log(res)});
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)
@@ -57,12 +55,12 @@ export class HomeComponent implements OnInit {
     this.tarea = this.misTareas.find(t => t.id === id)
   }
   terminar(){
-    this.tarea.estado = "Hecha"
+    this.tarea.estado = "TERMINADA"
     this.tareaService.update(this.tarea)
     this.tarea = undefined
   }
   cancelar(){
-    this.tarea.estado = "Cancelada";
+    this.tarea.estado = "CANCELADA";
     this.tarea.asignado = ""
   }
 

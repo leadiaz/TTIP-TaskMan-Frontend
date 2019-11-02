@@ -96,7 +96,7 @@ export class UsuarioService {
   	.pipe(map(data => data ));
   }
 
-  agregarProyecto(p: number){
+  agregarProyecto(p){
     this.proyectosActuales.push(p);
     this.proyectosSubject.next(this.proyectosActuales);
   }

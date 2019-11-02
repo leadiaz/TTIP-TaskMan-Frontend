@@ -13,6 +13,7 @@
 <button class="btn btn-outline-light my-2 my-sm-0" (click)="logout()"> Sign up</button>
 </form>
 </nav>
+<div class="clearFix"></div>
 
 <div class="container-fluid">
 <div class="row">
@@ -42,10 +43,11 @@
   </div>
 </nav>
 
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalNuevoProyecto">Crear Proyecto</button>
     </div>
   </div>
   <div *ngIf="tarea" class="card" style="width: 18rem;">
@@ -69,11 +71,11 @@
           <th>&nbsp;</th>
         </tr>
       </thead>
-      <tbody *ngIf="misProyectos" >
-          <tr *ngFor="let proyecto of misProyectos; let i = index">
+      <tbody *ngIf="proyectos" >
+          <tr *ngFor="let proyecto of proyectos; let i = index">
               <td>{{i+1}}</td>
-              <td>{{tarea.titulo}}</td>
-              <td>{{tarea.descripcion}}</td>
+              <td>{{proyecto.nombre}}</td>
+              <td>{{proyecto.creador}}</td>
               <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
           </tr>
       </tbody>
@@ -82,6 +84,38 @@
 </main>
 </div>
 </div>
+
+<div class="modal fade" id="modalNuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Crear nuevo proyecto
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="formProyecto" #formProyecto="ngForm" (ngSubmit)="onCreate(formProyecto)">
+  
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="Proyecto">Nuevo Proyecto</label>
+                <input type="text" id="nombreProyecto" name="name" class="form-control" placeholder="nombre" [(ngModel)]="proyecto">
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+            </div>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
