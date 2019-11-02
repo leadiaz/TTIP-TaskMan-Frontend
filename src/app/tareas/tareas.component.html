@@ -1,54 +1,121 @@
-<main role="main">
-
-  <div class="proyecto py-5 bg-light">
+<head>
+    <!-- Bootstrap core CSS -->
+  <link type="text/html" href="/../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+  <a href="../../styles.css" rel="stylesheet"></a>
+  </head>
+  <body>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/home">Task-man</a>
+ 
+  </nav>
+  <div class="clearFix"></div>
+  
+  <div class="container-fluid">
+  <div class="row">
+  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">
+            <span data-feather="file"></span>
+            Dashboard 
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/proyectos">
+            <span data-feather="home"></span>
+            Proyectos <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+  
+    </div>
+  </nav>
+  
+  
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalNuevaTarea">Crear Tarea</button>
+      </div>
+      <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalNuevoMiembro">Agregar Miembro</button>
+      </div>
+      
+    </div>
+    <div *ngIf="tarea" class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{tarea.titulo}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
+        <p class="card-text">{{tarea.descripcion}}</p>
+        <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
+        <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
+        <div class="dropdown"  >
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Asignar Tarea
+          </button>
+          <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" *ngFor="let miembro of proyectoActual.miembros" (click)="asignarUsuario(miembro)">{{miembro.usuario}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
     
-
-    <div fxLayout='row' fxLayoutWrap class="cards">
-
-  <div fxFlex="20" class="example-card">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{tarea.titulo}}</mat-card-title>
-        <mat-card-subtitle>{{tarea.estado}}</mat-card-subtitle>
-              
-
-      </mat-card-header>
-      <mat-card-content>{{tarea.descripcion}}</mat-card-content>  
-      <mat-card-actions>
-        <button class="btn-primary" data-toggle="modal" data-target="#modalBook" mat-raised-button color="primary">Asignar Usuario</button>
-
-        <button (click) ="eliminar()" mat-raised-button color="warn">
-          Delete
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <h2 style="margin-top: 14px;">Mis Tareas</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="proyectoActual" >
+            <tr *ngFor="let tarea of proyectoActual.tareas; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{tarea.titulo}}</td>
+                <td>{{tarea.descripcion}}</td>
+                <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="eliminar(tarea.id)">Delete</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
   </div>
   </div>
-</div>
-<div class="modal fade" id="modalBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+<div class="modal fade" id="modalNuevaTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            asignar usuario
+            Nueva Tarea
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form name="formBook" #formBook="ngForm" (ngSubmit)="onSaveBook(formBook)">
+          <form name="formNuevaTarea" #formNuevaTarea="ngForm" (ngSubmit)="onCreate(formNuevaTarea)">
   
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="Usuario">Usuario</label>
-                <input type="text" id="nombreUsuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario" required (blur)="buscar()">
-              </div>
-            </div>
+                <div class="form-group ">
+                    <label for="Titulo">Titulo</label>
+                    <input type="text" id="titulo" name="name" class="form-control" placeholder="titulo" [(ngModel)]="titulo">
+                  </div>
+                <div class="form-group ">
+                    <label for="Descripcion">Descripcion</label>
+                    <textarea type="textarea" id="descripcion" name="name" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion"></textarea>
+                </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save Book</button>
+              <button type="submit" class="btn btn-primary">Guardar Tarea</button>
             </div>
           </form>
         </div>
@@ -56,6 +123,33 @@
       </div>
     </div>
   </div>
-       
+  <div class="modal fade" id="modalNuevoMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Agregar Usuario Proyecto
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="formNuevoMiembro" #formNuevoMiembro="ngForm" (ngSubmit)="agregarMiembro(formNuevoMiembro)">
+    
+                  <div class="form-group ">
+                      <label for="Usuario">Usuario</label>
+                      <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
+                    </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Agregar</button>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+         
 
-</main>

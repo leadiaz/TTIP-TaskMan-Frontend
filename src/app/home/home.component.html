@@ -26,12 +26,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home">
-            <span data-feather="file"></span>
-            Tareas
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" routerLink="/proyectos">
             <span data-feather="shopping-cart"></span>
             Proyectos
@@ -72,7 +66,7 @@
           </tr>
         </thead>
         <tbody *ngIf="misTareas" >
-            <tr *ngFor="let tarea of misTareas; let i = index">
+            <tr *ngFor="let tarea of misTareasEnProceso(); let i = index">
                 <td>{{i+1}}</td>
                 <td>{{tarea.titulo}}</td>
                 <td>{{tarea.descripcion}}</td>

@@ -31,8 +31,9 @@ export class ProyectoService {
 		"Content-Type": "application/json"
 		});
 
-  getProyecto(id:number):Observable<Proyecto>{
-  	return this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`).pipe(map(data => data));
+  getProyecto(id:number){
+    const proyecto =  this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`);
+    return proyecto
   }
 
   crearProyecto(nombre: string){
@@ -45,7 +46,7 @@ export class ProyectoService {
   modificarProyecto(proyecto: Proyecto){
     console.log("modificar")
 
-    const url= this.url_api+'/user/proyecto/'+ this.proyecto.id
+    const url= this.url_api+'/user/proyecto/'+ proyecto.id
     console.log(url)
     this.proyecto = proyecto;
     this.proyectoSubject.next(this.proyecto);

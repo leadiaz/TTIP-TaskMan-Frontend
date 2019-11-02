@@ -29,19 +29,21 @@ export class TareaService {
 
   crearTarea(titulo: string, descripcion:string, id: number){
     const url=this.url_api+'/tarea/'+id;
-    let t =  this._http.post<Tarea>(url, {
+    const t =  this._http.post<Tarea>(url, {
       titulo: titulo,
       descripcion: descripcion
       }, {headers: this.headers}).pipe(map(data =>data));
-    t.subscribe(data => this.proyectoService.agregarTarea(data))
+    //t.subscribe(data => this.proyectoService.agregarTarea(data))
+    return t
   }
   async update(tarea){
     const task = await this._http.put(URL_SERVICIOS+'/tarea/'+tarea.id, tarea,{headers: this.headers}).toPromise()
     return task
   }
-  delete(id : number){
-    const url = this.url_api+`/tarea/${id}`;
-    return this._http.delete(url,{headers: this.headers});
+  async delete(id : number, idPr: number){
+    const url =  this.url_api+`/tarea/${id}/${idPr}`;
+    await this._http.delete(url,{headers: this.headers});
+    console.log(url,{headers: this.headers})
   }
   setTareaActual(id:number){
     this.tareaActual = this.proyectoService.tareas.find(t => t.id == id);

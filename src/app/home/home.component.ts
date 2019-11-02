@@ -61,7 +61,13 @@ export class HomeComponent implements OnInit {
   }
   cancelar(){
     this.tarea.estado = "CANCELADA";
-    this.tarea.asignado = ""
+    this.tarea.asignado = undefined
+    this.tareaService.update(this.tarea)
+    this.tarea = undefined;
+  }
+
+  misTareasEnProceso(){
+    return this.misTareas.filter(t => t.estado === "EN_PROCESO")
   }
 
 /*

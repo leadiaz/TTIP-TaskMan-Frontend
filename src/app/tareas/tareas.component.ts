@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../services/proyecto.service';
-import { Proyecto } from '../models/proyecto';
-import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
-import { Tarea } from '../models/tarea';
+
 import { TareaService } from '../services/tarea.service';
-import { tick } from '@angular/core/testing';
+import { Proyecto } from '../models/proyecto';
+import { Tarea } from '../models/tarea';
+import { UsuarioService } from '../services/usuario.service';
+
 
 
 
@@ -16,38 +16,57 @@ import { tick } from '@angular/core/testing';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
-  id_url:number;
-  tarea;
+
+  /** Para Modal de crear nueva tarea **/
+  titulo= '';
+  descripcion = '';
+  /** ** **/
+
+  tarea: Tarea;
   usuario = '';
   usuarioSeleccionado;
+
+  usuarioEncontrado;
+  proyectoActual: Proyecto;
   constructor(private route: Router, 
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
+              private usuarioService: UsuarioService,
               private activatedRoute: ActivatedRoute) {
-    this.tarea = this.tareaService.tareaActual;
-    this.tareaService.tarea$.subscribe(result => this.tarea = result);
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
+      .subscribe(data => this.proyectoActual = data)
+    
+  }
+  view(id){
+    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
   }
 
-  eliminar(){
+  onCreate(){
+    this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
+  }
+  eliminar(id){
+    const idPr = this.activatedRoute.snapshot.params.id;
+    this.tareaService.delete(id, idPr).then( this.tarea = undefined);
     
   }
   asignarUsuario(usuario){
     this.tarea.asignado = usuario;
     this.tareaService.update(this.tarea)
   }
-  buscar(){
-    console.log(this.tareaService.proyecto.miembros)
-    let user = this.tareaService.proyecto.miembros.find(user => user.email == this.usuario)
-    console.log(user)
-    if (user == undefined){
-      alert("usuario no encontrado");
-    }else{
-      this.asignarUsuario(user)
+
+  agregarMiembro(){
+    this.usuarioService.getUserByUsername(this.usuario).//cambiar busqueda por email
+      subscribe(data => {
+        this.proyectoActual.miembros.push(data);
+        this.proyectoService.modificarProyecto(this.proyectoActual)
+      } , err => {
+        alert("usuario no encontrado");
+      });
+    
     }
-  }
 
 }

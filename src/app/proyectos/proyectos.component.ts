@@ -42,14 +42,11 @@ export class ProyectosComponent implements OnInit {
   	//this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
   }
   view(id: number){
+    console.log("navegar")
    // this.tareaService.proyecto = this.proyectos
     //console.log(this.proyectos)
     //this.tareaService.setTareaActual(id);
-    //this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id +'/tarea/'+id);
-  }
-
-  eliminarTarea(id:number){
-    this.tareaService.delete(id);
+    this.route.navigateByUrl('/proyecto/'+id);
   }
   onCreate(){
     //aca hace la peticion de post
