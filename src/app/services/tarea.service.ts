@@ -18,9 +18,9 @@ export class TareaService {
   tarea$ = this.tareaSubject.asObservable();
 
   private tareasSubject = new Subject<any>();
-  tareas$ = this.tareasSubject.asObservable(); 
+  tareas$ = this.tareasSubject.asObservable();
   tareas;
-  constructor(private proyectoService: ProyectoService, private _http: HttpClient, private usuarioService: UsuarioService) { 
+  constructor(private proyectoService: ProyectoService, private _http: HttpClient, private usuarioService: UsuarioService) {
     this.url_api = URL_SERVICIOS;
   }
   headers: HttpHeaders = new HttpHeaders({
@@ -49,9 +49,9 @@ export class TareaService {
     this.tareaActual = this.proyectoService.tareas.find(t => t.id == id);
     this.tareaSubject.next(this.tareaActual);
   }
-  async getTareas(){
-    const tareas = await this._http.get(URL_SERVICIOS+'/tareas', {headers: this.headers}).toPromise
+   getTareas(){
+    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas', {headers: this.headers})
     return tareas;
   }
-   
+
 }

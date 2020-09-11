@@ -21,23 +21,23 @@ export class HomeComponent implements OnInit {
   misTareas:Array<any>;
   public idUsuario:number;
 
-  constructor(private route: Router,  
+  constructor(private route: Router,
               private usuarioService: UsuarioService,
               private proyectoService: ProyectoService,
-              private tareaService: TareaService){ 
+              private tareaService: TareaService){
     this.usuario = this.usuarioService.usuario;
 
     this.proyectos = this.usuarioService.proyectosActuales;
     this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res});
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)
-  
+
     }
 
   public app_name = "Home";
 
-  async ngOnInit() { 
+  async ngOnInit() {
     console.log("onInit")
-     await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
+     await this.tareaService.getTareas()
      .subscribe(data => {console.log(data);
        this.misTareas = data;
                 console.log(this.misTareas)})
@@ -80,6 +80,6 @@ export class HomeComponent implements OnInit {
   /*buscarTarea(tarea: string){
     return this.tareas.find(t => t.titulo == tarea);
   }*/
-  
+
 
 }

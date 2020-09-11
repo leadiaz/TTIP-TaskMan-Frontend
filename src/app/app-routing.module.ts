@@ -4,20 +4,20 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RegistroComponent }from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { ProyectosComponent } from './proyectos/proyectos.component'; 
+import { ProyectosComponent } from './proyectos/proyectos.component';
 import { TareasComponent } from './tareas/tareas.component'
 
 
 
 const routes: Routes = [
-	{path:'' , redirectTo: '/login', pathMatch: 'full'},
+	{path:'' , redirectTo: '/home', pathMatch: 'full'},
 	{path:'login' , component: LoginComponent},
 	{path:'usuarios', component: UsuariosComponent},
 	{path:'registrar', component: RegistroComponent},
 	{path:'home', component: HomeComponent},
 	{path: 'proyectos', component: ProyectosComponent},
 	{path: 'proyecto/:id', component: TareasComponent}
-	
+
 ];
 
 @NgModule({

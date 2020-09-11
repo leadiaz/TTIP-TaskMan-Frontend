@@ -39,12 +39,12 @@
 
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-     
+
       <div class="btn-toolbar mb-2 mb-md-0">
       </div>
       <div class="clearFix"></div>
     </div>
-    <div *ngIf="tarea" class="card" style="width: 18rem;">
+    <div *ngIf="tarea" class="card" style="width: 18rem;" >
       <div class="card-body">
         <h5 class="card-title">{{tarea.titulo}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
@@ -55,7 +55,8 @@
     </div>
     <div class="clearFix"></div>
     <h2 style="margin-top: 55px;">Mis tareas</h2>
-    <div class="table-responsive">
+
+    <!--<div class="table-responsive">
       <table class="table table-striped table-sm">
         <thead>
           <tr>
@@ -74,7 +75,30 @@
             </tr>
         </tbody>
       </table>
+    </div>-->
+    <div class="table-responsive">
+      <table class="table  table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th></th>
+          <th >#</th>
+          <th >Titulo</th>
+          <th >Descripcion</th>
+          <th ></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tarea of misTareas;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{tarea.titulo}}</td>
+          <td>{{tarea.descripcion}}</td>
+          <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+
   </main>
 </div>
 </div>
