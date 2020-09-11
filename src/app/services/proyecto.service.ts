@@ -37,6 +37,7 @@ export class ProyectoService {
   }
 
   crearProyecto(nombre: string){
+    console.log(nombre)
     const url= this.url_api+'/proyecto/'+this.usuarioService.usuario.id;
     let p = this._http.post<Proyecto>(url, {nombre: nombre}, {headers: this.headers}).
     pipe(map(data =>data)); 

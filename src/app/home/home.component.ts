@@ -28,8 +28,7 @@ export class HomeComponent implements OnInit {
     this.usuario = this.usuarioService.usuario;
 
     this.proyectos = this.usuarioService.proyectosActuales;
-    this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res;
-                                                    console.log(res)});
+    this.usuarioService.proyectos$.subscribe(res => {this.proyectos = res});
     this.usuarioService.usuario$.subscribe(res => this.usuario = res)
   
     }

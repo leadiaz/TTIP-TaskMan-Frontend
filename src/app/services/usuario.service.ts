@@ -10,17 +10,18 @@ import { Proyecto } from '../models/proyecto';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { Tarea } from '../models/tarea';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 	public url:string;
-  public proyectosActuales: any[];
+  public proyectosActuales: Proyecto[];
   private proyectosSubject = new Subject<any>();
   public proyectos$ = this.proyectosSubject.asObservable();
   private userSubject = new Subject<any>();
   usuario$ = this.userSubject.asObservable();
-  usuario;
+  usuario: Usuario;
 
 
   /** mis tareas que tengo asignadas**/
@@ -36,31 +37,45 @@ export class UsuarioService {
   "Content-Type": "application/json"
   })
 
-  login(username: string, password: string){
+  login(usernameOEmail: string, password: string){
 
     return new Promise((resolve, reject) =>{
-      this.authFire.auth.signInWithEmailAndPassword(username, password)
-      .then(userData => {resolve(userData);
-        this.getUserByUsername(username).subscribe(data => {
-          console.log(data)
-          this.usuario = data;
-          this.proyectosActuales = data.proyecto;
+      this.getLogginUser(usernameOEmail, password).then(
+        userData => {
+          resolve(userData);
+          this.usuario = new Usuario(userData.id, 
+                                    userData.usuario,
+                                    userData.nombre,
+                                    userData.apellido,
+                                    userData.email,
+                                    userData.password,
+                                    userData.proyecto);
+          this.proyectosActuales = this.usuario.proyecto;
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
+          this.route.navigateByUrl('/home');
           //this.getTareasAsignadasAUsuario(data.id).subscribe(
           //  dataT => {t => this.tareas = t;
           //            this.tareasSubject.next(this.tareas)}
           //);
-          this.route.navigateByUrl('/home')
-        }),
-      err => reject(err)});
-
-    });
+        }).catch(err => {
+          alert(err)
+        }),  
+        err => reject(err)});
     
+  }
+  getLogginUser(usernameOEmail: string, password: string) {
+    const url_api = this.url+'/login';
+  	return this._http.post<Usuario>(url_api, {
+      userOrEmail: usernameOEmail, 
+      password: password
+      },{headers: this.headers})
+  	.pipe(map(data => data )).toPromise();
   }
 
   logout(){
-    return this.authFire.auth.signOut().then((data) => this.route.navigateByUrl('login'))
+    this.route.navigateByUrl('login')
+    // return this.authFire.auth.signOut().then((data) => 
   }
 
   getUsers()

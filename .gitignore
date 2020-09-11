@@ -22,6 +22,7 @@ speed-measure-plugin*.json
 *.launch
 .settings/
 *.sublime-workspace
+TTIP-TaskMan-Frontend.iml
 
 # IDE - VSCode
 .vscode/*
@@ -30,6 +31,7 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.vscode/
 
 # misc
 /.sass-cache

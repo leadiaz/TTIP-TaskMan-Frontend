@@ -65,7 +65,7 @@
           <tr *ngFor="let proyecto of proyectos; let i = index">
               <td>{{i+1}}</td>
               <td>{{proyecto.nombre}}</td>
-              <td>{{proyecto.creador}}</td>
+              <td>{{proyecto.creador.nombre}}</td>
               <td><button type="button" class="btn btn-primary" (click)="view(proyecto.id)">View</button></td>
           </tr>
       </tbody>
