@@ -50,8 +50,7 @@ export class TareaService {
     this.tareaSubject.next(this.tareaActual);
   }
    getTareas(){
-    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas', {headers: this.headers})
-    return tareas;
+    return this._http.get<Tarea []>(URL_SERVICIOS+'/tareas', {headers: this.headers})
   }
 
 }
