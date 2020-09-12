@@ -10,7 +10,7 @@ import { TareasComponent } from './tareas/tareas.component'
 
 
 const routes: Routes = [
-	{path:'' , redirectTo: '/home', pathMatch: 'full'},
+	{path:'' , redirectTo: '/login', pathMatch: 'full'},
 	{path:'login' , component: LoginComponent},
 	{path:'usuarios', component: UsuariosComponent},
 	{path:'registrar', component: RegistroComponent},

@@ -25,10 +25,10 @@ export class TareasComponent implements OnInit {
   tarea: Tarea;
   usuario = '';
   usuarioSeleccionado;
-
+  consulta:string = '';
   usuarioEncontrado;
   proyectoActual: Proyecto;
-  constructor(private route: Router, 
+  constructor(private route: Router,
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService,
@@ -39,7 +39,7 @@ export class TareasComponent implements OnInit {
   async ngOnInit() {
     await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
       .subscribe(data => this.proyectoActual = data)
-    
+
   }
   view(id){
     this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
@@ -51,7 +51,7 @@ export class TareasComponent implements OnInit {
   eliminar(id){
     const idPr = this.activatedRoute.snapshot.params.id;
     this.tareaService.delete(id, idPr).then( this.tarea = undefined);
-    
+
   }
   asignarUsuario(usuario){
     this.tarea.asignado = usuario;
@@ -66,7 +66,14 @@ export class TareasComponent implements OnInit {
       } , err => {
         alert("usuario no encontrado");
       });
-    
+
+    }
+
+    buscar(){
+
+    const tar = this.proyectoActual.tareas.filter(tarea => tarea.titulo.includes(this.consulta));
+    this.proyectoActual.tareas = tar;
+    console.log(tar);
     }
 
 }
