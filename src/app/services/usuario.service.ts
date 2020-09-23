@@ -49,8 +49,8 @@ export class UsuarioService {
                                     userData.apellido,
                                     userData.email,
                                     userData.password,
-                                    userData.proyecto);
-          this.proyectosActuales = this.usuario.proyecto;
+                                    userData.proyectosIds);
+          this.proyectosActuales = this.usuario.proyectosIds;
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
           this.route.navigateByUrl('/home');
@@ -121,8 +121,7 @@ export class UsuarioService {
     return this._http.put(url_api, usuario, {headers: this.headers}).pipe(map(data => console.log(data)));
   }
   getTareasAsignadasAUsuario(id: number){
-    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers})
-    console.log(tareas)
+    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers}).toPromise()
     return tareas
   }
 }

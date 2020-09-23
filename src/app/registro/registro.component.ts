@@ -17,7 +17,7 @@ export class RegistroComponent implements OnInit {
   	apellido:"",
   	password: "",
   	email: "",
-  	proyecto:null	
+  	proyectosIds:null	
   };
 
   ngOnInit() {

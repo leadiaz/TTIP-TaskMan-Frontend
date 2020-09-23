@@ -41,9 +41,8 @@ export class TareaService {
     return task
   }
   async delete(id : number, idPr: number){
-    const url =  this.url_api+`/tarea/${id}/${idPr}`;
+    const url =  this.url_api+`/tarea/${idPr}/${id}`;
     await this._http.delete(url,{headers: this.headers});
-    console.log(url,{headers: this.headers})
   }
   setTareaActual(id:number){
     this.tareaActual = this.proyectoService.tareas.find(t => t.id == id);

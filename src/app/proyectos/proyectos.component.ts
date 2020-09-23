@@ -36,7 +36,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.proyectos);
+    
   }
   nuevoTarea():void{
   	//this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');

@@ -36,11 +36,10 @@ export class HomeComponent implements OnInit {
   public app_name = "Home";
 
   async ngOnInit() {
-    console.log("onInit")
      await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
-     .subscribe(data => {console.log(data);
+     .subscribe(data => {
        this.misTareas = data;
-                console.log(this.misTareas)})
+      })
 
   }
   logout(){
