@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
      await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
-     .subscribe(data => {
+     .then(data => {
        this.misTareas = data;
       })
 

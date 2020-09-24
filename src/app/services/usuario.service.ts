@@ -48,9 +48,10 @@ export class UsuarioService {
                                     userData.nombre,
                                     userData.apellido,
                                     userData.email,
-                                    userData.password,
-                                    userData.proyectosIds);
-          this.proyectosActuales = this.usuario.proyectosIds;
+                                    userData.password);
+          this.getProyectosByUserID(userData.id).then(data => {
+            this.proyectosActuales = data.map(proyectoJSON => Proyecto.fromJson(proyectoJSON))
+          });
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
           this.route.navigateByUrl('/home');
@@ -63,6 +64,9 @@ export class UsuarioService {
         }),  
         err => reject(err)});
     
+  }
+  getProyectosByUserID(id: number){
+    return this._http.get<Proyecto[]>(this.url + '/proyectos/'+id).toPromise()
   }
   getLogginUser(usernameOEmail: string, password: string) {
     const url_api = this.url+'/login';

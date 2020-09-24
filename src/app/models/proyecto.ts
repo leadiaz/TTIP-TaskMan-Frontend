@@ -6,13 +6,12 @@ export class Proyecto{
 	
 	constructor(
 		public id?:number,
-		public creador?: Usuario,
 		public nombre?: string,
 		public miembros?: Array<Usuario>,
 		public tareas?: Array<Tarea>
 	){}
 	static fromJson(proyectoJson): Proyecto {
-		return Object.assign(new Proyecto(), proyectoJson, {creador: Usuario.fromJSON(proyectoJson.creador), miembros: this.mapUsuarios(proyectoJson.miembros), tareas: this.mapTareas(proyectoJson.tareas)})
+		return Object.assign(new Proyecto(), proyectoJson, {miembros: this.mapUsuarios(proyectoJson.miembros), tareas: this.mapTareas(proyectoJson.tareas)})
 	}
 	static mapTareas(tareas: Array<any>): Tarea[] {
 		return tareas.map(tarea => Tarea.fromJSON(tarea))

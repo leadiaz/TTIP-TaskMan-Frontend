@@ -9,7 +9,7 @@ export class Usuario{
 		public apellido?:string,
 		public email?:string,
 		public password?:string,
-		public proyectosIds?: Array<any>
+
 	){}
 	static fromJSON(usuarioJson): Usuario {
 		return Object.assign(new Usuario(), usuarioJson)
