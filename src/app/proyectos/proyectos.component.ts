@@ -36,25 +36,17 @@ export class ProyectosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.proyectos);
-  }
-  nuevoTarea():void{
-  	//this.route.navigateByUrl('/usuario/proyecto/'+this.proyecto.id+'/nueva-tarea');
+    
   }
   view(id: number){
-    console.log("navegar")
-   // this.tareaService.proyecto = this.proyectos
-    //console.log(this.proyectos)
-    //this.tareaService.setTareaActual(id);
     this.route.navigateByUrl('/proyecto/'+id);
   }
   onCreate(){
     //aca hace la peticion de post
     this.proyectoService.crearProyecto(this.proyecto)
-    console.log("nuevo proyecto: "+ this.proyecto)
   }
   agregarMiembro(){
-    this.route.navigateByUrl('/proyecto/find-user');
+    // this.route.navigateByUrl('/proyecto/find-user');
     //let usuario;
     //usuario = this.usuarioService.getUserByUsername(user)
 

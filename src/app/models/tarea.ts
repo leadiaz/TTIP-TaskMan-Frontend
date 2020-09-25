@@ -8,4 +8,7 @@ export class Tarea{
 		public asignado?: Usuario,
 		public estado?: string
 	){}
+	static fromJSON(tareaJSON):Tarea{
+		return Object.assign(new Tarea(), tareaJSON, {asignado: Usuario.fromJSON(tareaJSON.asignado)})
+	}
 }

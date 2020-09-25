@@ -50,7 +50,9 @@ export class TareasComponent implements OnInit {
   }
   eliminar(id){
     const idPr = this.activatedRoute.snapshot.params.id;
-    this.tareaService.delete(id, idPr).then( this.tarea = undefined);
+    this.tareaService.delete(parseInt(idPr), id).then( () => {
+      this.proyectoActual.tareas = this.proyectoActual.tareas.filter(tarea => tarea.id != id)
+    });
 
   }
   asignarUsuario(usuario){

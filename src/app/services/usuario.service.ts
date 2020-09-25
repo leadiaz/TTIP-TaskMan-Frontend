@@ -48,29 +48,34 @@ export class UsuarioService {
                                     userData.nombre,
                                     userData.apellido,
                                     userData.email,
-                                    userData.password,
-                                    userData.proyecto);
-          this.proyectosActuales = this.usuario.proyecto;
+                                    userData.password);
+          this.getProyectosByUserID(userData.id).then(data => {
+            this.proyectosActuales = data.map(proyectoJSON => Proyecto.fromJson(proyectoJSON))
+          });
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
           this.route.navigateByUrl('/home');
-          //this.getTareasAsignadasAUsuario(data.id).subscribe(
-          //  dataT => {t => this.tareas = t;
-          //            this.tareasSubject.next(this.tareas)}
-          //);
         }).catch(err => {
-          alert(err)
+          alert(err.message)
         }),  
         err => reject(err)});
     
   }
+  getProyectosByUserID(id: number){
+    return this._http.get<Proyecto[]>(this.url + '/proyectos/'+id).toPromise()
+  }
   getLogginUser(usernameOEmail: string, password: string) {
-    const url_api = this.url+'/login';
-  	return this._http.post<Usuario>(url_api, {
-      userOrEmail: usernameOEmail, 
-      password: password
-      },{headers: this.headers})
-  	.pipe(map(data => data )).toPromise();
+    try{
+      const url_api = this.url+'/login';
+      return this._http.post<Usuario>(url_api, {
+        userOrEmail: usernameOEmail, 
+        password: password
+        },{headers: this.headers})
+      .pipe(map(data => data )).toPromise();
+    }catch(e){
+      throw new Error("Internal Server Error")
+    }
+    
   }
 
   logout(){
@@ -121,8 +126,7 @@ export class UsuarioService {
     return this._http.put(url_api, usuario, {headers: this.headers}).pipe(map(data => console.log(data)));
   }
   getTareasAsignadasAUsuario(id: number){
-    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers})
-    console.log(tareas)
+    const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers}).toPromise()
     return tareas
   }
 }

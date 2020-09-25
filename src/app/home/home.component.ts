@@ -5,6 +5,7 @@ import { UsuarioService } from'../services/usuario.service';
 import { ProyectoService } from '../services/proyecto.service';
 import { TareaService } from '../services/tarea.service';
 import { map } from 'rxjs/operators';
+import { Tarea } from '../models/tarea';
 
 
 
@@ -36,19 +37,14 @@ export class HomeComponent implements OnInit {
   public app_name = "Home";
 
   async ngOnInit() {
-    console.log("onInit")
      await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
-     .subscribe(data => {console.log(data);
-       this.misTareas = data;
-                console.log(this.misTareas)})
+     .then(data => {
+       this.misTareas = data.map(tarea => Tarea.fromJSON(tarea));
+      })
 
   }
   logout(){
     this.usuarioService.logout();
-  }
-  nuevoProyecto():void{
-  	console.log("nuevo-proyecto")
-  	this.route.navigateByUrl('/nuevo-proyecto');
   }
   view(id:number){
     this.tarea = this.misTareas.find(t => t.id === id)
