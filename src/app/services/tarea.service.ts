@@ -40,9 +40,9 @@ export class TareaService {
     const task = await this._http.put(URL_SERVICIOS+'/tarea/'+tarea.id, tarea,{headers: this.headers}).toPromise()
     return task
   }
-  async delete(id : number, idPr: number){
+  async delete(idPr: number, id : number){
     const url =  this.url_api+`/tarea/${idPr}/${id}`;
-    await this._http.delete(url,{headers: this.headers});
+    await this._http.delete<Tarea>(url,{headers: this.headers}).toPromise();
   }
   setTareaActual(id:number){
     this.tareaActual = this.proyectoService.tareas.find(t => t.id == id);

@@ -55,12 +55,8 @@ export class UsuarioService {
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
           this.route.navigateByUrl('/home');
-          //this.getTareasAsignadasAUsuario(data.id).subscribe(
-          //  dataT => {t => this.tareas = t;
-          //            this.tareasSubject.next(this.tareas)}
-          //);
         }).catch(err => {
-          alert(err)
+          alert(err.message)
         }),  
         err => reject(err)});
     
@@ -69,12 +65,17 @@ export class UsuarioService {
     return this._http.get<Proyecto[]>(this.url + '/proyectos/'+id).toPromise()
   }
   getLogginUser(usernameOEmail: string, password: string) {
-    const url_api = this.url+'/login';
-  	return this._http.post<Usuario>(url_api, {
-      userOrEmail: usernameOEmail, 
-      password: password
-      },{headers: this.headers})
-  	.pipe(map(data => data )).toPromise();
+    try{
+      const url_api = this.url+'/login';
+      return this._http.post<Usuario>(url_api, {
+        userOrEmail: usernameOEmail, 
+        password: password
+        },{headers: this.headers})
+      .pipe(map(data => data )).toPromise();
+    }catch(e){
+      throw new Error("Internal Server Error")
+    }
+    
   }
 
   logout(){

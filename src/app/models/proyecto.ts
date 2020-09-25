@@ -3,7 +3,7 @@ import { Tarea } from './tarea';
 import { ObjectUnsubscribedError } from 'rxjs';
 
 export class Proyecto{
-	
+  
 	constructor(
 		public id?:number,
 		public nombre?: string,
@@ -19,4 +19,8 @@ export class Proyecto{
 	static mapUsuarios(miembros: Array<any>): Usuario[] {
 		return miembros.map(miembro => Usuario.fromJSON(miembro))
 	}
+	eliminarTareaById(id) {
+		this.tareas = this.tareas.filter(tarea => tarea.id != id)
+	  }
+		
 }

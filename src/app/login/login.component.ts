@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   onIngresar():void{
-    console.log(this.user.username);
     if (! this.user.username || !this.user.password  ){
         alert("completar los campos")
     }else{
