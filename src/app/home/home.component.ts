@@ -49,16 +49,22 @@ export class HomeComponent implements OnInit {
   view(id:number){
     this.tarea = this.misTareas.find(t => t.id === id)
   }
-  terminar(){
+  terminar(id:number){
+    this.filtrarTarea(id);
     this.tarea.estado = "TERMINADA"
     this.tareaService.update(this.tarea)
     this.tarea = undefined
   }
-  cancelar(){
+  cancelar(id:number){
+    this.filtrarTarea(id);
     this.tarea.estado = "CANCELADA";
     this.tarea.asignado = undefined
     this.tareaService.update(this.tarea)
     this.tarea = undefined;
+  }
+
+  filtrarTarea(id:number){
+   this.tarea = this.misTareas.find(t => t.id === id)
   }
 
   misTareasEnProceso(){

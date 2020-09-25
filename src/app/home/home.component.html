@@ -35,74 +35,25 @@
 
     </div>
   </nav>
-  <div class="clearFix"></div>
 
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <main role="main" class="ml-sm-auto col-lg-11 " >
+    <h2 style="margin-top: 155px;">Mis tareas</h2>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 mt-4" *ngFor="let tarea of misTareas ">
 
-      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="card text-center border-dark" style="width: 18rem;box-shadow: 0px 0px 9px 4px grey;">
+          <div class="card-body">
+            <h5 class="card-title">{{tarea.titulo}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+            <p class="card-text">{{tarea.descripcion}}</p>
+            <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar(tarea.id)">Terminar</button>
+            <button type="button" class="btn btn-dark" (click)="cancelar(tarea.id)">Cancelar</button>
+          </div>
+        </div>
       </div>
-      <div class="clearFix"></div>
     </div>
-    <div *ngIf="tarea" class="card" style="width: 18rem;" >
-      <div class="card-body">
-        <h5 class="card-title">{{tarea.titulo}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-        <p class="card-text">{{tarea.descripcion}}</p>
-        <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
-        <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
-      </div>
-    </div>
-    <div class="clearFix"></div>
-    <h2 style="margin-top: 55px;">Mis tareas</h2>
-
-    <!--<div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="misTareas" >
-            <tr *ngFor="let tarea of misTareasEnProceso(); let i = index">
-                <td>{{i+1}}</td>
-                <td>{{tarea.titulo}}</td>
-                <td>{{tarea.descripcion}}</td>
-                <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
-            </tr>
-        </tbody>
-      </table>
-    </div>-->
-    <div class="table-responsive">
-      <table class="table  table-hover">
-        <thead class="thead-dark">
-        <tr>
-          <th></th>
-          <th >#</th>
-          <th >Titulo</th>
-          <th >Descripcion</th>
-          <th ></th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let tarea of misTareas;let i = index">
-          <td>{{i+1}}</td>
-          <td>{{tarea.titulo}}</td>
-          <td>{{tarea.descripcion}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
   </main>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
