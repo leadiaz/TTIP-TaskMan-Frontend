@@ -39,7 +39,9 @@ export class ProyectosComponent implements OnInit {
     
   }
   view(id: number){
+    // this.tareaService.proyecto = this.proyectos.find(proyecto => proyecto.id == id);
     this.route.navigateByUrl('/proyecto/'+id);
+
   }
   onCreate(){
     //aca hace la peticion de post
@@ -52,7 +54,5 @@ export class ProyectosComponent implements OnInit {
 
     //this.proyecto.miembros.push(usuario);
     //this.proyectoService.modificarProyecto(this.proyecto);
-    
-
   }
 }

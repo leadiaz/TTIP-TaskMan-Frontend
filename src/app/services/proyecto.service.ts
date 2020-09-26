@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 import { UsuarioService } from './usuario.service';
 import { URL_SERVICIOS } from 'src/config/config';
+import { Rol } from '../models/rol';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,11 @@ export class ProyectoService {
   agregarTarea(tarea){
     this.tareas.push(tarea);
     this.tareasSubject.next(this.tareas);
+  }
+  agregarRol(nuevoRol, idProyecto) {
+    const url = this.url_api + '/rol/'+idProyecto; 
+    return this._http.post<Rol>(url, {tipoRol: nuevoRol, usuarioAsignado: undefined}, {headers: this.headers}).
+    pipe(map(data =>data)).toPromise() 
   }
 
 }
