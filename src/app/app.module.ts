@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
     UsuariosComponent,
     LoginComponent,
     RegistroComponent,
-    BuscarUsuarioComponent
+    BuscarUsuarioComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,

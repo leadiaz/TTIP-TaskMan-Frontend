@@ -15,31 +15,17 @@
     <div class="list-group list-group-flush" >
       <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/home" style=" color: white;">Mis Tareas</a>
       <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/proyectos" style=" color: white;">Proyectos </a>
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/perfilUsuario" style=" color: white;">Perfil de Usuario</a>
+      <a href="#" class="list-group-item list-group-item-action bg-dark" style=" color: white;">Perfil de Usuario</a>
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
-    <main role="main" class="ml-sm-auto col-lg-11 " >
-      <h2 style="margin-top: 155px;">Mis tareas</h2>
-      <hr>
-      <div class="row">
-        <div class="col-md-3 mt-4" *ngFor="let tarea of misTareas ">
-
-          <div class="card text-center border-dark" style="width: 18rem;box-shadow: 0px 0px 9px 4px grey;">
-            <div class="card-body">
-              <h5 class="card-title">{{tarea.titulo}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-              <p class="card-text">{{tarea.descripcion}}</p>
-              <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar(tarea.id)">Terminar</button>
-              <button type="button" class="btn btn-dark" (click)="cancelar(tarea.id)">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
+      <p>perfil-usuario works!</p>
     </main>
   </div>
 </div>
 </body>
+
