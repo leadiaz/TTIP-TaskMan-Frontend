@@ -1,6 +1,6 @@
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-2 col-sm-2 mr-0" routerLink="/home">Task-man</a>
+  <a class="navbar-brand col-sm-2 col-sm-2 mr-0" routerLink="/home" >Task-man</a>
   <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search" (keyup)="buscar()">
 
   <form class="form-inline my-2 my-lg-0">
@@ -22,8 +22,39 @@
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
-    <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
-      <p>perfil-usuario works!</p>
+    <main role="main" class="ml-sm-auto col-lg-11 ">
+      <div class="container " style="margin-top: 155px;">
+        <div class="row">
+          <div class="col-10">
+            <h1>Configuración de Perfil de Usuario</h1>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-outline-dark" (click)="volverAlHome()">
+              <small >Volver al Home</small><i class="fa fa-angle-double-left"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+
+            <form>
+              <br>
+              <!--<img src="{{data.userData.imagenPerfil}}" alt="..." class="rounded" style="width:40%;box-shadow: 0px 0px 10px 2px ;">-->
+              <hr>
+              <div class="form-group">
+                <p> {{usuarioService.usuario.nombre}}</p>
+                <input [(ngModel)]="usuarioService.usuario.nombre" type="text" class="form-control" placeholder="Nombre de usuario">
+                <small id="nombreusuariohlp" class="form-text " >Nombre de usuario</small>
+
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+        <hr>
+      </div>
+
     </main>
   </div>
 </div>
