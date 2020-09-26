@@ -1,110 +1,95 @@
-<head>
-  <!-- Bootstrap core CSS -->
-<link type="text/html" href="/../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <!-- Custom styles for this template -->
-<a href="../../styles.css" rel="stylesheet"></a>
-</head>
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-<a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/home">Task-man</a>
+  <a class="navbar-brand col-sm-2 col-sm-2 mr-0" routerLink="/home">Task-man</a>
+  <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search" (keyup)="buscar()">
 
+  <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-light my-2 my-sm-0" (click)="logout()"> Sign up</button>
+  </form>
 </nav>
-<div class="clearFix"></div>
+<div class="d-flex" id="wrapper">
 
-<div class="container-fluid">
-<div class="row">
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-  <div class="sidebar-sticky">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">
-          <span data-feather="file"></span>
-          Dashboard 
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="/proyectos">
-          <span data-feather="home"></span>
-          Proyectos <span class="sr-only">(current)</span>
-        </a>
-      </li>
-    </ul>
-
-  </div>
-</nav>
-
-
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalNuevoProyecto">Crear Proyecto</button>
+  <!-- Sidebar -->
+  <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Start Bootstrap </div>
+    <div class="list-group list-group-flush" >
+      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/home" style=" color: white;">Mis Tareas</a>
+      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/proyectos" style=" color: white;">Proyectos </a>
+      <a href="#" class="list-group-item list-group-item-action bg-dark" style=" color: white;">Perfil de Usuario</a>
     </div>
   </div>
-  <div *ngIf="tarea" class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{tarea.titulo}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-      <p class="card-text">{{tarea.descripcion}}</p>
-      <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
-      <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
-    </div>
-  </div>
-  
-  <h2 style="margin-top: 14px;">Mis Proyectos</h2>
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="proyectos" >
-          <tr *ngFor="let proyecto of proyectos; let i = index">
-              <td>{{i+1}}</td>
-              <td>{{proyecto.nombre}}</td>
-              <td><button type="button" class="btn btn-primary" (click)="view(proyecto.id)">View</button></td>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalNuevoProyecto">Crear Proyecto</button>
+        </div>
+      </div>
+      <div *ngIf="tarea" class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{tarea.titulo}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+          <p class="card-text">{{tarea.descripcion}}</p>
+          <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
+          <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 14px;">Mis Proyectos</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>&nbsp;</th>
           </tr>
-      </tbody>
-    </table>
-  </div>
-</main>
-</div>
-</div>
+          </thead>
+          <tbody *ngIf="proyectos" >
+          <tr *ngFor="let proyecto of proyectos; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{proyecto.nombre}}</td>
+            <td><button type="button" class="btn btn-primary" (click)="view(proyecto.id)">View</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div class="modal fade" id="modalNuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Crear nuevo proyecto
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="formProyecto" #formProyecto="ngForm" (ngSubmit)="onCreate(formProyecto)">
 
-<div class="modal fade" id="modalNuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            Crear nuevo proyecto
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form name="formProyecto" #formProyecto="ngForm" (ngSubmit)="onCreate(formProyecto)">
-  
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="Proyecto">Nuevo Proyecto</label>
-                <input type="text" id="nombreProyecto" name="name" class="form-control" placeholder="nombre" [(ngModel)]="proyecto">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Proyecto">Nuevo Proyecto</label>
+                  <input type="text" id="nombreProyecto" name="name" class="form-control" placeholder="nombre" [(ngModel)]="proyecto">
+                </div>
               </div>
-            </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
-            </div>
-          </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+              </div>
+            </form>
+          </div>
+
         </div>
-  
       </div>
     </div>
+
   </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+</div>
+</body>
