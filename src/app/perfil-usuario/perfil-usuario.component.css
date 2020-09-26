@@ -1,0 +1,14 @@
+body{
+  background: url("https://www.planetahuevo.es/wp-content/uploads/2009/01/fondo_escritorio_gtd_16_9_marron.jpg") no-repeat center center fixed;
+  background-size: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-position: center top;
+
+}
+hr{
+background: black;
+ }
+
+
