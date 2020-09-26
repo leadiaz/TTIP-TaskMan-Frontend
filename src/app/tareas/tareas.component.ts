@@ -6,6 +6,7 @@ import { TareaService } from '../services/tarea.service';
 import { Proyecto } from '../models/proyecto';
 import { Tarea } from '../models/tarea';
 import { UsuarioService } from '../services/usuario.service';
+import { Rol } from '../models/rol';
 
 
 
@@ -20,7 +21,8 @@ export class TareasComponent implements OnInit {
   /** Para Modal de crear nueva tarea **/
   titulo= '';
   descripcion = '';
-  /** ** **/
+
+  rol='';
 
   tarea: Tarea;
   usuario = '';
@@ -49,8 +51,8 @@ export class TareasComponent implements OnInit {
     this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
   }
   eliminar(id){
-    const idPr = this.activatedRoute.snapshot.params.id;
-    this.tareaService.delete(parseInt(idPr), id).then( () => {
+    const idPr = this.proyectoActual.id;
+    this.tareaService.delete(idPr, id).then( () => {
       this.proyectoActual.tareas = this.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
@@ -63,7 +65,7 @@ export class TareasComponent implements OnInit {
   agregarMiembro(){
     this.usuarioService.getUserByUsername(this.usuario).//cambiar busqueda por email
       subscribe(data => {
-        this.proyectoActual.miembros.push(data);
+        this.proyectoActual.roles.push(data);
         this.proyectoService.modificarProyecto(this.proyectoActual)
       } , err => {
         alert("usuario no encontrado");
@@ -78,4 +80,7 @@ export class TareasComponent implements OnInit {
     console.log(tar);
     }
 
+    agregarRol(){
+      this.proyectoService.agregarRol(this.rol).then(data => this.proyectoActual = Proyecto.fromJson(data))
+    }
 }

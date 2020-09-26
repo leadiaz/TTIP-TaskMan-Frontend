@@ -52,7 +52,5 @@ export class ProyectosComponent implements OnInit {
 
     //this.proyecto.miembros.push(usuario);
     //this.proyectoService.modificarProyecto(this.proyecto);
-    
-
   }
 }
