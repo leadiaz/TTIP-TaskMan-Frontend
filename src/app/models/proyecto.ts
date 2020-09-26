@@ -10,7 +10,7 @@ export class Proyecto{
 		public tareas?: Array<Tarea>
 	){}
 	static fromJson(proyectoJson): Proyecto {
-		return Object.assign(new Proyecto(), proyectoJson, {miembros: this.mapRoles(proyectoJson.miembros), tareas: this.mapTareas(proyectoJson.tareas)})
+		return Object.assign(new Proyecto(), proyectoJson, {roles: this.mapRoles(proyectoJson.rols), tareas: this.mapTareas(proyectoJson.tareas)})
 	}
 	static mapTareas(tareas: Array<any>): Tarea[] {
 		return tareas.map(tarea => Tarea.fromJSON(tarea))

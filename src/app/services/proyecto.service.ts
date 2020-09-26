@@ -80,9 +80,9 @@ export class ProyectoService {
     this.tareas.push(tarea);
     this.tareasSubject.next(this.tareas);
   }
-  agregarRol(nuevoRol) {
-    const url = this.url_api + '/rol/'+this.proyecto.id 
-    return this._http.post<Rol>(url, {tipoRol: nuevoRol}, {headers: this.headers}).
+  agregarRol(nuevoRol, idProyecto) {
+    const url = this.url_api + '/rol/'+idProyecto; 
+    return this._http.post<Rol>(url, {tipoRol: nuevoRol, usuarioAsignado: undefined}, {headers: this.headers}).
     pipe(map(data =>data)).toPromise() 
   }
 

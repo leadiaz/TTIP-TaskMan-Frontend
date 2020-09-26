@@ -36,8 +36,8 @@ export class TareaService {
     //t.subscribe(data => this.proyectoService.agregarTarea(data))
     return t
   }
-  async update(tarea){
-    const task = await this._http.put(URL_SERVICIOS+'/tarea/'+tarea.id, tarea,{headers: this.headers}).toPromise()
+  update(tarea){
+    const task =this._http.put(this.url_api+'/tarea', tarea,{headers: this.headers}).toPromise()
     return task
   }
   async delete(idPr: number, id : number){

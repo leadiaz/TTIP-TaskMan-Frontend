@@ -7,6 +7,7 @@ import { Proyecto } from '../models/proyecto';
 import { Tarea } from '../models/tarea';
 import { UsuarioService } from '../services/usuario.service';
 import { Rol } from '../models/rol';
+import { Usuario } from '../models/usuario';
 
 
 
@@ -30,17 +31,32 @@ export class TareasComponent implements OnInit {
   consulta:string = '';
   usuarioEncontrado;
   proyectoActual: Proyecto;
+  rolesDelProyecto: Rol[];
+  miembros: Set<Usuario>;
   constructor(private route: Router,
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService,
               private activatedRoute: ActivatedRoute) {
-
+                this.miembros = new Set()
   }
 
   async ngOnInit() {
     await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
-      .subscribe(data => this.proyectoActual = data)
+      .subscribe(data => {
+        this.proyectoActual = Proyecto.fromJson(data);
+        this.rolesDelProyecto = this.proyectoActual.roles
+        // this.miembros = new Set(this.rolesDelProyecto.map(rol => {
+        //   if(rol.usuarioAsignado){
+        //     return rol.usuarioAsignado
+        //   }
+        // }))
+        this.rolesDelProyecto.forEach(rol => {
+          if(rol.usuarioAsignado){
+            this.miembros.add(rol.usuarioAsignado)
+          }
+        })
+      })
 
   }
   view(id){
@@ -81,6 +97,7 @@ export class TareasComponent implements OnInit {
     }
 
     agregarRol(){
-      this.proyectoService.agregarRol(this.rol).then(data => this.proyectoActual = Proyecto.fromJson(data))
+      const idPr =  this.activatedRoute.snapshot.params.id;
+      this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
     }
 }
