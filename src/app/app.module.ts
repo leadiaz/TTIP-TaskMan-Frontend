@@ -19,6 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
+import { NavbarComponentComponent } from './navbar-component/navbar-component.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
     LoginComponent,
     RegistroComponent,
     BuscarUsuarioComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    NavbarComponentComponent
   ],
   imports: [
     BrowserModule,

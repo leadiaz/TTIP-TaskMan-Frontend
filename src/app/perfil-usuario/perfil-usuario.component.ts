@@ -14,7 +14,7 @@ export class PerfilUsuarioComponent implements OnInit {
     }
 
   ngOnInit() {
-
+    console.log(this.usuario);
     }
 
 }

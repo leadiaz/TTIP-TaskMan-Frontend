@@ -1,12 +1,5 @@
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-2 col-sm-2 mr-0" routerLink="/home" >Task-man</a>
-  <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search" (keyup)="buscar()">
-
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-light my-2 my-sm-0" (click)="logout()"> Sign up</button>
-  </form>
-</nav>
+<app-navbar-component></app-navbar-component>
 <div class="d-flex" id="wrapper">
 
   <!-- Sidebar -->
@@ -34,25 +27,80 @@
             </button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
+        <hr>
 
-            <form>
-              <br>
-              <!--<img src="{{data.userData.imagenPerfil}}" alt="..." class="rounded" style="width:40%;box-shadow: 0px 0px 10px 2px ;">-->
-              <hr>
-              <div class="form-group">
-                <p> {{usuarioService.usuario.nombre}}</p>
-                <input [(ngModel)]="usuarioService.usuario.nombre" type="text" class="form-control" placeholder="Nombre de usuario">
-                <small id="nombreusuariohlp" class="form-text " >Nombre de usuario</small>
-
+        <form>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" id="email-group">
+                <label >Correo electronico</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" > <i class="fa fa-envelope" aria-hidden="true"></i> </span>
+                  </div>
+                  <input type="text" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="usuario.email" required>
+                </div>
               </div>
-            </form>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group" id="user-group">
+                <label >Nombre de usuario</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" ><i class="fa fa-user" aria-hidden="true"></i></span>
+                  </div>
+                  <input type="text"   id="usuario" name="usuarioNombre" class="form-control" placeholder="Nombre Usuario" [(ngModel)]="usuario.usuario" required>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" id="nombre-group">
+                <label >Nombre</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" > <i class="fa fa-address-card" aria-hidden="true"></i></span>
+                  </div>
+                  <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control" placeholder="Nombre" [(ngModel)]="usuario.nombre" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" id="apellido-group">
+                <label >Apellido </label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" ><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                  </div>
+                  <input type="text"   id="usuarioapellido" name="usuarioapellido" class="form-control" placeholder="Apellido" [(ngModel)]="usuario.apellido" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <a href="#" > desea cambiar la contraseña?</a>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <button class=" btn btn-lg btn-outline-dark btn-block" (click)="actualizarPerfil()"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Actualizar Perfil</button>
+            </div>
           </div>
 
 
-        </div>
-        <hr>
+
+        </form>
       </div>
 
     </main>
