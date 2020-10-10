@@ -27,11 +27,24 @@ export class TareaService {
   	"Content-Type": "application/json"
   	});
 
+  crearTareaCompleja(titulo: string, descripcion:string, prioridad, fechaEstimada, id: number){
+    const url=this.url_api+'/tarea/'+id;
+    const t =  this._http.post<Tarea>(url, {
+      titulo: titulo,
+      descripcion: descripcion,
+      fecha_estimada: fechaEstimada,
+      prioridad: prioridad,
+      type: 'TareaCompleja'
+      }, {headers: this.headers}).pipe(map(data =>data));
+    //t.subscribe(data => this.proyectoService.agregarTarea(data))
+    return t
+  }
   crearTarea(titulo: string, descripcion:string, id: number){
     const url=this.url_api+'/tarea/'+id;
     const t =  this._http.post<Tarea>(url, {
       titulo: titulo,
-      descripcion: descripcion
+      descripcion: descripcion,
+      type: 'TareaSimple'
       }, {headers: this.headers}).pipe(map(data =>data));
     //t.subscribe(data => this.proyectoService.agregarTarea(data))
     return t

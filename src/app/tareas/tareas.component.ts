@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import { ProyectoService } from '../services/proyecto.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProyectoService} from '../services/proyecto.service';
 
-import { TareaService } from '../services/tarea.service';
-import { Proyecto } from '../models/proyecto';
-import { Tarea } from '../models/tarea';
-import { UsuarioService } from '../services/usuario.service';
-import { Rol } from '../models/rol';
-import { Usuario } from '../models/usuario';
-
-
+import {TareaService} from '../services/tarea.service';
+import {Proyecto} from '../models/proyecto';
+import {Tarea} from '../models/tarea';
+import {UsuarioService} from '../services/usuario.service';
+import {Rol} from '../models/rol';
+import {Usuario} from '../models/usuario';
 
 
 @Component({
@@ -20,25 +18,30 @@ import { Usuario } from '../models/usuario';
 export class TareasComponent implements OnInit {
 
   /** Para Modal de crear nueva tarea **/
-  titulo= '';
+  titulo = '';
   descripcion = '';
 
-  rol='';
+  rol = '';
 
   tarea: Tarea;
   usuario = '';
   usuarioSeleccionado;
-  consulta:string = '';
+  consulta: string = '';
   usuarioEncontrado;
   proyectoActual: Proyecto;
   rolesDelProyecto: Rol[];
   miembros: Set<Usuario>;
+  isCheck = false;
+  fechaEstimada:Date;
+  lista:string[]=["Baja","Media","Alta"];
+  seleccionado:string='';
+
   constructor(private route: Router,
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService,
               private activatedRoute: ActivatedRoute) {
-                this.miembros = new Set()
+    this.miembros = new Set()
   }
 
   async ngOnInit() {
@@ -52,52 +55,85 @@ export class TareasComponent implements OnInit {
         //   }
         // }))
         this.rolesDelProyecto.forEach(rol => {
-          if(rol.usuarioAsignado){
+          if (rol.usuarioAsignado) {
             this.miembros.add(rol.usuarioAsignado)
           }
         })
       })
 
   }
-  view(id){
+
+  view(id) {
     this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
   }
 
-  onCreate(){
-    this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
+  onCreate() {
+    if(this.fechaEstimada && this.seleccionado != ''){
+      this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
+    }else{
+      this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
+    }
+    
   }
-  eliminar(id){
+
+  eliminar(id) {
     const idPr = this.proyectoActual.id;
-    this.tareaService.delete(idPr, id).then( () => {
+    this.tareaService.delete(idPr, id).then(() => {
       this.proyectoActual.tareas = this.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
   }
-  asignarUsuario(usuario){
+
+  asignarUsuario(usuario) {
     this.tarea.asignado = usuario;
     this.tareaService.update(this.tarea)
   }
 
-  agregarMiembro(){
+  agregarMiembro() {
     this.usuarioService.getUserByUsername(this.usuario).//cambiar busqueda por email
-      subscribe(data => {
-        this.proyectoActual.roles.push(data);
-        this.proyectoService.modificarProyecto(this.proyectoActual)
-      } , err => {
-        alert("usuario no encontrado");
-      });
+    subscribe(data => {
+      this.proyectoActual.roles.push(data);
+      this.proyectoService.modificarProyecto(this.proyectoActual)
+    }, err => {
+      alert("usuario no encontrado");
+    });
 
-    }
+  }
 
-    buscar(){
+  buscar() {
 
     const tar = this.proyectoActual.tareas.filter(tarea => tarea.titulo.includes(this.consulta));
     this.proyectoActual.tareas = tar;
     console.log(tar);
-    }
+  }
 
-    agregarRol(){
-      const idPr =  this.activatedRoute.snapshot.params.id;
-      this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
+  agregarRol() {
+    const idPr = this.activatedRoute.snapshot.params.id;
+    this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
+  }
+
+  expandirFormulario(){
+    this.isCheck = !this.isCheck
+    if(this.isCheck){
+      document.getElementById('tareaCompleja').style.display = 'block'
+    }else{
+      document.getElementById('tareaCompleja').style.display = 'none'
     }
+    
+  }
+  private convertToNumberPrioridad(prioridad){
+    switch (prioridad){
+      case 'Baja':
+        return 0
+        break
+      case 'Media':
+        return 1;
+        break;
+      case 'Alta':
+        return 2;
+        break
+    }
+      
+
+  }
 }
