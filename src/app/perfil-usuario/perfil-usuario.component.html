@@ -29,10 +29,9 @@
         </div>
         <hr>
 
-        <form>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group" id="email-group">
+        <form >
+          <div class="form-row">
+            <div class="form-group col-md-4" id="email-group">
                 <label >Correo electronico</label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -41,10 +40,8 @@
                   <input type="text" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="usuario.email" required>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="form-group" id="user-group">
+              <div class="form-group col-md-4" id="user-group">
                 <label >Nombre de usuario</label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -53,24 +50,19 @@
                   <input type="text"   id="usuario" name="usuarioNombre" class="form-control" placeholder="Nombre Usuario" [(ngModel)]="usuario.usuario" required>
                 </div>
               </div>
-            </div>
-
           </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group" id="nombre-group">
+          <div class="form-row">
+            <div class="form-group col-md-4"  id="nombre-group">
                 <label >Nombre</label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" > <i class="fa fa-address-card" aria-hidden="true"></i></span>
                   </div>
-                  <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control" placeholder="Nombre" [(ngModel)]="usuario.nombre" required>
+                  <input type="text" id="UsuarioNombre" name="UsuarioNombre"  class="form-control " placeholder="Nombre" [(ngModel)]="usuario.nombre" required>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group" id="apellido-group">
+              <div class="form-group col-md-4" id="apellido-group">
                 <label >Apellido </label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -80,7 +72,7 @@
                 </div>
               </div>
             </div>
-          </div>
+
 
           <br>
           <br>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from'../services/usuario.service';
 import { Usuario } from '../models/usuario';
+import{ FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -8,13 +10,21 @@ import { Usuario } from '../models/usuario';
   styleUrls: ['./perfil-usuario.component.css']
 })
 export class PerfilUsuarioComponent implements OnInit {
- public usuario: Usuario;
-  constructor( private usuarioService: UsuarioService) {
-    this.usuario = this.usuarioService.usuario;
-    }
+  usuario: Usuario;
 
+  constructor( public router: Router,private usuarioService: UsuarioService) {
+    this.usuario = this.usuarioService.usuario;
+
+    }
   ngOnInit() {
     console.log(this.usuario);
     }
 
+  actualizarPerfil(){
+    console.log( this.usuario);
+    this.usuarioService.actualizarPerfilUsuario(this.usuario);
+  }
+ public volverAlHome(){
+       this.router.navigateByUrl('home');
+      }
 }
