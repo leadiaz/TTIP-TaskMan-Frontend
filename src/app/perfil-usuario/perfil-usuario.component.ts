@@ -21,7 +21,6 @@ export class PerfilUsuarioComponent implements OnInit {
     }
 
   actualizarPerfil(){
-    console.log( this.usuario);
     this.usuarioService.actualizarPerfilUsuario(this.usuario);
   }
  public volverAlHome(){

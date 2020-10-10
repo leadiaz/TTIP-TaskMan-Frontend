@@ -124,12 +124,27 @@ export class UsuarioService {
 
   actualizarPerfilUsuario(userData: Usuario){
    /*Llamo a la API para poder actualizar los datos del usuario*/
-   return this._http.put<Usuario>(this.url+"/usuario/actualizarUsuario/"+userData.id,userData,{observe: 'response' });
+   console.log(this.url+"/usuario/actualizarUsuario/"+userData.id)
+   return this._http.put(this.url+"/usuario/actualizarUsuario/"+userData.id,{
+     id: userData.id,
+    usuario: userData.usuario,
+    nombre: userData.nombre,
+    apellido: userData.apellido,
+    email: userData.email,
+    password: userData.password
+    }, {headers: this.headers}).toPromise()
    }
 
   update(usuario: Usuario){
+    console.log(usuario)
     const url_api = this.url + '/usuario/' +usuario.id;
-    return this._http.put(url_api, usuario, {headers: this.headers}).pipe(map(data => console.log(data)));
+    return this._http.put(url_api, {
+      usuario: usuario.usuario,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      email: usuario.email,
+      password: usuario.password
+    }, {headers: this.headers}).pipe(map(data => console.log(data)));
   }
 
   getTareasAsignadasAUsuario(id: number){
