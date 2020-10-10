@@ -30,7 +30,7 @@ export class UsuarioService {
   tareas = new Array<Tarea>();
 
 
-  constructor(public _http:HttpClient, private route: Router, private authFire: AngularFireAuth) { 
+  constructor(public _http:HttpClient, private route: Router, private authFire: AngularFireAuth) {
   	this.url = URL_SERVICIOS;
   }
   headers: HttpHeaders = new HttpHeaders({
@@ -43,7 +43,7 @@ export class UsuarioService {
       this.getLogginUser(usernameOEmail, password).then(
         userData => {
           resolve(userData);
-          this.usuario = new Usuario(userData.id, 
+          this.usuario = new Usuario(userData.id,
                                     userData.usuario,
                                     userData.nombre,
                                     userData.apellido,
@@ -57,9 +57,9 @@ export class UsuarioService {
           this.route.navigateByUrl('/home');
         }).catch(err => {
           alert(err.message)
-        }),  
+        }),
         err => reject(err)});
-    
+
   }
   getProyectosByUserID(id: number){
     return this._http.get<Proyecto[]>(this.url + '/proyectos/'+id).toPromise()
@@ -68,19 +68,19 @@ export class UsuarioService {
     try{
       const url_api = this.url+'/login';
       return this._http.post<Usuario>(url_api, {
-        userOrEmail: usernameOEmail, 
+        userOrEmail: usernameOEmail,
         password: password
         },{headers: this.headers})
       .pipe(map(data => data )).toPromise();
     }catch(e){
       throw new Error("Internal Server Error")
     }
-    
+
   }
 
   logout(){
     this.route.navigateByUrl('login')
-    // return this.authFire.auth.signOut().then((data) => 
+    // return this.authFire.auth.signOut().then((data) =>
   }
 
   getUsers()
@@ -110,7 +110,7 @@ export class UsuarioService {
       usuario: usuario,
       nombre: nombre,
       apellido: apellido,
-      email: email, 
+      email: email,
       password: password
       },{headers: this.headers})
   	.pipe(map(data => data ));
@@ -121,10 +121,16 @@ export class UsuarioService {
     this.proyectosSubject.next(this.proyectosActuales);
   }
 
-  update(usuario){
+  actualizarPerfilUsuario(userData: Usuario){
+   /*Llamo a la API para poder actualizar los datos del usuario*/
+   return this._http.put<Usuario>(this.url+"/usuario/actualizarUsuario/"+userData.id,userData,{observe: 'response' });
+   }
+
+  update(usuario: Usuario){
     const url_api = this.url + '/usuario/' +usuario.id;
     return this._http.put(url_api, usuario, {headers: this.headers}).pipe(map(data => console.log(data)));
   }
+
   getTareasAsignadasAUsuario(id: number){
     const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers}).toPromise()
     return tareas
