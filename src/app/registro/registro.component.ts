@@ -23,8 +23,7 @@ export class RegistroComponent implements OnInit {
   }
   onRegistrar():void{
       this._usuarioService.save(this.user.usuario,this.user.nombre,this.user.apellido,this.user.email,this.user.password).
-      subscribe(data => this.route.navigateByUrl('/login'));
-  	
+      then(() => this.route.navigateByUrl('/login')).catch(() => alert('el usuario o email ya esta siendo utilizado'));  	
   }
 
 }

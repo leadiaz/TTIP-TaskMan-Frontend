@@ -104,7 +104,8 @@ export class UsuarioService {
     })
   }
 
-  save(usuario: string, nombre: string,apellido: string, email: string, password:string ):Observable<Usuario>{
+  save(usuario: string, nombre: string,apellido: string, email: string, password:string ){
+    
   	const url_api = this.url+'/usuario';
   	return this._http.post<Usuario>(url_api, {
       usuario: usuario,
@@ -113,7 +114,7 @@ export class UsuarioService {
       email: email,
       password: password
       },{headers: this.headers})
-  	.pipe(map(data => data ));
+  	.pipe(map(data => data )).toPromise();
   }
 
   agregarProyecto(p){
