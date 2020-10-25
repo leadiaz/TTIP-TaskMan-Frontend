@@ -1,14 +1,42 @@
 hr{
-background: black;
+background: white;
  }
 
 
-body{
-  background: url("https://www.creativefabrica.com/wp-content/uploads/2019/06/Instagram-stories-sale-banner-background-by-DEEMKA-STUDIO.jpg") no-repeat center center fixed;
-  background-size: cover;
-  height: 100vh;
-  overflow: hidden;
-  background-attachment: fixed;
-  background-position: center top;
 
+.button {
+  border: none;
+  color: white;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
 }
+
+  .buttonTerminar {
+    background-color: white;
+    color: black;
+    border: 2px solid #213e3b;
+  }
+
+  .buttonTerminar:hover {
+    background-color: #41aea9;
+    color: white;
+  }
+
+
+  .buttonCancelar {
+    background-color: white;
+    color: black;
+    border: 2px solid #af2d2d;
+  }
+
+  .buttonCancelar:hover {
+    background-color: #f05454;
+    color: white;
+  }

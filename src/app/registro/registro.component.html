@@ -1,4 +1,61 @@
-<section>
+
+<body>
+<div class="modal-dialog text-center">
+  <div class="col-sm-8 main-section">
+    <div class="modal-content">
+      <div class="col-12 user-img">
+        <img src="https://waycomputer.com.ar/SYS/WAY/img/avatares/a3.png">
+      </div>
+      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onRegistrar()">
+
+
+
+        <div class="form-group" id="user-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user" aria-hidden="true"></i></span>
+            </div>
+            <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" [(ngModel)]="user.usuario" required>
+          </div>
+        </div>
+
+        <div class="form-group" id="nombre-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
+            </div>
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="user.nombre" required>
+          </div>
+        </div>
+
+        <div class="form-group" id="email-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3"> <i class="fa fa-envelope" aria-hidden="true"></i></span>
+            </div>
+            <input type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="user.email" required>
+          </div>
+        </div>
+
+
+        <div class="form-group" id="contrasena-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon4"><i class="fa fa-lock" aria-hidden="true"></i></span>
+            </div>
+            <input type="password"   id="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-dark btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</button>
+
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<!--<section>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
@@ -24,14 +81,14 @@
 
 								</div>
 								<button type="submit" class="btn btn-lg btn-primary">
-									Registrar									
+									Registrar
 								</button>
 							</form>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
-</section>
+</section>-->

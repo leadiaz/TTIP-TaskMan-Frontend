@@ -15,8 +15,9 @@
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
-    <main role="main" class="ml-sm-auto col-lg-11 " >
-      <h2 style="margin-top: 155px;">Mis tareas</h2>
+    <main style="margin-top: 155px;" role="main" class="ml-sm-auto col-lg-11 " >
+      <hr>
+      <h2>Mis tareas</h2>
       <hr>
       <div class="row">
         <div class="col-md-3 mt-4" *ngFor="let tarea of misTareas ">
@@ -26,8 +27,11 @@
               <h5 class="card-title">{{tarea.titulo}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
               <p class="card-text">{{tarea.descripcion}}</p>
-              <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar(tarea.id)">Terminar</button>
-              <button type="button" class="btn btn-dark" (click)="cancelar(tarea.id)">Cancelar</button>
+            </div>
+
+            <div class="card-footer">
+              <button type="button" class="button buttonTerminar" style="margin-right: 10px" (click)="terminar(tarea.id)">Terminar</button>
+              <button type="button" class="button buttonCancelar"  (click)="cancelar(tarea.id)">Cancelar</button>
             </div>
           </div>
         </div>

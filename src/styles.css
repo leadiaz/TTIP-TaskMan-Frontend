@@ -1,5 +1,14 @@
-body {
-    font-size: .875rem;
+
+
+  body{
+  font-size: .875rem;
+    background: #19d3da no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center top;
+
   }
 
   .feather {
@@ -106,4 +115,5 @@ body {
       margin-left: -15rem;
     }
   }
+
 

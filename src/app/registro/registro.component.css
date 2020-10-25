@@ -1,0 +1,39 @@
+body{
+  background: url("https://digitaldetox.io/wp-content/uploads/2018/02/AI-world-forum-background-cropped-1920x1000.jpg") no-repeat center center fixed;
+   background-size: cover;
+   height: 100vh;
+   overflow: hidden;
+   background-attachment: fixed;
+   background-position: center top;
+}
+.modal-content{
+  background-color: #3b4652;
+  opacity: .92;
+  padding: 0 20px;
+  box-shadow: 0px 0px 3px #848484;
+}
+.user-img{
+  margin-top: -50px;
+  margin-bottom: 35px;
+}
+
+.user-img img{
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 3px #848484;
+  border-radius: 50%;
+}
+
+.main-section{
+  margin: 0 auto;
+  margin-top: 45%;
+  padding: 0;
+}
+
+.form-group imput{
+ height: 42px;
+ font-size: 18;
+ border: 0;
+ padding-left: 54px;
+ border-radius: 5px;
+}
