@@ -40,7 +40,7 @@ export class ProyectosComponent implements OnInit {
   ngOnInit() {
     this.usuarioService.getProyectosByUserID(this.usuarioService.usuario.id).then(data =>{
       this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto))
-      this.usuarioService.proyectos$.subscribe(data => this.proyectos = data)
+      this.usuarioService.proyectos$.subscribe(data => this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto)))
     } );
   }
   view(id: number){

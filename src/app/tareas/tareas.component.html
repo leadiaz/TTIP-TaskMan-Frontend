@@ -72,7 +72,14 @@
                     <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro)">{{miembro.usuario}}</a>
                   </div>
                 </div>
-                <button type="button" class="button buttonEliminar" (click)="eliminar(tarea.id)" style="margin-left: 5px; ">Delete</button>
+                <button class="button buttonEliminar" 
+                  mwlConfirmationPopover 
+                  [popoverTitle]="popoverTitle"
+                  [popoverMessage]="popoverMessage"
+                  placement = "top" 
+                  (confirm)="eliminar(tarea.id)" 
+                  (cancel)="cancelClicked = true"
+                  style="margin-left: 5px; ">Delete</button>
               </div>
 
             </div>

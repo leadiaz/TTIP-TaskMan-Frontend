@@ -36,6 +36,10 @@ export class TareasComponent implements OnInit {
   lista:string[]=["Baja","Media","Alta"];
   seleccionado:string='';
 
+  /**PopUp */
+  public popoverTitle: string = 'Eliminar Tarea'
+  public popoverMessage: string = '¿Esta seguro que desea eliminar esta tarea?'
+
   constructor(private route: Router,
               private tareaService: TareaService,
               private proyectoService: ProyectoService,
