@@ -62,11 +62,10 @@ export class ProyectoService {
   }
   setProyectoActual(id:number){
     this.getProyecto(id).subscribe(data => {
-      this.proyecto = data;
+      this.proyecto = Proyecto.fromJson(data);
       this.tareas = this.proyecto.tareas;
       this.proyectoSubject.next(this.proyecto);
       this.tareasSubject.next(this.tareas);
-      console.log(this.proyecto);
     })
     //
 
