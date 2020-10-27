@@ -20,7 +20,7 @@ import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuari
 
 export class ProyectosComponent implements OnInit {
   idUrl:number;
-  proyectos;
+  proyectos:Proyecto[];
   creador:string;
   tareas;
 
@@ -46,6 +46,12 @@ export class ProyectosComponent implements OnInit {
   onCreate(){
     //aca hace la peticion de post
     this.proyectoService.crearProyecto(this.proyecto)
+  }
+  eliminar(id){
+    console.log(id)
+    this.proyectoService.delete(id).then(()=> {
+      this.proyectos = this.proyectos.filter(proyecto => proyecto.id != id)
+    })
   }
   agregarMiembro(){
     // this.route.navigateByUrl('/proyecto/find-user');
