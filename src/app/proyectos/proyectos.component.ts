@@ -20,32 +20,42 @@ import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuari
 
 export class ProyectosComponent implements OnInit {
   idUrl:number;
-  proyectos;
+  proyectos:Proyecto[];
   creador:string;
   tareas;
 
   proyecto = "";
 
+  public popoverTitle: string = 'Eliminar Proyecto'
+  public popoverMessage: string = '¿Esta seguro que desea eliminar este proyecto?'
+
   constructor(private route: Router, 
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService, 
               private tareaService : TareaService) { 
-    this.proyectos = this.usuarioService.proyectosActuales;
-    this.usuarioService.proyectos$.subscribe(data => {this.proyectos = data; console.log(data)});
+    
 
   }
 
   ngOnInit() {
-    
+    this.usuarioService.getProyectosByUserID(this.usuarioService.usuario.id).then(data =>{
+      this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto))
+      this.usuarioService.proyectos$.subscribe(data => this.proyectos = data)
+    } );
   }
   view(id: number){
-    // this.tareaService.proyecto = this.proyectos.find(proyecto => proyecto.id == id);
     this.route.navigateByUrl('/proyecto/'+id);
 
   }
   onCreate(){
     //aca hace la peticion de post
     this.proyectoService.crearProyecto(this.proyecto)
+  }
+  eliminar(id){
+    this.proyectoService.delete(id).then(()=> {
+      this.proyectos = this.proyectos.filter(proyecto => proyecto.id != id);
+      this.usuarioService.proyectosActuales = this.proyectos;
+    })
   }
   agregarMiembro(){
     // this.route.navigateByUrl('/proyecto/find-user');

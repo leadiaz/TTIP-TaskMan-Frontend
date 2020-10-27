@@ -34,8 +34,13 @@
             <div class="card-footer">
 
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="button buttonView"  (click)="view(proyecto.id)">View</button>
-                <button type="button" class="button buttonEliminar" >Eliminar</button>
+                <button class="button buttonView"  (click)="view(proyecto.id)">View</button>
+                <button class="button buttonEliminar" mwlConfirmationPopover 
+                [popoverTitle]="popoverTitle"
+                [popoverMessage]="popoverMessage"
+                placement = "top" 
+                (confirm)="eliminar(proyecto.id)"
+                (cancel)="cancelClicked = true" >Eliminar</button>
               </div>
             </div>
           </div>

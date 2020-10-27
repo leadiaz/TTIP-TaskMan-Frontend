@@ -56,17 +56,16 @@ export class ProyectoService {
     let p = this._http.put(url, proyecto, {headers: this.headers}).pipe(map(data => data));
     p.subscribe(data => console.log(data))
     }
-  delete(id:number){
+   delete(id:number){
     const url = this.url_api+`/proyecto/${id}`
-    return this._http.delete(url, {headers: this.headers});
+    return this._http.delete(url, {headers: this.headers}).toPromise();
   }
   setProyectoActual(id:number){
     this.getProyecto(id).subscribe(data => {
-      this.proyecto = data;
+      this.proyecto = Proyecto.fromJson(data);
       this.tareas = this.proyecto.tareas;
       this.proyectoSubject.next(this.proyecto);
       this.tareasSubject.next(this.tareas);
-      console.log(this.proyecto);
     })
     //
 
