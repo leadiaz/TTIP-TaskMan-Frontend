@@ -30,16 +30,17 @@ export class ProyectosComponent implements OnInit {
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService, 
               private tareaService : TareaService) { 
-    this.proyectos = this.usuarioService.proyectosActuales;
-    this.usuarioService.proyectos$.subscribe(data => {this.proyectos = data; console.log(data)});
+    
 
   }
 
   ngOnInit() {
-    
+    this.usuarioService.getProyectosByUserID(this.usuarioService.usuario.id).then(data =>{
+      this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto))
+      this.usuarioService.proyectos$.subscribe(data => this.proyectos = data)
+    } );
   }
   view(id: number){
-    // this.tareaService.proyecto = this.proyectos.find(proyecto => proyecto.id == id);
     this.route.navigateByUrl('/proyecto/'+id);
 
   }
@@ -49,7 +50,8 @@ export class ProyectosComponent implements OnInit {
   }
   eliminar(id){
     this.proyectoService.delete(id).then(()=> {
-      this.proyectos = this.proyectos.filter(proyecto => proyecto.id != id)
+      this.proyectos = this.proyectos.filter(proyecto => proyecto.id != id);
+      this.usuarioService.proyectosActuales = this.proyectos;
     })
   }
   agregarMiembro(){

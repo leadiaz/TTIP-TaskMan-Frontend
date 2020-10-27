@@ -56,9 +56,9 @@ export class ProyectoService {
     let p = this._http.put(url, proyecto, {headers: this.headers}).pipe(map(data => data));
     p.subscribe(data => console.log(data))
     }
-  async delete(id:number){
+   delete(id:number){
     const url = this.url_api+`/proyecto/${id}`
-    return await this._http.delete(url, {headers: this.headers}).toPromise();
+    return this._http.delete(url, {headers: this.headers}).toPromise();
   }
   setProyectoActual(id:number){
     this.getProyecto(id).subscribe(data => {
