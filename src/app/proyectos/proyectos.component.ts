@@ -48,7 +48,6 @@ export class ProyectosComponent implements OnInit {
     this.proyectoService.crearProyecto(this.proyecto)
   }
   eliminar(id){
-    console.log(id)
     this.proyectoService.delete(id).then(()=> {
       this.proyectos = this.proyectos.filter(proyecto => proyecto.id != id)
     })
