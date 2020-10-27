@@ -20,6 +20,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { NavbarComponentComponent } from './navbar-component/navbar-component.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { NavbarComponentComponent } from './navbar-component/navbar-component.co
     MatIconModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger'
+    })
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]
