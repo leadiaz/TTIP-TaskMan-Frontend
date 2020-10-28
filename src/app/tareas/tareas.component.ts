@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProyectoService} from '../services/proyecto.service';
 
@@ -16,6 +16,7 @@ import {Usuario} from '../models/usuario';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
+  @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
 
   /** Para Modal de crear nueva tarea **/
   titulo = '';
@@ -77,7 +78,14 @@ export class TareasComponent implements OnInit {
     }else{
       this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
     }
-    
+    this.btnClose.nativeElement.click();
+    this.limpiarCampos();
+  }
+  limpiarCampos() {
+    this.titulo = '';
+    this.descripcion = '';
+    this.rol = '';
+    this.usuario = '';
   }
 
   eliminar(id) {
