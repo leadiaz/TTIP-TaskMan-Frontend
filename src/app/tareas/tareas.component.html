@@ -18,13 +18,13 @@
     <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modalNuevaTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
+          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevaTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
         </div>
         <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modalNuevoMiembro"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</button>
+          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoMiembro"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</button>
         </div>
         <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modalNuevoRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</button>
+          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</button>
         </div>
 
       </div>
@@ -65,7 +65,7 @@
               <!--<button type="button" class="button buttonView" (click)="view(tarea.id)">View</button>-->
               <div class="row">
                 <div class="dropdown" >
-                  <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;">
                     Asignar Tarea
                   </button>
                   <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
@@ -79,7 +79,7 @@
                   placement = "top" 
                   (confirm)="eliminar(tarea.id)" 
                   (cancel)="cancelClicked = true"
-                  style="margin-left: 5px; ">Delete</button>
+                  style="margin-left: 5px; font-size: 15px; ">Delete</button>
               </div>
 
             </div>
@@ -190,8 +190,8 @@
                 <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+                <button type="button" class="btn btn-secondary" #btnCloseMiembro data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Agregar</button>
               </div>
             </form>
           </div>
@@ -211,14 +211,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <form name="formNuevoRol" #formNuevoRol="ngForm" (ngSubmit)="agregarRol(formNuevoRol)">
+            <form name="formNuevoRol" #formNuevoRol="ngForm" (ngSubmit)="agregarRol()">
 
               <div class="form-group ">
                 <label for="Rol">Rol</label>
                 <input type="text" id="rol" name="name" class="form-control" placeholder="rol" [(ngModel)]="rol">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" #btnCloseRol data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Agregar</button>
               </div>
             </form>

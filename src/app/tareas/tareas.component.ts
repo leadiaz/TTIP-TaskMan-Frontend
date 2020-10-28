@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProyectoService} from '../services/proyecto.service';
 
@@ -16,6 +16,9 @@ import {Usuario} from '../models/usuario';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
+  @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
+  @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
+  @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
 
   /** Para Modal de crear nueva tarea **/
   titulo = '';
@@ -77,7 +80,14 @@ export class TareasComponent implements OnInit {
     }else{
       this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
     }
-    
+    this.btnClose.nativeElement.click();
+    this.limpiarCampos();
+  }
+  limpiarCampos() {
+    this.titulo = '';
+    this.descripcion = '';
+    this.rol = '';
+    this.usuario = '';
   }
 
   eliminar(id) {
@@ -101,6 +111,7 @@ export class TareasComponent implements OnInit {
     }, err => {
       alert("usuario no encontrado");
     });
+    this.btnCloseMiembro.nativeElement.click();
 
   }
 
@@ -114,6 +125,7 @@ export class TareasComponent implements OnInit {
   agregarRol() {
     const idPr = this.activatedRoute.snapshot.params.id;
     this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
+    this.btnCloseRol.nativeElement.click()
   }
 
   expandirFormulario(){

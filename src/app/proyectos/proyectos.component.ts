@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../services/proyecto.service';
 import { Proyecto } from '../models/proyecto';
@@ -10,6 +10,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { TareaService } from '../services/tarea.service';
 import { MatDialog } from '@angular/material';
 import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuario.component';
+import { $ } from 'protractor';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { BuscarUsuarioComponent } from '../usuarios/buscar-usuario/buscar-usuari
 })
 
 export class ProyectosComponent implements OnInit {
+  @ViewChild('btnClose', {static: false}) closeBtn: ElementRef;
   idUrl:number;
   proyectos:Proyecto[];
   creador:string;
@@ -47,9 +49,12 @@ export class ProyectosComponent implements OnInit {
     this.route.navigateByUrl('/proyecto/'+id);
 
   }
+  
   onCreate(){
     //aca hace la peticion de post
-    this.proyectoService.crearProyecto(this.proyecto)
+    this.proyectoService.crearProyecto(this.proyecto);
+    this.closeBtn.nativeElement.click();
+    this.proyecto = '';
   }
   eliminar(id){
     this.proyectoService.delete(id).then(()=> {
