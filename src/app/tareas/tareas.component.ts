@@ -17,6 +17,8 @@ import {Usuario} from '../models/usuario';
 })
 export class TareasComponent implements OnInit {
   @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
+  @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
+  @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
 
   /** Para Modal de crear nueva tarea **/
   titulo = '';
@@ -109,6 +111,7 @@ export class TareasComponent implements OnInit {
     }, err => {
       alert("usuario no encontrado");
     });
+    this.btnCloseMiembro.nativeElement.click();
 
   }
 
@@ -122,6 +125,7 @@ export class TareasComponent implements OnInit {
   agregarRol() {
     const idPr = this.activatedRoute.snapshot.params.id;
     this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
+    this.btnCloseRol.nativeElement.click()
   }
 
   expandirFormulario(){
