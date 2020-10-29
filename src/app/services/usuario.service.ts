@@ -104,7 +104,8 @@ export class UsuarioService {
       email: email,
       password: password
       },{headers: this.headers})
-  	.pipe(map(data => data )).toPromise();
+  	.pipe(map(data => data )).toPromise().then(response => response)
+    .catch(() => Promise.reject('invalid'));;
   }
 
   agregarProyecto(p){

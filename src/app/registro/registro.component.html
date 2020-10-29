@@ -6,10 +6,16 @@
       <div class="col-12 user-img">
         <img src="https://waycomputer.com.ar/SYS/WAY/img/avatares/a3.png">
       </div>
-      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onRegistrar()">
+      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onRegistrar(formRegistrar)">
 
 
-
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid">
+          Debes completar todos los campos
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="isError">
+          El usuario o el correo ya esta siendo utilizado
+        </div>
+        
         <div class="form-group" id="user-group">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -31,13 +37,11 @@
         <div class="form-group" id="email-group">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon3"> <i class="fa fa-envelope" aria-hidden="true"></i></span>
+              <span class="input-group-text" id="basic-addon3"> <i class="fa fa-envelope" style="font-size: 15px; " aria-hidden="true"></i></span>
             </div>
             <input type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="user.email" required>
           </div>
         </div>
-
-
         <div class="form-group" id="contrasena-group">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -47,7 +51,7 @@
           </div>
         </div>
         <button type="submit" class="btn btn-lg btn-dark btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</button>
-
+        <button type="button" routerLink="/login" class="btn btn-lg btn-dark btn-block"><i class="fa fa-arrow-left" aria-hidden="true"></i> Login</button>
         <br>
       </form>
     </div>
