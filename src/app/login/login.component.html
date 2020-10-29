@@ -6,13 +6,20 @@
       <div class="col-12 user-img">
         <img src="https://waycomputer.com.ar/SYS/WAY/img/avatares/a3.png">
       </div>
-      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onIngresar()">
+      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onIngresar(formRegistrar)">
+        <div class="alert alert-danger" role="alert" *ngIf="isError">
+          Usuario y/o contraseña invalida!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid">
+          Debes completar los campos!
+        </div>
+
         <div class="form-group" id="user-group">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
             </div>
-            <input type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="user.username" required>
+            <input  type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="user.username" required>
           </div>
 
         </div>

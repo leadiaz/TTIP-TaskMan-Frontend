@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { Tarea } from '../models/tarea';
+import { error } from 'protractor';
 
 
 @Injectable({
@@ -39,10 +40,9 @@ export class UsuarioService {
 
   login(usernameOEmail: string, password: string){
 
-    return new Promise((resolve, reject) =>{
-      this.getLogginUser(usernameOEmail, password).then(
+    return this.getLogginUser(usernameOEmail, password).then(
         userData => {
-          resolve(userData);
+          // resolve(userData)
           this.usuario = new Usuario(userData.id,
                                     userData.usuario,
                                     userData.nombre,
@@ -54,28 +54,18 @@ export class UsuarioService {
           });
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
-          this.route.navigateByUrl('/home');
-        }).catch(err => {
-          alert(err.message)
-        }),
-        err => reject(err)});
-
+        })
   }
   getProyectosByUserID(id: number){
     return this._http.get<Proyecto[]>(this.url + '/proyectos/'+id).toPromise()
   }
   getLogginUser(usernameOEmail: string, password: string) {
-    try{
       const url_api = this.url+'/login';
       return this._http.post<Usuario>(url_api, {
         userOrEmail: usernameOEmail,
         password: password
-        },{headers: this.headers})
-      .pipe(map(data => data )).toPromise();
-    }catch(e){
-      throw new Error("Internal Server Error")
-    }
-
+        },{headers: this.headers}).toPromise().then(response => response)
+        .catch(() => Promise.reject('invalid'));
   }
 
   logout(){
@@ -114,7 +104,8 @@ export class UsuarioService {
       email: email,
       password: password
       },{headers: this.headers})
-  	.pipe(map(data => data )).toPromise();
+  	.pipe(map(data => data )).toPromise().then(response => response)
+    .catch(() => Promise.reject('invalid'));;
   }
 
   agregarProyecto(p){

@@ -5,6 +5,7 @@ body{
    overflow: hidden;
    background-attachment: fixed;
    background-position: center top;
+   
 }
 .modal-content{
   background-color: #3b4652;
@@ -26,14 +27,18 @@ body{
 
 .main-section{
   margin: 0 auto;
-  margin-top: 45%;
+  margin-top: 20%;
   padding: 0;
 }
 
-.form-group imput{
+.form-group input{
  height: 42px;
  font-size: 18;
  border: 0;
- padding-left: 54px;
- border-radius: 5px;
+ padding-left: 10px;
+ margin-left: 1px;
+}
+
+.input-group-text{
+  font-size: 22px;
 }
