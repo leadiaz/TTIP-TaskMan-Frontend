@@ -27,3 +27,13 @@ buttonNavbar{
      background-color: #41aea9;
        color: white;
   }
+
+  .Logo{
+    display: block;
+    /*position: fixed;*/
+    float: left;
+  }
+/*.button-links{
+  display: block;
+  margin: 0 auto;
+}*/
