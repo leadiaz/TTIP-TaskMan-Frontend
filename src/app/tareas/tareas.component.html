@@ -20,9 +20,11 @@
         <div class="row">
           <div class="col-md-3 mt-4" *ngFor="let tarea of proyectoActual.tareas ">
 
-            <div class="card  " >
-              <div class="card-body text-center">
+            <div class="card  text-center" >
+              <div class="card-header">
                 <h5 class="card-title">{{tarea.titulo}}</h5>
+              </div>
+              <div class="card-body ">
                 <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
                 <p class="card-text">{{tarea.descripcion}}</p>
