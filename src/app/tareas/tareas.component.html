@@ -5,7 +5,7 @@
       <div class="container">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <div class="col-md-4">
-            <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevaTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
+            <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevaTarea" data-testid="crearTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
           </div>
           <div class="col-md-4">
             <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoMiembro"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</button>
@@ -83,7 +83,7 @@
                     <label class="custom-radio-checkbox">
 
                       <!-- Input oculto -->
-                      <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">
+                      <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()" data-testid="checkTareaCompleja">
                       <!-- Imagen en sustitucion -->
                       <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
                       <!-- Texto -->
@@ -94,7 +94,7 @@
                     <!--<label for="TareaAvanzada">Tareas Complejas</label>
                     <input type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">-->
                   </div>
-                  <div id="tareaCompleja">
+                  <div id="tareaCompleja" data-testid="divTareaCOmpleja">
                     <div class="form-group ">
                       <label for="FechaEstimada">Fecha Estimada</label>
                       <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada"/>
