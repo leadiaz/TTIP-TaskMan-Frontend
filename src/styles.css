@@ -11,6 +11,11 @@
 
   }
 
+
+  .btn-outline-dark:hover {
+   background-color: #212121 !important
+  }
+
   .bg-dark{
   background-color: #212121 !important
   }
