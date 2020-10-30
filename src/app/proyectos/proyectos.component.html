@@ -1,86 +1,72 @@
 <body>
 <app-navbar-component></app-navbar-component>
-<div class="d-flex" id="wrapper">
-
-  <!-- Sidebar -->
-  <div class="bg-dark border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Start Bootstrap </div>
-    <div class="list-group list-group-flush" >
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/home" style=" color: white;">Mis Tareas</a>
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/proyectos" style=" color: white;">Proyectos </a>
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/perfilUsuario" style=" color: white;">Perfil de Usuario</a>
-    </div>
-  </div>
-  <!-- /#sidebar-wrapper -->
-
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modalNuevoProyecto">Crear Proyecto</button>
-        </div>
-      </div>
-      <h2 style="margin-top: 14px;">Mis Proyectos</h2>
-
-
-      <div class="row">
-        <div class="col-md-3 mt-4" *ngFor="let proyecto of proyectos ">
-
-          <div class="card d-flex  justify-content-center h-100" style=" box-shadow: 0px 0px 9px 4px grey;">
-            <div class="card-body ">
-              <h5 class="card-title ">{{proyecto.nombre}}</h5>
-            </div>
-            <div class="card-footer">
-
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button class="button buttonView"  (click)="view(proyecto.id)">View</button>
-                <button class="button buttonEliminar" mwlConfirmationPopover 
-                [popoverTitle]="popoverTitle"
-                [popoverMessage]="popoverMessage"
-                placement = "top" 
-                (confirm)="eliminar(proyecto.id)"
-                (cancel)="cancelClicked = true" >Eliminar</button>
-              </div>
+    <main role="main"  style="margin-top: 155px;">
+      <div class="container">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <button type="button" class=" btn btn-lg btn-outline-dark btn-block" data-toggle="modal" data-target="#modalNuevoProyecto">Crear Proyecto</button>
             </div>
           </div>
-        </div>
-      </div>
+          <h2 style="margin-top: 14px;">Mis Proyectos</h2>
 
 
-    </main>
-    <div class="modal fade" id="modalNuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Crear nuevo proyecto
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form name="formProyecto" #formProyecto="ngForm" (ngSubmit)="onCreate(formProyecto)">
+          <div class="row">
+            <div class="col-md-3 mt-4" *ngFor="let proyecto of proyectos ">
 
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="Proyecto">Nuevo Proyecto</label>
-                  <input type="text" id="nombreProyecto" name="name" class="form-control" placeholder="nombre" [(ngModel)]="proyecto">
+              <div class="card d-flex  justify-content-center h-100" >
+                <div class="card-body ">
+                  <h5 class="card-title ">{{proyecto.nombre}}</h5>
+                </div>
+                <div class="card-footer">
+
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="button buttonView"  (click)="view(proyecto.id)">View</button>
+                    <button class="button buttonEliminar" mwlConfirmationPopover
+                    [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage"
+                    placement = "top"
+                    (confirm)="eliminar(proyecto.id)"
+                    (cancel)="cancelClicked = true" >Eliminar</button>
+                  </div>
                 </div>
               </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
-              </div>
-            </form>
+            </div>
           </div>
 
+
+
+        <div class="modal fade" id="modalNuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Crear nuevo proyecto
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form name="formProyecto" #formProyecto="ngForm" (ngSubmit)="onCreate(formProyecto)">
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="Proyecto">Nuevo Proyecto</label>
+                      <input type="text" id="nombreProyecto" name="name" class="form-control" placeholder="nombre" [(ngModel)]="proyecto">
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
 
-  </div>
-</div>
 </body>

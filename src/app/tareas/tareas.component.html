@@ -1,234 +1,177 @@
 <body>
 <app-navbar-component></app-navbar-component>
-<div class="d-flex" id="wrapper">
 
-  <!-- Sidebar -->
-  <div class="bg-dark border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Start Bootstrap </div>
-    <div class="list-group list-group-flush" >
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/home" style=" color: white;">Mis Tareas</a>
-      <a href="#" class="list-group-item list-group-item-action bg-dark" routerLink="/proyectos" style=" color: white;">Proyectos </a>
-      <a href="#" class="list-group-item list-group-item-action bg-dark"  routerLink="/perfilUsuario" style=" color: white;">Perfil de Usuario</a>
-    </div>
-  </div>
-  <!-- /#sidebar-wrapper -->
-
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <main role="main" class="ml-sm-auto col-lg-11 " style="margin-top: 155px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevaTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoMiembro"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</button>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</button>
-        </div>
-
-      </div>
-      <!--<div *ngIf="tarea" class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{tarea.titulo}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-          <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
-          <p class="card-text">{{tarea.descripcion}}</p>
-          <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="terminar()">Terminar</button>
-          <button type="button" class="btn btn-dark" (click)="cancelar()">Cancelar</button>
-          <div class="dropdown"  >
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Asignar Tarea
-            </button>
-            <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro)">{{miembro.usuario}}</a>
-            </div>
+    <main role="main"  style="margin-top: 155px;">
+      <div class="container">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="col-md-4">
+            <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevaTarea"><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoMiembro"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class=" btn btn-lg btn-outline-dark btn-block" style="font-size: 15px; width: 60%;" data-toggle="modal" data-target="#modalNuevoRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</button>
           </div>
         </div>
-      </div>-->
 
+        <h2 class="" style="margin-top: 14px;">Mis Tareas</h2>
 
-      <h2 class="" style="margin-top: 14px;">Mis Tareas</h2>
+        <div class="row">
+          <div class="col-md-3 mt-4" *ngFor="let tarea of proyectoActual.tareas ">
 
-      <div class="row">
-        <div class="col-md-3 mt-4" *ngFor="let tarea of proyectoActual.tareas ">
+            <div class="card  " >
+              <div class="card-body text-center">
+                <h5 class="card-title">{{tarea.titulo}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
+                <p class="card-text">{{tarea.descripcion}}</p>
+              </div>
 
-          <div class="card  " style="box-shadow: 0px 0px 9px 4px grey;">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{tarea.titulo}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
-              <p class="card-text">{{tarea.descripcion}}</p>
-            </div>
-
-            <div class="card-footer">
-              <!--<button type="button" class="button buttonView" (click)="view(tarea.id)">View</button>-->
-              <div class="row">
-                <div class="dropdown" >
-                  <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;">
-                    Asignar Tarea
-                  </button>
-                  <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro)">{{miembro.usuario}}</a>
+              <div class="card-footer">
+                <!--<button type="button" class="button buttonView" (click)="view(tarea.id)">View</button>-->
+                <div class="row">
+                  <div class="dropdown" >
+                    <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;">
+                      Asignar Tarea
+                    </button>
+                    <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
+                    </div>
                   </div>
+                  <button class="button buttonEliminar"
+                          mwlConfirmationPopover
+                          [popoverTitle]="popoverTitle"
+                          [popoverMessage]="popoverMessage"
+                          placement = "top"
+                          (confirm)="eliminar(tarea.id)"
+                          (cancel)="cancelClicked = true"
+                          style="margin-left: 5px; font-size: 15px; ">Delete</button>
                 </div>
-                <button class="button buttonEliminar" 
-                  mwlConfirmationPopover 
-                  [popoverTitle]="popoverTitle"
-                  [popoverMessage]="popoverMessage"
-                  placement = "top" 
-                  (confirm)="eliminar(tarea.id)" 
-                  (cancel)="cancelClicked = true"
-                  style="margin-left: 5px; font-size: 15px; ">Delete</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modalNuevaTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Nueva Tarea
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form name="formNuevaTarea" #formNuevaTarea="ngForm" (ngSubmit)="onCreate(formNuevaTarea)">
+
+                  <div class="form-group ">
+                    <label for="Titulo">Titulo</label>
+                    <input type="text" id="titulo" name="name" class="form-control" placeholder="titulo" [(ngModel)]="titulo">
+                  </div>
+                  <div class="form-group ">
+                    <label for="Descripcion">Descripcion</label>
+                    <textarea type="textarea" id="descripcion" name="name" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="custom-radio-checkbox">
+
+                      <!-- Input oculto -->
+                      <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">
+                      <!-- Imagen en sustitucion -->
+                      <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
+                      <!-- Texto -->
+                      <span class="custom-radio-checkbox__text">Tareas Complejas</span>
+
+                    </label>
+
+                    <!--<label for="TareaAvanzada">Tareas Complejas</label>
+                    <input type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">-->
+                  </div>
+                  <div id="tareaCompleja">
+                    <div class="form-group ">
+                      <label for="FechaEstimada">Fecha Estimada</label>
+                      <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada"/>
+                    </div>
+                    <div class="form-group">
+                      <select  class="mdb-select md-form" name="miselect" [(ngModel)]="seleccionado" >
+                        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+                      </select>
+                      <label   style="margin-left: .5rem;">Prioridad </label>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Guardar Tarea</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modalNuevoMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Agregar Usuario Proyecto
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form name="formNuevoMiembro" #formNuevoMiembro="ngForm" (ngSubmit)="agregarMiembro(formNuevoMiembro)">
+
+                  <div class="form-group ">
+                    <label for="Usuario">Usuario</label>
+                    <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #btnCloseMiembro data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modalNuevoRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Agregar rol a Proyecto
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form name="formNuevoRol" #formNuevoRol="ngForm" (ngSubmit)="agregarRol()">
+
+                  <div class="form-group ">
+                    <label for="Rol">Rol</label>
+                    <input type="text" id="rol" name="name" class="form-control" placeholder="rol" [(ngModel)]="rol">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #btnCloseRol data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                  </div>
+                </form>
               </div>
 
             </div>
           </div>
         </div>
       </div>
-
-      <!--<div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-          </tr>
-          </thead>
-          <tbody *ngIf="proyectoActual" >
-          <tr *ngFor="let tarea of proyectoActual.tareas; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{tarea.titulo}}</td>
-            <td>{{tarea.descripcion}}</td>
-            <td><button type="button" class="btn btn-primary" (click)="view(tarea.id)">View</button></td>
-            <td><button type="button" class="btn btn-danger" (click)="eliminar(tarea.id)">Delete</button></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>-->
     </main>
-
-    <div class="modal fade" id="modalNuevaTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Nueva Tarea
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form name="formNuevaTarea" #formNuevaTarea="ngForm" (ngSubmit)="onCreate(formNuevaTarea)">
-
-              <div class="form-group ">
-                <label for="Titulo">Titulo</label>
-                <input type="text" id="titulo" name="name" class="form-control" placeholder="titulo" [(ngModel)]="titulo">
-              </div>
-              <div class="form-group ">
-                <label for="Descripcion">Descripcion</label>
-                <textarea type="textarea" id="descripcion" name="name" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="custom-radio-checkbox">
-
-                  <!-- Input oculto -->
-                  <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">
-                  <!-- Imagen en sustitucion -->
-                  <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
-                  <!-- Texto -->
-                  <span class="custom-radio-checkbox__text">Tareas Complejas</span>
-
-                </label>
-
-                <!--<label for="TareaAvanzada">Tareas Complejas</label>
-                <input type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">-->
-              </div>
-              <div id="tareaCompleja">
-                <div class="form-group ">
-                  <label for="FechaEstimada">Fecha Estimada</label>
-                  <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada"/>
-                </div>
-                <div class="form-group">
-                  <select  class="mdb-select md-form" name="miselect" [(ngModel)]="seleccionado" >
-                    <option [value]="item" *ngFor="let item of lista">{{item}}</option>
-                  </select>
-                  <label   style="margin-left: .5rem;">Prioridad </label>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Guardar Tarea</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modalNuevoMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Agregar Usuario Proyecto
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form name="formNuevoMiembro" #formNuevoMiembro="ngForm" (ngSubmit)="agregarMiembro(formNuevoMiembro)">
-
-              <div class="form-group ">
-                <label for="Usuario">Usuario</label>
-                <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnCloseMiembro data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modalNuevoRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Agregar rol a Proyecto
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form name="formNuevoRol" #formNuevoRol="ngForm" (ngSubmit)="agregarRol()">
-
-              <div class="form-group ">
-                <label for="Rol">Rol</label>
-                <input type="text" id="rol" name="name" class="form-control" placeholder="rol" [(ngModel)]="rol">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" #btnCloseRol data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 
 

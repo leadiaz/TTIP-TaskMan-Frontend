@@ -76,9 +76,9 @@ export class TareasComponent implements OnInit {
 
   onCreate() {
     if(this.fechaEstimada && this.seleccionado != ''){
-      this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
+      this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
     }else{
-      this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))  
+      this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
     }
     this.btnClose.nativeElement.click();
     this.limpiarCampos();
@@ -98,7 +98,8 @@ export class TareasComponent implements OnInit {
 
   }
 
-  asignarUsuario(usuario) {
+  asignarUsuario(usuario,id) {
+    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
     this.tarea.asignado = usuario;
     this.tareaService.update(this.tarea)
   }
@@ -135,7 +136,7 @@ export class TareasComponent implements OnInit {
     }else{
       document.getElementById('tareaCompleja').style.display = 'none'
     }
-    
+
   }
   private convertToNumberPrioridad(prioridad){
     switch (prioridad){
@@ -149,7 +150,7 @@ export class TareasComponent implements OnInit {
         return 2;
         break
     }
-      
+
 
   }
 }
