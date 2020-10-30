@@ -7,34 +7,46 @@
   </form>
 </nav>-->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
   <div class="container">
-    <a class="navbar-brand" href="#">Task-man</a>
+    <div class="Logo">
+      <a class="navbar-brand" href="#">Task-man</a>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!--  col-auto empieza -->
-    <div class="col-auto">
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <div class="button-links" style="text-align: center">
+      <div class="col-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item ">
-            <a class="nav-link" href="#" routerLink="/home">Mis tareas </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/proyectos" >Proyectos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/perfilUsuario" >Perfil de Usuario</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="button buttonNavbar" type="submit">Search</button>
-          <button class="button buttonNavbar" (click)="logout()" > Log out</button>
-        </form>
+            <li class="nav-item ">
+              <a class="nav-link" href="#" routerLink="/home">Mis tareas </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" routerLink="/proyectos" >Proyectos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" routerLink="/perfilUsuario" >Perfil de Usuario</a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="button buttonNavbar" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: right;">
+      <button class="button buttonNavbar"  (click)="logout()" > Log out</button>
     </div>
     <!--  col-auto termina -->
   </div>

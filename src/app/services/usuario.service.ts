@@ -105,7 +105,7 @@ export class UsuarioService {
       password: password
       },{headers: this.headers})
   	.pipe(map(data => data )).toPromise().then(response => response)
-    .catch(() => Promise.reject('invalid'));;
+    .catch(() => Promise.reject('invalid'));
   }
 
   agregarProyecto(p){
@@ -123,7 +123,8 @@ export class UsuarioService {
     apellido: userData.apellido,
     email: userData.email,
     password: userData.password
-    }, {headers: this.headers}).toPromise()
+    }, {headers: this.headers}).toPromise().then(response => response)
+     .catch(() => Promise.reject('invalid'));
    }
 
   update(usuario: Usuario){
