@@ -13,7 +13,7 @@ export class Proyecto{
 		return Object.assign(new Proyecto(), proyectoJson, {roles: this.mapRoles(proyectoJson.rols), tareas: this.mapTareas(proyectoJson.tareas)})
 	}
 	static mapTareas(tareas: Array<any>): Tarea[] {
-		return tareas.map(tarea => Tarea.fromJSON(tarea))
+		return tareas.map(tarea => Tarea.fromJSON(tarea)).sort((t1,t2) => t1.prioridad - t2.prioridad)
 	}
 	static mapRoles(roles: Array<any>): Rol[] {
 		return roles.map(rol => Rol.fromJson(rol))
