@@ -21,6 +21,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { NavbarComponentComponent } from './navbar-component/navbar-component.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ModalNuevaTareaComponent } from './modal-nueva-tarea/modal-nueva-tarea.component';
+import { ModalAsignarUsuarioComponent } from './modal-asignar-usuario/modal-asignar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     RegistroComponent,
     BuscarUsuarioComponent,
     PerfilUsuarioComponent,
-    NavbarComponentComponent
+    NavbarComponentComponent,
+    ModalNuevaTareaComponent,
+    ModalAsignarUsuarioComponent
   ],
   imports: [
     BrowserModule,

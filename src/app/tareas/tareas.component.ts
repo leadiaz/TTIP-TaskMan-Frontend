@@ -21,9 +21,9 @@ export class TareasComponent implements OnInit {
   @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
 
   /** Para Modal de crear nueva tarea **/
-  titulo = '';
+  /*titulo = '';
   descripcion = '';
-
+*/
   rol = '';
 
   tarea: Tarea;
@@ -35,9 +35,9 @@ export class TareasComponent implements OnInit {
   rolesDelProyecto: Rol[];
   miembros: Set<Usuario>;
   isCheck = false;
-  fechaEstimada:Date;
-  lista:string[]=["Baja","Media","Alta"];
-  seleccionado:string='';
+  //fechaEstimada:Date;
+  //lista:string[]=["Baja","Media","Alta"];
+  //seleccionado:string='';
 
   isError: boolean = false;
 
@@ -63,11 +63,6 @@ export class TareasComponent implements OnInit {
 
   }
 
-  view(id) {
-    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
-  }
-
-
   actualizarMiembrosDelProyecto(){
   this.rolesDelProyecto.forEach(rol => {
             if (rol.usuarioAsignado) {
@@ -75,26 +70,11 @@ export class TareasComponent implements OnInit {
             }
           })
   }
-  onCreate() {
-    if(this.fechaEstimada && this.seleccionado != ''){
-      this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
-    }else{
-      this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
-    }
-    this.btnClose.nativeElement.click();
-    this.limpiarCampos();
-  }
-  limpiarCampos() {
-    this.titulo = '';
-    this.descripcion = '';
-    this.rol = '';
-    this.usuario = '';
-  }
 
   eliminar(id) {
-    const idPr = this.proyectoActual.id;
+    const idPr = this.proyectoService.proyectoActual.id;
     this.tareaService.delete(idPr, id).then(() => {
-      this.proyectoActual.tareas = this.proyectoActual.tareas.filter(tarea => tarea.id != id)
+      this.proyectoService.proyectoActual.tareas = this.proyectoService.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
   }
@@ -106,7 +86,7 @@ export class TareasComponent implements OnInit {
   }
 
   agregarMiembro() {
-    let response = this.proyectoService.modificarProyecto(this.proyectoActual,this.usuario)
+    let response = this.proyectoService.modificarProyecto( this.proyectoService.proyectoActual,this.usuario)
     response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
                                 this.rolesDelProyecto = proyectoActualizado.roles
                                 this.miembros = this.obtenerMiembrosDeUnProyecto(proyectoActualizado);
@@ -142,28 +122,4 @@ export class TareasComponent implements OnInit {
     this.btnCloseRol.nativeElement.click()
   }
 
-  expandirFormulario(){
-    this.isCheck = !this.isCheck
-    if(this.isCheck){
-      document.getElementById('tareaCompleja').style.display = 'block'
-    }else{
-      document.getElementById('tareaCompleja').style.display = 'none'
-    }
-
-  }
-  private convertToNumberPrioridad(prioridad){
-    switch (prioridad){
-      case 'Baja':
-        return 0
-        break
-      case 'Media':
-        return 1;
-        break;
-      case 'Alta':
-        return 2;
-        break
-    }
-
-
-  }
 }

@@ -24,6 +24,7 @@ export class ProyectoService {
 
   tareas;
   proyecto;
+  proyectoActual : Proyecto;
 
   constructor(private usuarioService: UsuarioService,public _http:HttpClient) {
   	this.url_api= URL_SERVICIOS;
@@ -33,7 +34,11 @@ export class ProyectoService {
 		});
 
   getProyecto(id:number){
-    const proyecto =  this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`);
+    const proyecto =  this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`)
+        proyecto.subscribe(data => {
+                     this.proyectoActual = Proyecto.fromJson(data);
+
+          });
     return proyecto
   }
 
