@@ -16,8 +16,6 @@ import {Usuario} from '../models/usuario';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
-  @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
-  rol = '';
 
   tarea: Tarea;
   usuario = '';
@@ -25,8 +23,6 @@ export class TareasComponent implements OnInit {
   consulta: string = '';
   usuarioEncontrado;
   proyectoActual: Proyecto;
-  rolesDelProyecto: Rol[];
-  miembros: Set<Usuario>;
   isCheck = false;
 
   isError: boolean = false;
@@ -40,7 +36,6 @@ export class TareasComponent implements OnInit {
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService,
               private activatedRoute: ActivatedRoute) {
-    this.miembros = new Set()
   }
 
   async ngOnInit() {
@@ -71,10 +66,6 @@ export class TareasComponent implements OnInit {
     console.log(tar);
   }
 
-  agregarRol() {
-    const idPr = this.activatedRoute.snapshot.params.id;
-    this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
-    this.btnCloseRol.nativeElement.click()
-  }
+
 
 }

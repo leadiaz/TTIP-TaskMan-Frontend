@@ -23,6 +23,7 @@ import { NavbarComponentComponent } from './navbar-component/navbar-component.co
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ModalNuevaTareaComponent } from './modal-nueva-tarea/modal-nueva-tarea.component';
 import { ModalAsignarUsuarioComponent } from './modal-asignar-usuario/modal-asignar-usuario.component';
+import { ModalAgregarRolComponent } from './modal-agregar-rol/modal-agregar-rol.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ModalAsignarUsuarioComponent } from './modal-asignar-usuario/modal-asig
     PerfilUsuarioComponent,
     NavbarComponentComponent,
     ModalNuevaTareaComponent,
-    ModalAsignarUsuarioComponent
+    ModalAsignarUsuarioComponent,
+    ModalAgregarRolComponent
   ],
   imports: [
     BrowserModule,
