@@ -25,9 +25,12 @@ export class ProyectoService {
   tareas;
   proyecto;
   proyectoActual : Proyecto;
+  rolesDelProyecto: Rol[];
+  miembros: Set<Usuario>;
 
   constructor(private usuarioService: UsuarioService,public _http:HttpClient) {
   	this.url_api= URL_SERVICIOS;
+  	this.miembros = new Set();
   }
   	headers: HttpHeaders = new HttpHeaders({
 		"Content-Type": "application/json"
@@ -37,10 +40,29 @@ export class ProyectoService {
     const proyecto =  this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`)
         proyecto.subscribe(data => {
                      this.proyectoActual = Proyecto.fromJson(data);
-
+                     this.rolesDelProyecto = this.proyectoActual.roles
+                     this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
           });
     return proyecto
   }
+
+  actualizarMiembrosDelProyecto(){
+    this.rolesDelProyecto.forEach(rol => {
+              if (rol.usuarioAsignado) {
+                this.miembros.add(rol.usuarioAsignado)
+              }
+            })
+    }
+
+    public obtenerMiembrosDeUnProyecto( proyecto: Proyecto){
+      let miembrosProyect: Set<Usuario>  = new Set();
+      proyecto.roles.forEach(rol => {
+                  if (rol.usuarioAsignado) {
+                    miembrosProyect.add(rol.usuarioAsignado)
+                  }
+                })
+       return miembrosProyect;
+      }
 
   crearProyecto(nombre: string){
     console.log(nombre)

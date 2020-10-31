@@ -16,14 +16,7 @@ import {Usuario} from '../models/usuario';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
-  @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
   @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
-  @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
-
-  /** Para Modal de crear nueva tarea **/
-  /*titulo = '';
-  descripcion = '';
-*/
   rol = '';
 
   tarea: Tarea;
@@ -35,9 +28,6 @@ export class TareasComponent implements OnInit {
   rolesDelProyecto: Rol[];
   miembros: Set<Usuario>;
   isCheck = false;
-  //fechaEstimada:Date;
-  //lista:string[]=["Baja","Media","Alta"];
-  //seleccionado:string='';
 
   isError: boolean = false;
 
@@ -55,21 +45,8 @@ export class TareasComponent implements OnInit {
 
   async ngOnInit() {
     await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
-      .subscribe(data => {
-        this.proyectoActual = Proyecto.fromJson(data);
-        this.rolesDelProyecto = this.proyectoActual.roles
-        this.actualizarMiembrosDelProyecto();
-      })
-
   }
 
-  actualizarMiembrosDelProyecto(){
-  this.rolesDelProyecto.forEach(rol => {
-            if (rol.usuarioAsignado) {
-              this.miembros.add(rol.usuarioAsignado)
-            }
-          })
-  }
 
   eliminar(id) {
     const idPr = this.proyectoService.proyectoActual.id;
@@ -80,34 +57,12 @@ export class TareasComponent implements OnInit {
   }
 
   asignarUsuario(usuario,id) {
-    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
+    this.tarea = this.proyectoService.proyectoActual.tareas.find(t => t.id === id)
     this.tarea.asignado = usuario;
     this.tareaService.update(this.tarea)
   }
 
-  agregarMiembro() {
-    let response = this.proyectoService.modificarProyecto( this.proyectoService.proyectoActual,this.usuario)
-    response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
-                                this.rolesDelProyecto = proyectoActualizado.roles
-                                this.miembros = this.obtenerMiembrosDeUnProyecto(proyectoActualizado);
-                                this.btnCloseMiembro.nativeElement.click();
-                                },
-                        err => {
-                                this.isError = true;
-                                setTimeout(() => this.isError = false, 4000)
 
-                            });
-  }
-
-  public obtenerMiembrosDeUnProyecto( proyecto: Proyecto){
-  let miembrosProyect: Set<Usuario>  = new Set();
-  proyecto.roles.forEach(rol => {
-              if (rol.usuarioAsignado) {
-                miembrosProyect.add(rol.usuarioAsignado)
-              }
-            })
-   return miembrosProyect;
-  }
 
   buscar() {
 

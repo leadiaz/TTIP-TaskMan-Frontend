@@ -38,7 +38,7 @@
                       Asignar Tarea
                     </button>
                     <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
+                      <a class="dropdown-item" *ngFor="let miembro of proyectoService.miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
                     </div>
                   </div>
                   <button class="button buttonEliminar"
@@ -58,38 +58,8 @@
 
         <app-modal-nueva-tarea></app-modal-nueva-tarea>
 
-        <div class="modal fade" id="modalNuevoMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Agregar usuario a un proyecto
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-danger" role="alert" *ngIf="isError">
-                 No existe Usuario con ese nombre o email.
-                </div>
+        <app-modal-asignar-usuario></app-modal-asignar-usuario>
 
-                <form name="formNuevoMiembro" #formNuevoMiembro="ngForm" (ngSubmit)="agregarMiembro(formNuevoMiembro)">
-
-                  <div class="form-group ">
-                    <label for="Usuario"> Nombre o Emal del Usuario</label>
-                    <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" #btnCloseMiembro data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
         <div class="modal fade" id="modalNuevoRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

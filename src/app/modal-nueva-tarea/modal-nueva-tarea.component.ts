@@ -12,8 +12,6 @@ import {TareaService} from '../services/tarea.service';
 })
 export class ModalNuevaTareaComponent implements OnInit {
   @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
-  @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
-  @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
 
   /** Para Modal de crear nueva tarea **/
   titulo = '';
