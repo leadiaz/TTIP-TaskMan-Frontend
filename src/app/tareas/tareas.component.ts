@@ -55,12 +55,7 @@ export class TareasComponent implements OnInit {
     await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
       .subscribe(data => {
         this.proyectoActual = Proyecto.fromJson(data);
-        this.rolesDelProyecto = this.proyectoActual.roles
-        // this.miembros = new Set(this.rolesDelProyecto.map(rol => {
-        //   if(rol.usuarioAsignado){
-        //     return rol.usuarioAsignado
-        //   }
-        // }))
+        this.rolesDelProyecto = this.proyectoActual.roles;
         this.rolesDelProyecto.forEach(rol => {
           if (rol.usuarioAsignado) {
             this.miembros.add(rol.usuarioAsignado)
