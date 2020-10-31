@@ -51,12 +51,17 @@ export class TareasComponent implements OnInit {
 
   }
 
-  asignarUsuario(usuario,id) {
+  asignarUsuario(usuario, id) {
     this.tarea = this.proyectoService.proyectoActual.tareas.find(t => t.id === id)
     this.tarea.asignado = usuario;
-    this.tareaService.update(this.tarea)
+    this.tarea.estado = 'En proceso';
+    this.tareaService.update(this.tarea).then(()=>{
+      this.proyectoService.getProyecto(this.proyectoService.proyectoActual.id)
+        .subscribe((data) => {
+          this.proyectoService.proyectoActual = Proyecto.fromJson(data)
+        })
+    })
   }
-
 
 
   buscar() {
@@ -65,7 +70,4 @@ export class TareasComponent implements OnInit {
     this.proyectoActual.tareas = tar;
     console.log(tar);
   }
-
-
-
 }
