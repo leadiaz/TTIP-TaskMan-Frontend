@@ -24,11 +24,11 @@ export class BuscarUsuarioComponent implements OnInit {
     }, err => {
       alert("usuario no encontrado");
     });
-    
+
   }
-  agregarAProyecto(){
+  /*agregarAProyecto(){
     console.log(this.usuarioEncontrado)
     this.proyectoService.agregarMiembro(this.usuarioEncontrado)
 
-  }
+  }*/
 }

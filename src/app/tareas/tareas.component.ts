@@ -16,15 +16,6 @@ import {Usuario} from '../models/usuario';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
-  @ViewChild('btnClose',{static: false}) btnClose: ElementRef;
-  @ViewChild('btnCloseRol',{static: false}) btnCloseRol: ElementRef;
-  @ViewChild('btnCloseMiembro',{static: false}) btnCloseMiembro: ElementRef;
-
-  /** Para Modal de crear nueva tarea **/
-  titulo = '';
-  descripcion = '';
-
-  rol = '';
 
   tarea: Tarea;
   usuario = '';
@@ -32,12 +23,9 @@ export class TareasComponent implements OnInit {
   consulta: string = '';
   usuarioEncontrado;
   proyectoActual: Proyecto;
-  rolesDelProyecto: Rol[];
-  miembros: Set<Usuario>;
   isCheck = false;
-  fechaEstimada:Date;
-  lista:string[]=["Baja","Media","Alta"];
-  seleccionado:string='';
+
+  isError: boolean = false;
 
   /**PopUp */
   public popoverTitle: string = 'Eliminar Tarea'
@@ -48,68 +36,28 @@ export class TareasComponent implements OnInit {
               private proyectoService: ProyectoService,
               private usuarioService: UsuarioService,
               private activatedRoute: ActivatedRoute) {
-    this.miembros = new Set()
   }
 
   async ngOnInit() {
     await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
-      .subscribe(data => {
-        this.proyectoActual = Proyecto.fromJson(data);
-        this.rolesDelProyecto = this.proyectoActual.roles;
-        this.rolesDelProyecto.forEach(rol => {
-          if (rol.usuarioAsignado) {
-            this.miembros.add(rol.usuarioAsignado)
-          }
-        })
-      })
-
   }
 
-  view(id) {
-    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
-  }
-
-  onCreate() {
-    if(this.fechaEstimada && this.seleccionado != ''){
-      this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
-    }else{
-      this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
-    }
-    this.btnClose.nativeElement.click();
-    this.limpiarCampos();
-  }
-  limpiarCampos() {
-    this.titulo = '';
-    this.descripcion = '';
-    this.rol = '';
-    this.usuario = '';
-  }
 
   eliminar(id) {
-    const idPr = this.proyectoActual.id;
+    const idPr = this.proyectoService.proyectoActual.id;
     this.tareaService.delete(idPr, id).then(() => {
-      this.proyectoActual.tareas = this.proyectoActual.tareas.filter(tarea => tarea.id != id)
+      this.proyectoService.proyectoActual.tareas = this.proyectoService.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
   }
 
   asignarUsuario(usuario,id) {
-    this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
+    this.tarea = this.proyectoService.proyectoActual.tareas.find(t => t.id === id)
     this.tarea.asignado = usuario;
     this.tareaService.update(this.tarea)
   }
 
-  agregarMiembro() {
-    this.usuarioService.getUserByUsername(this.usuario).//cambiar busqueda por email
-    subscribe(data => {
-      this.proyectoActual.roles.push(data);
-      this.proyectoService.modificarProyecto(this.proyectoActual)
-    }, err => {
-      alert("usuario no encontrado");
-    });
-    this.btnCloseMiembro.nativeElement.click();
 
-  }
 
   buscar() {
 
@@ -118,34 +66,6 @@ export class TareasComponent implements OnInit {
     console.log(tar);
   }
 
-  agregarRol() {
-    const idPr = this.activatedRoute.snapshot.params.id;
-    this.proyectoService.agregarRol(this.rol, idPr).then(data => this.proyectoActual = Proyecto.fromJson(data))
-    this.btnCloseRol.nativeElement.click()
-  }
-
-  expandirFormulario(){
-    this.isCheck = !this.isCheck
-    if(this.isCheck){
-      document.getElementById('tareaCompleja').style.display = 'block'
-    }else{
-      document.getElementById('tareaCompleja').style.display = 'none'
-    }
-
-  }
-  private convertToNumberPrioridad(prioridad){
-    switch (prioridad){
-      case 'Baja':
-        return 0
-        break
-      case 'Media':
-        return 1;
-        break;
-      case 'Alta':
-        return 2;
-        break
-    }
 
 
-  }
 }

@@ -18,7 +18,7 @@
         <h2 class="" style="margin-top: 14px;">Mis Tareas</h2>
 
         <div class="row">
-          <div class="col-md-3 mt-4" *ngFor="let tarea of proyectoActual.tareas ">
+          <div class="col-md-3 mt-4" *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
 
             <div class="card  text-center" >
               <div class="card-header">
@@ -39,7 +39,7 @@
                       Asignar Tarea
                     </button>
                     <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" *ngFor="let miembro of miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
+                      <a class="dropdown-item" *ngFor="let miembro of proyectoService.miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
                     </div>
                   </div>
                   <button class="button buttonEliminar"
@@ -57,122 +57,11 @@
           </div>
         </div>
 
-        <div class="modal fade" id="modalNuevaTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Nueva Tarea
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form name="formNuevaTarea" #formNuevaTarea="ngForm" (ngSubmit)="onCreate(formNuevaTarea)">
+        <app-modal-nueva-tarea></app-modal-nueva-tarea>
 
-                  <div class="form-group ">
-                    <label for="Titulo">Titulo</label>
-                    <input type="text" id="titulo" name="name" class="form-control" placeholder="titulo" [(ngModel)]="titulo">
-                  </div>
-                  <div class="form-group ">
-                    <label for="Descripcion">Descripcion</label>
-                    <textarea type="textarea" id="descripcion" name="name" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label class="custom-radio-checkbox">
+        <app-modal-asignar-usuario></app-modal-asignar-usuario>
 
-                      <!-- Input oculto -->
-                      <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()" data-testid="checkTareaCompleja">
-                      <!-- Imagen en sustitucion -->
-                      <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
-                      <!-- Texto -->
-                      <span class="custom-radio-checkbox__text">Tareas Complejas</span>
-
-                    </label>
-
-                    <!--<label for="TareaAvanzada">Tareas Complejas</label>
-                    <input type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">-->
-                  </div>
-                  <div id="tareaCompleja" data-testid="divTareaCOmpleja">
-                    <div class="form-group ">
-                      <label for="FechaEstimada">Fecha Estimada</label>
-                      <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada"/>
-                    </div>
-                    <div class="form-group">
-                      <select  class="mdb-select md-form" name="miselect" [(ngModel)]="seleccionado" >
-                        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
-                      </select>
-                      <label   style="margin-left: .5rem;">Prioridad </label>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Guardar Tarea</button>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="modalNuevoMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Agregar Usuario Proyecto
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form name="formNuevoMiembro" #formNuevoMiembro="ngForm" (ngSubmit)="agregarMiembro(formNuevoMiembro)">
-
-                  <div class="form-group ">
-                    <label for="Usuario">Usuario</label>
-                    <input type="text" id="usuario" name="name" class="form-control" placeholder="usuario" [(ngModel)]="usuario">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" #btnCloseMiembro data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="modalNuevoRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Agregar rol a Proyecto
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form name="formNuevoRol" #formNuevoRol="ngForm" (ngSubmit)="agregarRol()">
-
-                  <div class="form-group ">
-                    <label for="Rol">Rol</label>
-                    <input type="text" id="rol" name="name" class="form-control" placeholder="rol" [(ngModel)]="rol">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" #btnCloseRol data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
+        <app-modal-agregar-rol></app-modal-agregar-rol>
       </div>
     </main>
 </body>
