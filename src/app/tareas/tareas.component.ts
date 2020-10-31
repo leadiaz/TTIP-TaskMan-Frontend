@@ -39,6 +39,8 @@ export class TareasComponent implements OnInit {
   lista:string[]=["Baja","Media","Alta"];
   seleccionado:string='';
 
+  isError: boolean = false;
+
   /**PopUp */
   public popoverTitle: string = 'Eliminar Tarea'
   public popoverMessage: string = '¿Esta seguro que desea eliminar esta tarea?'
@@ -56,16 +58,7 @@ export class TareasComponent implements OnInit {
       .subscribe(data => {
         this.proyectoActual = Proyecto.fromJson(data);
         this.rolesDelProyecto = this.proyectoActual.roles
-        // this.miembros = new Set(this.rolesDelProyecto.map(rol => {
-        //   if(rol.usuarioAsignado){
-        //     return rol.usuarioAsignado
-        //   }
-        // }))
-        this.rolesDelProyecto.forEach(rol => {
-          if (rol.usuarioAsignado) {
-            this.miembros.add(rol.usuarioAsignado)
-          }
-        })
+        this.actualizarMiembrosDelProyecto();
       })
 
   }
@@ -74,6 +67,14 @@ export class TareasComponent implements OnInit {
     this.tarea = this.proyectoActual.tareas.find(t => t.id === id)
   }
 
+
+  actualizarMiembrosDelProyecto(){
+  this.rolesDelProyecto.forEach(rol => {
+            if (rol.usuarioAsignado) {
+              this.miembros.add(rol.usuarioAsignado)
+            }
+          })
+  }
   onCreate() {
     if(this.fechaEstimada && this.seleccionado != ''){
       this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoActual.tareas.push(data))
@@ -105,15 +106,27 @@ export class TareasComponent implements OnInit {
   }
 
   agregarMiembro() {
-    this.usuarioService.getUserByUsername(this.usuario).//cambiar busqueda por email
-    subscribe(data => {
-      this.proyectoActual.roles.push(data);
-      this.proyectoService.modificarProyecto(this.proyectoActual)
-    }, err => {
-      alert("usuario no encontrado");
-    });
-    this.btnCloseMiembro.nativeElement.click();
+    let response = this.proyectoService.modificarProyecto(this.proyectoActual,this.usuario)
+    response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
+                                this.rolesDelProyecto = proyectoActualizado.roles
+                                this.miembros = this.obtenerMiembrosDeUnProyecto(proyectoActualizado);
+                                this.btnCloseMiembro.nativeElement.click();
+                                },
+                        err => {
+                                this.isError = true;
+                                setTimeout(() => this.isError = false, 4000)
 
+                            });
+  }
+
+  public obtenerMiembrosDeUnProyecto( proyecto: Proyecto){
+  let miembrosProyect: Set<Usuario>  = new Set();
+  proyecto.roles.forEach(rol => {
+              if (rol.usuarioAsignado) {
+                miembrosProyect.add(rol.usuarioAsignado)
+              }
+            })
+   return miembrosProyect;
   }
 
   buscar() {
