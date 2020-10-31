@@ -50,8 +50,34 @@ export class TareaService {
     return t
   }
   update(tarea){
-    const task =this._http.put(this.url_api+'/tarea', tarea,{headers: this.headers}).toPromise()
+    const type = tarea.prioridad ? 'TareaCompleja' : 'TareaSimple';
+    const task =this._http.put(this.url_api+'/tarea',
+      {
+        id: tarea.id,
+        titulo: tarea.titulo,
+        descripcion: tarea.descripcion,
+        fecha_creacion: tarea.fecha_creacion,
+        fecha_estimada: tarea.fecha_estimada,
+        prioridad: tarea.prioridad,
+        estado: this.convertirEstado(tarea.estado),
+        asignado: tarea.asignado,
+        type: type
+    },{headers: this.headers}).toPromise();
     return task
+  }
+  convertirEstado(estado){
+    switch (estado) {
+      case 'Cancelada':
+        return 0;
+      case 'Terminada':
+        return 1;
+      case 'Creada':
+        return 2;
+      case 'En proceso':
+        return 3;
+      case 'Critica':
+        return 4;
+    }
   }
   async delete(idPr: number, id : number){
     const url =  this.url_api+`/tarea/${idPr}/${id}`;

@@ -32,10 +32,15 @@ export class ModalNuevaTareaComponent implements OnInit {
 
 
  onCreate() {
+    console.log(this.fechaEstimada)
      if(this.fechaEstimada && this.seleccionado != ''){
-       this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id).subscribe(data =>  this.proyectoService.proyectoActual.tareas.push(data))
+       this.tareaService.crearTareaCompleja(this.titulo, this.descripcion,this.convertToNumberPrioridad(this.seleccionado),this.fechaEstimada, this.activatedRoute.snapshot.params.id)
+         .subscribe(() =>  this.proyectoService.getProyecto(this.proyectoService.proyectoActual.id)
+           .subscribe(data => this.proyectoService.proyectoActual = data))
      }else{
-       this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id).subscribe(data => this.proyectoService.proyectoActual.tareas.push(data))
+       this.tareaService.crearTarea(this.titulo, this.descripcion, this.activatedRoute.snapshot.params.id)
+         .subscribe(() =>  this.proyectoService.getProyecto(this.proyectoService.proyectoActual.id)
+           .subscribe(data => this.proyectoService.proyectoActual = data))
      }
      this.btnClose.nativeElement.click();
      this.limpiarCampos();

@@ -1,7 +1,7 @@
 <body>
 <app-navbar-component></app-navbar-component>
 
-    <main role="main"  style="margin-top: 155px;">
+    <main role="main"  style="margin-top: 45px;">
       <div class="container">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <div class="col-md-4">
@@ -23,11 +23,12 @@
             <div class="card  text-center" >
               <div class="card-header">
                 <h5 class="card-title">{{tarea.titulo}}</h5>
+                <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
               </div>
               <div class="card-body ">
-                <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
-                <p class="card-text">{{tarea.descripcion}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+                <span *ngIf="tarea.prioridad" class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
               </div>
 
               <div class="card-footer">
