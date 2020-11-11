@@ -40,7 +40,7 @@ export class ProyectoService {
     const proyecto =  this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`)
         proyecto.subscribe(data => {
                      this.proyectoActual = Proyecto.fromJson(data);
-                     this.rolesDelProyecto = this.proyectoActual.roles
+                     this.rolesDelProyecto = this.proyectoActual.rols
                      this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
           });
     return proyecto
@@ -56,7 +56,7 @@ export class ProyectoService {
 
     public obtenerMiembrosDeUnProyecto( proyecto: Proyecto){
       let miembrosProyect: Set<Usuario>  = new Set();
-      proyecto.roles.forEach(rol => {
+      proyecto.rols.forEach(rol => {
                   if (rol.usuarioAsignado) {
                     miembrosProyect.add(rol.usuarioAsignado)
                   }
@@ -78,6 +78,7 @@ export class ProyectoService {
     const url= this.url_api+'/proyecto/'+ usuarioNameEmail
     console.log(url)
     this.proyecto = proyecto;
+    console.log(this.proyecto)
     this.proyectoSubject.next(this.proyecto);
     console.log(this.proyecto)
     return  this._http.put(url, proyecto, {headers: this.headers}).pipe(map(data => data));
