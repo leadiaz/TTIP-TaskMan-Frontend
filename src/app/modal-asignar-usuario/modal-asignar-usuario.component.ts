@@ -26,7 +26,7 @@ export class ModalAsignarUsuarioComponent implements OnInit {
   agregarMiembro() {
     let response = this.proyectoService.modificarProyecto( this.proyectoService.proyectoActual,this.usuario)
     response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
-                                this.proyectoService.rolesDelProyecto = proyectoActualizado.roles
+                                this.proyectoService.rolesDelProyecto = proyectoActualizado.rols
                                 this.proyectoService.miembros = this.proyectoService.obtenerMiembrosDeUnProyecto(proyectoActualizado);
                                 this.btnCloseMiembro.nativeElement.click();
                                 },

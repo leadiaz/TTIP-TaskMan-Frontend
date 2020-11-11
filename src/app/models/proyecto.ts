@@ -6,7 +6,7 @@ export class Proyecto{
 	constructor(
 		public id?:number,
 		public nombre?: string,
-		public roles?: Array<Rol>,
+		public rols?: Array<Rol>,
 		public tareas?: Array<Tarea>
 	){}
 	static fromJson(proyectoJson): Proyecto {
