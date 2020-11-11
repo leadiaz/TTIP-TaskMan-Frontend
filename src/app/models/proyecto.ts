@@ -1,8 +1,8 @@
-import { Tarea } from './tarea';	
+import { Tarea } from './tarea';
 import { Rol } from './rol';
 
 export class Proyecto{
-  
+
 	constructor(
 		public id?:number,
 		public nombre?: string,
@@ -10,7 +10,7 @@ export class Proyecto{
 		public tareas?: Array<Tarea>
 	){}
 	static fromJson(proyectoJson): Proyecto {
-		return Object.assign(new Proyecto(), proyectoJson, {roles: this.mapRoles(proyectoJson.rols), tareas: this.mapTareas(proyectoJson.tareas)})
+		return Object.assign(new Proyecto(), proyectoJson, {rols: this.mapRoles(proyectoJson.rols), tareas: this.mapTareas(proyectoJson.tareas)})
 	}
 	static mapTareas(tareas: Array<any>): Tarea[] {
 		return tareas.map(tarea => Tarea.fromJSON(tarea))
@@ -21,5 +21,5 @@ export class Proyecto{
 	eliminarTareaById(id) {
 		this.tareas = this.tareas.filter(tarea => tarea.id != id)
 	  }
-		
+
 }
