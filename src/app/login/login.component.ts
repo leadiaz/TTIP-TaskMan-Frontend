@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   user: Login = {username:'', password:''};
   isError = false;
   isInvalid= false;
+  private ESTA_LOGUEADO = 'EstaLogueado'
   ngOnInit() {
   }
   onIngresar(form: NgForm):void{
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
       console.log(this.user.username, this.user.password)
       this._usuarioService.login(this.user.username, this.user.password)
         .then(() => {
-          localStorage.setItem('EstaLogueado', 'true')
+          localStorage.setItem(this.ESTA_LOGUEADO, 'true')
           this.route.navigateByUrl('/home');
           this.isError = false
         })
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
 logout(){
+  localStorage.removeItem(this.ESTA_LOGUEADO)
   this._usuarioService.logout
 }
   

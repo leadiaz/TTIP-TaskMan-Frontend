@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router){}
   canActivate(){
-    if(localStorage.getItem('EstaLogeado')){
+    if(localStorage.getItem('EstaLogueado')){
       return true;
     }else{
       this.router.navigate(['login'])
