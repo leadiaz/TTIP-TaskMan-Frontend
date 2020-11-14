@@ -69,6 +69,7 @@ export class UsuarioService {
   }
 
   logout(){
+    localStorage.removeItem('EstaLogueado')
     this.route.navigateByUrl('login')
     // return this.authFire.auth.signOut().then((data) =>
   }

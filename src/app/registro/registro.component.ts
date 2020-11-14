@@ -27,7 +27,7 @@ export class RegistroComponent implements OnInit {
   onRegistrar(form: NgForm):void{
     if(form.valid){
       this._usuarioService.save(this.user.usuario,this.user.nombre,this.user.apellido,this.user.email,this.user.password)
-      .then(data => this._usuarioService.login(data.usuario, data.password))
+      .then(() => this.route.navigate(['login']))
       .catch(() => {
         this.isError = true;
         setTimeout(() => this.isError = false, 4000)});

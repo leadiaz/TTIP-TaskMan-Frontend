@@ -10,7 +10,7 @@
 
 
         <div class="alert alert-danger" role="alert" *ngIf="isInvalid">
-          Debes completar todos los campos
+          Debes completar correctamente todos los campos
         </div>
         <div class="alert alert-danger" role="alert" *ngIf="isError">
           El usuario o el correo ya esta siendo utilizado
@@ -31,6 +31,14 @@
               <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
             </div>
             <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="user.nombre" required>
+          </div>
+        </div>
+        <div class="form-group" id="apellido-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
+            </div>
+            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="apellido" [(ngModel)]="user.apellido" required>
           </div>
         </div>
 
