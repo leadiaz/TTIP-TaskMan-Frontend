@@ -7,18 +7,20 @@ import { HomeComponent } from './home/home.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { TareasComponent } from './tareas/tareas.component'
-
+import { ErrorComponent } from './error/error.component';
+import { AuthGuard } from './guards/auth.guard'
 
 
 const routes: Routes = [
 	{path:'' , redirectTo: '/login', pathMatch: 'full'},
 	{path:'login' , component: LoginComponent},
-	{path:'usuarios', component: UsuariosComponent},
+	{path:'usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
 	{path:'registrar', component: RegistroComponent},
-	{path:'home', component: HomeComponent},
-	{path:'perfilUsuario', component: PerfilUsuarioComponent},
-	{path: 'proyectos', component: ProyectosComponent},
-	{path: 'proyecto/:id', component: TareasComponent}
+	{path:'home', component: HomeComponent,canActivate: [AuthGuard]},
+	{path:'perfilUsuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
+	{path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard]},
+	{path: 'proyecto/:id', component: TareasComponent,canActivate: [AuthGuard]},
+	{path: '**', component: ErrorComponent}
 
 ];
 

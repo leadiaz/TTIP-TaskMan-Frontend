@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
       console.log(this.user.username, this.user.password)
       this._usuarioService.login(this.user.username, this.user.password)
         .then(() => {
+          localStorage.setItem('EstaLogueado', 'true')
           this.route.navigateByUrl('/home');
           this.isError = false
         })
