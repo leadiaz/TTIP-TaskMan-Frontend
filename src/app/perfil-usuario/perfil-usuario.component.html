@@ -2,14 +2,14 @@
 <app-navbar-component></app-navbar-component>
 <div class="clearfix" style="clear: both;margin-top: 45px;"></div>
     <main role="main" >
-      <div class="container shadow-lg p-3 mb-7  rounded" style="margin-top: 15px;">
+      <div class="container shadow-lg p-3 mb-7  rounded" style="margin-top: 15px;background-color: #16bdc4 !important;">
         <div class="row">
           <div class="col-10">
             <h1>Configuración de Perfil de Usuario</h1>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-outline-dark" (click)="volverAlHome()">
-              <small >Volver al Home</small><i class="fa fa-angle-double-left"></i>
+            <button type="button" class="btn btn-outline-dark btn-block" (click)="volverAlHome()">
+              <small>Volver al Home</small><i class="fa fa-angle-double-left"></i>
             </button>
           </div>
         </div>
@@ -29,7 +29,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" > <i class="fa fa-envelope" aria-hidden="true"></i> </span>
                   </div>
-                  <input type="text" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="usuario.email" required>
+                  <input type="text" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="usuario.email" disabled>
                 </div>
               </div>
 
@@ -39,7 +39,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" ><i class="fa fa-user" aria-hidden="true"></i></span>
                   </div>
-                  <input type="text"   id="usuario" name="usuarioNombre" class="form-control" placeholder="Nombre Usuario" [(ngModel)]="usuario.usuario" required>
+                  <input type="text"   id="usuario" name="usuarioNombre" class="form-control" placeholder="Nombre Usuario" [(ngModel)]="usuario.usuario" disabled>
                 </div>
               </div>
           </div>

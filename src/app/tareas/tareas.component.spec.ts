@@ -26,12 +26,12 @@ describe('TareasComponent', () => {
 
 
   it('creo una tarea y la hago compleja',()=> {
-    const crearTareaBoton = buscarElemento('crearTarea')
+   // const crearTareaBoton = buscarElemento('crearTarea')
   });
 
   /* Función auxiliar que permite buscar un elemento por data-testid */
-    const buscarElemento = (testId: string) => {
+   /* const buscarElemento = (testId: string) => {
       const compiled = component.debugElement.nativeElement
       return compiled.querySelector(`[data-testid="${testId}"]`)
-    }
+    }*/
 });

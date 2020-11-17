@@ -14,10 +14,17 @@
 
   .btn-outline-dark:hover {
    background-color: #212121 !important
+
   }
 
+
   .bg-dark{
-  background-color: #212121 !important
+  background-color: #212121 !important;
+  }
+
+  .btn-outline-dark{
+    font-weight: bold;
+     border: 2.2px solid;
   }
 /*style=""*/
 
