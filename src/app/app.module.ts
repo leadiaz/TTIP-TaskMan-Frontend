@@ -14,10 +14,6 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { BuscarUsuarioComponent } from './usuarios/buscar-usuario/buscar-usuario.component';
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { NavbarComponentComponent } from './navbar-component/navbar-component.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
@@ -52,13 +48,11 @@ import { ErrorComponent } from './error/error.component';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger'
     })
   ],
-  providers: [AngularFireAuth],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
