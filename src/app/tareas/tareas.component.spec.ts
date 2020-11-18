@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import {AngularFireAuth} from '@angular/fire/auth';
 
 import { TareasComponent } from './tareas.component';
 import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
@@ -18,19 +17,19 @@ describe('TareasComponent', () => {
   let component: TareasComponent;
   let fixture: ComponentFixture<TareasComponent>;
 
-const authStub: any = {
-    authState: {},
-    auth: {
-      signInWithEmailAndPassword() {
-        return Promise.resolve();
-      }
-    }
-  };
+// const authStub: any = {
+//     authState: {},
+//     auth: {
+//       signInWithEmailAndPassword() {
+//         return Promise.resolve();
+//       }
+//     }
+//   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
     imports: [ RouterTestingModule.withRoutes([]),HttpClientModule,ConfirmationPopoverModule,FormsModule],
-      declarations: [ TareasComponent,NavbarComponentComponent,ModalAgregarRolComponent,ModalAsignarUsuarioComponent,ModalNuevaTareaComponent ],
-      providers: [  {provide: AngularFireAuth, useValue: authStub}]
+      declarations: [ TareasComponent,NavbarComponentComponent,ModalAgregarRolComponent,ModalAsignarUsuarioComponent,ModalNuevaTareaComponent ]
+      // providers: [  { useValue: authStub}]
     })
     .compileComponents();
   }));

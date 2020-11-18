@@ -7,7 +7,6 @@ import { URL_SERVICIOS } from 'src/config/config';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto';
-import { AngularFireAuth } from '@angular/fire/auth'
 import { Tarea } from '../models/tarea';
 import { error } from 'protractor';
 
@@ -31,7 +30,7 @@ export class UsuarioService {
   tareas = new Array<Tarea>();
 
 
-  constructor(public _http:HttpClient, private route: Router, private authFire: AngularFireAuth) {
+  constructor(public _http:HttpClient, private route: Router) {
   	this.url = URL_SERVICIOS;
   }
   headers: HttpHeaders = new HttpHeaders({
@@ -86,13 +85,6 @@ export class UsuarioService {
   }
   setUsuario(u: any){
     this.usuario = u;
-  }
-  register(email: string, password:string ){
-    return new Promise((resolve, reject) => {
-      this.authFire.auth.createUserWithEmailAndPassword(email, password).
-    then(userData => resolve(userData),
-    err => reject(err));
-    })
   }
 
   save(usuario: string, nombre: string,apellido: string, email: string, password:string ){
