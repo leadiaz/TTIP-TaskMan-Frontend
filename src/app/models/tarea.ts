@@ -30,4 +30,23 @@ export class Tarea{
         return 'Critica';
     }
   }
+  mejorarNombreEstadoParaBackEnd(){
+    switch (this.estado) {
+      case 'Cancelada':
+        this.estado = 'CANCELADA';
+        break;
+      case 'Terminada':
+        this.estado = 'TERMINADA';
+        break
+      case 'Creada':
+        this.estado = 'CREADA';
+        break
+      case 'En proceso':
+        this.estado = 'EN_PROCESO';
+        break
+      case 'Critica':
+        this.estado = 'CRITICA';
+        break
+    }
+  }
 }

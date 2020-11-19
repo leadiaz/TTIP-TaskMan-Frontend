@@ -26,9 +26,13 @@
                 <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
               </div>
               <div class="card-body ">
-                <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
+                <span *ngIf="tarea.asignado.nombre" class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
+                <br>
+                <span class="card-subtitle mb-2 text-muted"> <strong>Estado: </strong>{{tarea.estado}}</span>
+                <br>
                 <span *ngIf="tarea.prioridad" class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
+                <br>
+                <span *ngIf="tarea.fecha_estimada" class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
               </div>
 
               <div class="card-footer">
