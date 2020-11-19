@@ -1,3 +1,6 @@
+hr{
+background: white;
+ }
 
 .button {
   border: none;
@@ -13,7 +16,21 @@
   border-radius: 4px;
 }
 
+.list-group{
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+}
 
+.list-group-item {
+  color: grey;
+  background-color: #212121 !important;
+}
+
+.list-group-item:hover {
+  color: white;
+}
 
   .buttonView {
     background-color: white;
