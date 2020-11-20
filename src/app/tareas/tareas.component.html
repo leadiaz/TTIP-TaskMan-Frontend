@@ -7,12 +7,11 @@
     <div class="bg-dark " id="sidebar-wrapper">
       <div class="sidebar-heading"> </div>
       <div class="list-group list-group-flush" >
-        <a href="#" class="list-group-item list-group-item-action ">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action "> <i class="fa fa-bar-chart" aria-hidden="true"></i> Informes</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevaTarea" data-testid="crearTarea" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoMiembro" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fa fa-minus-circle" aria-hidden="true"></i> Eliminar  Miembro</a>
+        <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalEliminarMiembro" ><i class="fa fa-minus-circle" aria-hidden="true"></i> Eliminar  Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoRol" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</a>
-        <a href="#" class="list-group-item list-group-item-action ">Status</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -67,6 +66,7 @@
             <app-modal-nueva-tarea></app-modal-nueva-tarea>
 
             <app-modal-asignar-usuario></app-modal-asignar-usuario>
+            <app-modal-eliminar-miembro></app-modal-eliminar-miembro>
 
             <app-modal-agregar-rol></app-modal-agregar-rol>
           </div>

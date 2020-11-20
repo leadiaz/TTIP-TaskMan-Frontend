@@ -72,10 +72,11 @@ export class ProyectoService {
 
     return p.subscribe(data => this.usuarioService.agregarProyecto(data));
   }
-  modificarProyecto(proyecto: Proyecto,usuarioNameEmail: String){
+  modificarProyecto(proyecto: Proyecto,usuarioNameEmail: String, eliminarOAgregar:number){
+  /* eliminarOAgregar: este parametro sirve para determinar si se elimina o  agrega el usuario al proyecto en cuestion.*/
     console.log("modificar")
 
-    const url= this.url_api+'/proyecto/'+ usuarioNameEmail
+    const url= this.url_api+'/proyecto/'+ usuarioNameEmail+'?eliminarOrAgregarUser='+eliminarOAgregar
     console.log(url)
     this.proyecto = proyecto;
     console.log(this.proyecto)

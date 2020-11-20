@@ -12,7 +12,7 @@ export class Tarea{
     public fecha_estimada?:Date
 	){}
 	static fromJSON(tareaJSON):Tarea{
-		return Object.assign(new Tarea(), tareaJSON, {asignado: Usuario.fromJSON(tareaJSON.asignado), estado: this.mejorarNombreEstado(tareaJSON.estado)})
+		return Object.assign(new Tarea(), tareaJSON, {asignado: Usuario.fromJSON(tareaJSON.asignado)/*, estado: this.mejorarNombreEstado(tareaJSON.estado)*/})
 	}
 
   private static mejorarNombreEstado(estado) {
