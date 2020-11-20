@@ -21,6 +21,7 @@ import { ModalNuevaTareaComponent } from './modal-nueva-tarea/modal-nueva-tarea.
 import { ModalAsignarUsuarioComponent } from './modal-asignar-usuario/modal-asignar-usuario.component';
 import { ModalAgregarRolComponent } from './modal-agregar-rol/modal-agregar-rol.component';
 import { ErrorComponent } from './error/error.component';
+import { ModalEliminarMiembroComponent } from './modal-eliminar-miembro/modal-eliminar-miembro.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ErrorComponent } from './error/error.component';
     ModalNuevaTareaComponent,
     ModalAsignarUsuarioComponent,
     ModalAgregarRolComponent,
-    ErrorComponent
+    ErrorComponent,
+    ModalEliminarMiembroComponent
   ],
   imports: [
     BrowserModule,

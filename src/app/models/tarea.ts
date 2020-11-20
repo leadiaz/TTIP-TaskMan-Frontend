@@ -15,6 +15,8 @@ export class Tarea{
 		return Object.assign(new Tarea(), tareaJSON, {asignado: Usuario.fromJSON(tareaJSON.asignado), estado: this.mejorarNombreEstado(tareaJSON.estado)})
 	}
 
+
+
   private static mejorarNombreEstado(estado) {
 	  console.log(estado);
 	  switch (estado) {

@@ -32,6 +32,10 @@ background: white;
   color: white;
 }
 
+.border-bottom{
+  border-bottom: 2px solid grey !important;
+}
+
   .buttonView {
     background-color: white;
     color: black;

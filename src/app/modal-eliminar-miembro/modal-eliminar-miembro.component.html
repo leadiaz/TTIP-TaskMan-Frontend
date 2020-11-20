@@ -1,0 +1,36 @@
+<div class="modal fade" id="modalEliminarMiembro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+         Gestion de Usuarios
+        </h5>
+        <button type="button" class="close" #btnCloseMiembro data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert" *ngIf="isCheck">
+          El usuario ha sido eliminado del proyecto correctamente.
+        </div>
+
+
+          <div class="form-group ">
+
+
+            <div class="dropdown col-md-8" >
+              <label >  Seleccione el usuario que quiere eliminar</label>
+              <button class="btn btn-sm btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;">
+                Usuarios
+              </button>
+              <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" *ngFor="let miembro of proyectoService.miembros" (click)="eliminarMiembroDeUnProyecto(miembro)">{{miembro.usuario}}</a>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

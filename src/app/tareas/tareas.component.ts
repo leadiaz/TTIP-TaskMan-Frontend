@@ -38,8 +38,8 @@ export class TareasComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
   }
 
-  async ngOnInit() {
-    await this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
+   ngOnInit() {
+     this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
   }
 
 
