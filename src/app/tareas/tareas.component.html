@@ -5,73 +5,119 @@
 
     <!-- Sidebar -->
     <div class="bg-dark " id="sidebar-wrapper">
-      <div class="sidebar-heading"> </div>
+<!--      <div class="sidebar-heading"> </div>-->
       <div class="list-group list-group-flush" >
-        <a href="#" class="list-group-item list-group-item-action "> <i class="fa fa-bar-chart" aria-hidden="true"></i> Informes</a>
+<!--        <a href="#" class="list-group-item list-group-item-action ">Dashboard</a>-->
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevaTarea" data-testid="crearTarea" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoMiembro" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalEliminarMiembro" ><i class="fa fa-minus-circle" aria-hidden="true"></i> Eliminar  Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoRol" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</a>
+<!--        <a href="#" class="list-group-item list-group-item-action ">Status</a>-->
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-          <div class="container" style="margin-top: 45px;" >
+    <div class="container" style="margin-top: 45px;">
+      <div class="row" style="margin-right: 135px; margin-left: 38px;">
+        <div class="col-md-3 mt-4">
+          <div class="card  text-center" style="background: #8aa5e0; width: 200px">
+            <div class="card-header">
+              <h5 class="card-title">Tareas Terminadas</h5>
+              <p class="card-text" style="text-align: center; font-size: small"><strong>Total: </strong>{{proyectoService.proyectoActual.getTareasFinalizadas().length}} / {{proyectoService.proyectoActual.tareas.length}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mt-4">
+          <div class="card  text-center" style="background: #ea5656; width: 200px; margin-right: -35px">
+            <div class="card-header">
+              <h5 class="card-title">Tareas Críticas</h5>
+              <p class="card-text" style="text-align: center; font-size: small"><strong>Total: </strong>{{proyectoService.proyectoActual.getTareasCriticas().length}} / {{proyectoService.proyectoActual.tareas.length}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mt-4">
+          <div class="card  text-center" style="background: #40c550; width: 200px">
+            <div class="card-header">
+              <h5 class="card-title">Tareas En proceso</h5>
+              <p class="card-text" style="text-align: center; font-size: small"><strong>Total: </strong>{{proyectoService.proyectoActual.getTareasEnProceso().length}} / {{proyectoService.proyectoActual.tareas.length}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mt-4">
+          <div class="card  text-center" style="background: #c9e8cd; width: 200px">
+            <div class="card-header">
+              <h5 class="card-title" >Tareas Creadas</h5>
+              <p class="card-text" style="text-align: center; font-size: small"><strong>Total: </strong>{{proyectoService.proyectoActual.getTareasCredas().length}} / {{proyectoService.proyectoActual.tareas.length}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h2 class="">Mis Tareas</h2>
 
-            <h2 class="" >Mis Tareas</h2>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 mt-4" *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
 
-            <hr>
-            <div class="row">
-              <div class="col-md-3 mt-4" *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
-
-                <div class="card  text-center" >
-                  <div class="card-header">
-                    <h5 class="card-title">{{tarea.titulo}}</h5>
-                    <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
-                  </div>
-                  <div class="card-body ">
-                    <h6 class="card-subtitle mb-2 text-muted">{{tarea.asignado?.nombre }}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-                    <span *ngIf="tarea.prioridad" class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
-                  </div>
-
-                  <div class="card-footer">
-                    <!--<button type="button" class="button buttonView" (click)="view(tarea.id)">View</button>-->
-                    <div class="row">
-                      <div class="dropdown" >
-                        <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;">
-                          Asignar Tarea
-                        </button>
-                        <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" *ngFor="let miembro of proyectoService.miembros" (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
-                        </div>
-                      </div>
-                      <button class="button buttonEliminar"
-                              mwlConfirmationPopover
-                              [popoverTitle]="popoverTitle"
-                              [popoverMessage]="popoverMessage"
-                              placement = "top"
-                              (confirm)="eliminar(tarea.id)"
-                              (cancel)="cancelClicked = true"
-                              style="margin-left: 5px; font-size: 15px; ">Delete</button>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
+          <div class="card  text-center">
+            <div class="card-header">
+              <h5 class="card-title">{{tarea.titulo}}</h5>
+              <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
+            </div>
+            <div class="card-body ">
+              <span *ngIf="tarea.asignado.nombre"
+                    class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
+              <br>
+              <span class="card-subtitle mb-2 text-muted"> <strong>Estado: </strong>{{tarea.estado}}</span>
+              <br>
+              <span *ngIf="tarea.prioridad"
+                    class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
+              <br>
+              <span *ngIf="tarea.fecha_estimada"
+                    class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
             </div>
 
-            <app-modal-nueva-tarea></app-modal-nueva-tarea>
+            <div class="card-footer">
+              <!--<button type="button" class="button buttonView" (click)="view(tarea.id)">View</button>-->
+              <div class="row">
+                <div class="dropdown">
+                  <button class="btn btn-lg btn-outline-dark btn-block dropdown-toggle" type="button"
+                          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                          style="font-size: 15px;">
+                    Asignar Tarea
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" *ngFor="let miembro of proyectoService.miembros"
+                       (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
+                  </div>
+                </div>
+                <button class="button buttonEliminar"
+                        mwlConfirmationPopover
+                        [popoverTitle]="popoverTitle"
+                        [popoverMessage]="popoverMessage"
+                        placement="top"
+                        (confirm)="eliminar(tarea.id)"
+                        (cancel)="cancelClicked = true"
+                        style="margin-left: 5px; font-size: 15px; ">Delete
+                </button>
+              </div>
 
-            <app-modal-asignar-usuario></app-modal-asignar-usuario>
-            <app-modal-eliminar-miembro></app-modal-eliminar-miembro>
-
-            <app-modal-agregar-rol></app-modal-agregar-rol>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <app-modal-nueva-tarea></app-modal-nueva-tarea>
+
+      <app-modal-asignar-usuario></app-modal-asignar-usuario>
+      <app-modal-eliminar-miembro></app-modal-eliminar-miembro>
+
+      <app-modal-agregar-rol></app-modal-agregar-rol>
     </div>
-    </div>
+  </div>
+</div>
 </body>
 
 

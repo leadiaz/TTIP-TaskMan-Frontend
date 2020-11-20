@@ -21,5 +21,17 @@ export class Proyecto{
 	eliminarTareaById(id) {
 		this.tareas = this.tareas.filter(tarea => tarea.id != id)
 	  }
+	getTareasCriticas(){
+	  return this.tareas.filter( tarea => tarea.estado == 'CRITICA' || tarea.estado == 'Critica')
+  }
+  getTareasEnProceso(){
+	  return this.tareas.filter( tarea => tarea.estado == 'EN_PROCESO' || tarea.estado == 'En proceso')
+  }
+  getTareasFinalizadas(){
+    return this.tareas.filter( tarea => tarea.estado == 'TERMINADA' || tarea.estado == 'Terminada')
+  }
+  getTareasCredas(){
+    return this.tareas.filter( tarea => tarea.estado == 'CREADA' || tarea.estado == 'Creada')
+  }
 
 }

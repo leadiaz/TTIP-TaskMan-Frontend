@@ -80,9 +80,8 @@ export class ProyectoService {
     const url= this.url_api+'/proyecto/'+ usuarioNameEmail+'?eliminarOrAgregarUser='+eliminarOAgregar
     console.log(url)
     this.proyecto = proyecto;
-    console.log(this.proyecto)
     this.proyectoSubject.next(this.proyecto);
-    console.log(this.proyecto)
+    proyecto.tareas.forEach( tarea => { tarea.mejorarNombreEstadoParaBackEnd()});
     return  this._http.put(url, proyecto, {headers: this.headers}).pipe(map(data => data));
 
     }
