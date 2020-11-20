@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Proyecto } from '../models/proyecto';
 import { map } from 'rxjs/operators';
+import {Tarea} from '../models/tarea';
 
 
 import { UsuarioService } from './usuario.service';
@@ -113,6 +114,30 @@ export class ProyectoService {
     const url = this.url_api + '/rol/'+idProyecto;
     return this._http.post<Rol>(url, {tipoRol: nuevoRol, usuarioAsignado: undefined}, {headers: this.headers}).
     pipe(map(data =>data)).toPromise()
+  }
+
+  refaccionarEstadoDeTareas(proyecto: Proyecto){
+  let tareas:Tarea[] = proyecto.tareas;
+
+  tareas.map(tarea => { tarea.estado = this.configurarEstado(tarea.estado);
+                     });
+  proyecto.tareas = tareas;
+  return proyecto;
+  }
+
+  configurarEstado(estado: String){
+  switch (estado) {
+        case 'Cancelada':
+          return 'CANCELADA';
+        case 'Terminada':
+          return 'TERMINADA';
+        case 'Creada':
+          return 'CREADA';
+        case 'En proceso':
+          return 'EN_PROCESO';
+        case 'Critica':
+          return 'CRITICA';
+      }
   }
 
 }
