@@ -1,4 +1,3 @@
-
 <body>
 <div class="modal-dialog text-center">
   <div class="col-sm-8 main-section">
@@ -6,12 +5,17 @@
       <div class="col-12 user-img">
         <img src="https://waycomputer.com.ar/SYS/WAY/img/avatares/a3.png">
       </div>
-      <form  class="col-12" #formRegistrar="ngForm" (ngSubmit)="onRegistrar(formRegistrar)">
+      <form  class="col-12" [formGroup]="usuarioForm" (ngSubmit)="onRegistrar(formRegistrar)">
 
 
-        <div class="alert alert-danger" role="alert" *ngIf="isInvalid">
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && !email.errors.pattern">
           Debes completar correctamente todos los campos
         </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && email.errors.pattern">
+          Introduzca una dirección de correo electrónico válida.
+        </div>
+
         <div class="alert alert-danger" role="alert" *ngIf="isError">
           El usuario o el correo ya esta siendo utilizado
         </div>
@@ -21,7 +25,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user" aria-hidden="true"></i></span>
             </div>
-            <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" [(ngModel)]="user.usuario" required>
+            <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario"  formControlName="usuario" >
           </div>
         </div>
 
@@ -30,7 +34,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
             </div>
-            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="user.nombre" required>
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" formControlName="nombre" >
           </div>
         </div>
         <div class="form-group" id="apellido-group">
@@ -38,7 +42,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon2"> <i class="fa fa-user" aria-hidden="true"></i></span>
             </div>
-            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="apellido" [(ngModel)]="user.apellido" required>
+            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="apellido"  formControlName="apellido"  >
           </div>
         </div>
 
@@ -47,7 +51,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon3"> <i class="fa fa-envelope" style="font-size: 15px; " aria-hidden="true"></i></span>
             </div>
-            <input type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="user.email" required>
+            <input type="email" id="Email" name="email" class="form-control" placeholder="Correo electronico"  formControlName="email" >
           </div>
         </div>
         <div class="form-group" id="contrasena-group">
@@ -55,7 +59,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon4"><i class="fa fa-lock" aria-hidden="true"></i></span>
             </div>
-            <input type="password"   id="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" required>
+            <input type="password"   id="password" name="password" class="form-control" placeholder="Password" formControlName="password" >
           </div>
         </div>
         <button type="submit" class="btn btn-lg btn-dark btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</button>
@@ -67,40 +71,3 @@
 </div>
 
 </body>
-<!--<section>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-				<div class="card-register">
-					<div class="card">
-						<div class="card-body text-center">
-							<form #formRegistrar="ngForm" (ngSubmit)="onRegistrar()">
-								<h1 class="h3 mb-3 font-weigth-normal">Registrar</h1>
-								<div class="form-group">
-									<input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" [(ngModel)]="user.usuario" required>
-								</div>
-								<div class="form-group">
-									<input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="user.nombre" required>
-								</div>
-								<div class="form-group">
-									<input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido" [(ngModel)]="user.apellido" required>
-								</div>
-								<div class="form-group">
-									<input type="text" id="email" name="email" class="form-control" placeholder="email" [(ngModel)]="user.email" required>
-								</div>
-								<div class="form-group">
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" required>
-
-								</div>
-								<button type="submit" class="btn btn-lg btn-primary">
-									Registrar
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</section>-->
