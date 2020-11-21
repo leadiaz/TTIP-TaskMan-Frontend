@@ -9,6 +9,7 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
 import { TareasComponent } from './tareas/tareas.component'
 import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './guards/auth.guard'
+import {BuscadorComponent} from "./buscador/buscador.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
 	{path:'perfilUsuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
 	{path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard]},
 	{path: 'proyecto/:id', component: TareasComponent,canActivate: [AuthGuard]},
+  {path: 'buscar/:search', component: BuscadorComponent, canActivate:[AuthGuard]},
 	{path: '**', component: ErrorComponent}
 
 ];

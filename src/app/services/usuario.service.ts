@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto';
 import { Tarea } from '../models/tarea';
-import { error } from 'protractor';
 
 
 @Injectable({
@@ -53,6 +52,7 @@ export class UsuarioService {
           });
           this.userSubject.next(this.usuario);
           this.proyectosSubject.next(this.proyectosActuales);
+          localStorage.setItem('usuarioID', this.usuario.id.toString())
         })
   }
   getProyectosByUserID(id: number){
@@ -135,5 +135,9 @@ export class UsuarioService {
   getTareasAsignadasAUsuario(id: number){
     const tareas =  this._http.get<Tarea []>(URL_SERVICIOS+'/tareas/'+ id,{headers: this.headers}).toPromise()
     return tareas
+  }
+  search(search){
+    const url = URL_SERVICIOS + '/buscar/' + localStorage.getItem('usuarioID') + '/'+ search;
+    return this._http.get<any>(url, {headers: this.headers}).toPromise();
   }
 }

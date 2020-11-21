@@ -1,0 +1,44 @@
+<section>
+  <app-navbar-component></app-navbar-component>
+  <div class="container">
+    <div class="row">
+      <h1>Tareas</h1>
+      <div class="col-md-3 mt-4" *ngFor="let tarea of tareas ">
+        <div class="card  text-center">
+          <div class="card-header">
+            <h5 class="card-title">{{tarea.titulo}}</h5>
+            <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
+          </div>
+          <div class="card-body ">
+              <span *ngIf="tarea.asignado.nombre"
+                    class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
+            <br>
+            <span class="card-subtitle mb-2 text-muted"> <strong>Estado: </strong>{{tarea.estado}}</span>
+            <br>
+            <span *ngIf="tarea.prioridad"
+                  class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
+            <br>
+            <span *ngIf="tarea.fecha_estimada"
+                  class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <h1>Proyectos</h1>
+      <div class="col-md-3 mt-4" *ngFor="let proyecto of proyectos ">
+        <div class="card d-flex  justify-content-center h-100" >
+          <div class="card-body ">
+            <h5 class="card-title ">{{proyecto.nombre}}</h5>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button class="button buttonView"  (click)="view(proyecto.id)">Ver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

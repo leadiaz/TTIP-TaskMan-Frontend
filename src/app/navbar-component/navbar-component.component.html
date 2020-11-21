@@ -38,9 +38,11 @@
     <div id="buscador">
       <div>
         <div >
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="button buttonNavbar" type="submit">Buscar</button>
+          <form class="form-inline my-2 my-lg-0" name="formBuscador" #formBuscador="ngForm" (ngSubmit)="buscar()">
+            <div class="form-group">
+              <input class="form-control mr-sm-2" id="buscar" name="buscador" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="aBuscar">
+              <button class="button buttonNavbar" type="submit">Buscar</button>
+            </div>
           </form>
         </div>
       </div>

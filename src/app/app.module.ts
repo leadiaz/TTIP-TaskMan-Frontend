@@ -22,6 +22,7 @@ import { ModalAsignarUsuarioComponent } from './modal-asignar-usuario/modal-asig
 import { ModalAgregarRolComponent } from './modal-agregar-rol/modal-agregar-rol.component';
 import { ErrorComponent } from './error/error.component';
 import { ModalEliminarMiembroComponent } from './modal-eliminar-miembro/modal-eliminar-miembro.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModalEliminarMiembroComponent } from './modal-eliminar-miembro/modal-el
     ModalAsignarUsuarioComponent,
     ModalAgregarRolComponent,
     ErrorComponent,
-    ModalEliminarMiembroComponent
+    ModalEliminarMiembroComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,
