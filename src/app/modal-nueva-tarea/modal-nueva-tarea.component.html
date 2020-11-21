@@ -24,7 +24,7 @@
             <label class="custom-radio-checkbox">
 
               <!-- Input oculto -->
-              <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()" data-testid="checkTareaCompleja">
+              <input class="custom-radio-checkbox__input" type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()" [attr.data-testid]="'checkTareaCompleja'">
               <!-- Imagen en sustitucion -->
               <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
               <!-- Texto -->
@@ -35,10 +35,10 @@
             <!--<label for="TareaAvanzada">Tareas Complejas</label>
             <input type="checkbox" name="expandir" value="0" [(ngModel)]="isCheck" (click)="expandirFormulario()">-->
           </div>
-          <div id="tareaCompleja" data-testid="divTareaCOmpleja">
+          <div id="tareaCompleja" [attr.data-testid]="'divTareaCOmpleja'">
             <div class="form-group ">
               <label for="FechaEstimada">Fecha Estimada</label>
-              <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada"/>
+              <input type="date" id="FechaEstimada" name="name" class="form-control" [(ngModel)]="fechaEstimada" [attr.data-testid]="'tareaCOmplejafechaEstimada'"/>
             </div>
             <div class="form-group">
               <select  class="mdb-select md-form" name="miselect" [(ngModel)]="seleccionado" >
