@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UsuarioService} from "../services/usuario.service";
+import {Proyecto} from "../models/proyecto";
+import {Tarea} from "../models/tarea";
 
 @Component({
   selector: 'app-buscador',
@@ -17,8 +19,8 @@ export class BuscadorComponent implements OnInit {
     this._route.params.subscribe( params => {
       const search = params['search'];
       this._usuarioService.search(search).then((data) => {
-        this.proyectos = data.proyectos;
-        this.tareas = data.tareas;
+        this.proyectos = data.proyectos.map(proyecto => Proyecto.fromJson(proyecto) );
+        this.tareas = data.tareas.map(tarea => Tarea.fromJSON(tarea)) ;
       })
     })
   }

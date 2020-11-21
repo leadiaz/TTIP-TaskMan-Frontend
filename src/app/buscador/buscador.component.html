@@ -1,8 +1,8 @@
 <section>
   <app-navbar-component></app-navbar-component>
   <div class="container">
+    <h1>Tareas</h1>
     <div class="row">
-      <h1>Tareas</h1>
       <div class="col-md-3 mt-4" *ngFor="let tarea of tareas ">
         <div class="card  text-center">
           <div class="card-header">
@@ -24,9 +24,11 @@
         </div>
       </div>
     </div>
+    <div class="clearfix"></div>
     <hr>
+    <h1>Proyectos</h1>
     <div class="row">
-      <h1>Proyectos</h1>
+
       <div class="col-md-3 mt-4" *ngFor="let proyecto of proyectos ">
         <div class="card d-flex  justify-content-center h-100" >
           <div class="card-body ">
@@ -40,5 +42,7 @@
         </div>
       </div>
     </div>
+    <div class="clearfix"></div>
+    <hr>
   </div>
 </section>
