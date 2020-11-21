@@ -8,11 +8,11 @@
       <form  class="col-12" [formGroup]="usuarioForm" (ngSubmit)="onRegistrar(formRegistrar)">
 
 
-        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && !email.errors.pattern">
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && !(email.errors != null && email.errors.pattern)">
           Debes completar correctamente todos los campos
         </div>
 
-        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && email.errors.pattern">
+        <div class="alert alert-danger" role="alert" *ngIf="isInvalid && (email.errors != null && email.errors.pattern)">
           Introduzca una dirección de correo electrónico válida.
         </div>
 
