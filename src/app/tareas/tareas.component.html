@@ -8,7 +8,7 @@
 <!--      <div class="sidebar-heading"> </div>-->
       <div class="list-group list-group-flush" >
 <!--        <a href="#" class="list-group-item list-group-item-action ">Dashboard</a>-->
-        <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevaTarea" data-testid="crearTarea" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</a>
+        <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevaTarea"  [attr.data-testid]="'crearTareas'" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Crear Tarea</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoMiembro" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalEliminarMiembro" ><i class="fa fa-minus-circle" aria-hidden="true"></i> Eliminar  Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoRol" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</a>
@@ -19,7 +19,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-    <div class="container" style="margin-top: 45px;">
+    <div class="container" *ngIf="proyectoService.proyectoActual != undefined" style="margin-top: 45px;">
       <div class="row" style="margin-right: 135px; margin-left: 38px;">
         <div class="col-md-3 mt-4">
           <div class="card  text-center" style="background: #8aa5e0; width: 200px">
@@ -58,8 +58,8 @@
       <h2 class="">Mis Tareas</h2>
 
       <hr>
-      <div class="row">
-        <div class="col-md-3 mt-4" *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
+      <div class="row" *ngIf="proyectoService.proyectoActual != undefined">
+        <div class="col-md-3 mt-4"   *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
 
           <div class="card  text-center">
             <div class="card-header">
@@ -70,7 +70,7 @@
               <span *ngIf="tarea.asignado.nombre"
                     class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
               <br>
-              <span class="card-subtitle mb-2 text-muted"> <strong>Estado: </strong>{{tarea.estado}}</span>
+              <span class="card-subtitle mb-2 text-muted" [attr.data-testid]="'estado_' + tarea.id" > <strong>Estado: </strong>{{tarea.estado}}</span>
               <br>
               <span *ngIf="tarea.prioridad"
                     class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
@@ -93,7 +93,7 @@
                        (click)="asignarUsuario(miembro,tarea.id)">{{miembro.usuario}}</a>
                   </div>
                 </div>
-                <button class="button buttonEliminar"
+                <button *ngIf="tarea.isTest != 1" class="button buttonEliminar"
                         mwlConfirmationPopover
                         [popoverTitle]="popoverTitle"
                         [popoverMessage]="popoverMessage"

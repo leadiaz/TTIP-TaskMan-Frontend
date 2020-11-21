@@ -9,7 +9,9 @@ export class Tarea{
 		public estado?: string,
     public prioridad?:number,
     public fecha_creacion?:Date,
-    public fecha_estimada?:Date
+    public fecha_estimada?:Date,
+    public isTest?:number
+
 	){}
 	static fromJSON(tareaJSON):Tarea{
 		return Object.assign(new Tarea(), tareaJSON, {asignado: Usuario.fromJSON(tareaJSON.asignado), estado: this.mejorarNombreEstado(tareaJSON.estado)})

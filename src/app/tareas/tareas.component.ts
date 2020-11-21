@@ -38,9 +38,9 @@ export class TareasComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
   }
 
-   ngOnInit() {
-     this.proyectoService.getProyecto(this.activatedRoute.snapshot.params.id)
-  }
+   async ngOnInit() {
+       await this.proyectoService.getProyectoAsync(this.activatedRoute.snapshot.params.id)
+     }
 
 
   eliminar(id) {
@@ -49,6 +49,10 @@ export class TareasComponent implements OnInit {
       this.proyectoService.proyectoActual.tareas = this.proyectoService.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
+  }
+
+  getTareas(){
+  return this.proyectoService.proyectoActual.tareas;
   }
 
   asignarUsuario(usuario, id) {

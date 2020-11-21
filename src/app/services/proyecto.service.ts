@@ -11,10 +11,14 @@ import { UsuarioService } from './usuario.service';
 import { URL_SERVICIOS } from 'src/config/config';
 import { Rol } from '../models/rol';
 
+export interface IProyectoService {
+  getProyectoAsync(id: number): Promise<Proyecto>
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class ProyectoService {
+export class ProyectoService implements IProyectoService {
   public url_api:string;
 
   private proyectoSubject = new Subject<any>();
@@ -46,6 +50,14 @@ export class ProyectoService {
           });
     return proyecto
   }
+
+   async getProyectoAsync(id:number){
+      const proyecto =  await this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`).toPromise()
+      this.proyectoActual = Proyecto.fromJson(proyecto);
+      this.rolesDelProyecto = this.proyectoActual.rols;
+      this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
+      return this.proyectoActual
+    }
 
   actualizarMiembrosDelProyecto(){
     this.rolesDelProyecto.forEach(rol => {

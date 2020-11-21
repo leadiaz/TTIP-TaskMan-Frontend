@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ModalEliminarMiembroComponent } from './modal-eliminar-miembro.component';
 
 describe('ModalEliminarMiembroComponent', () => {
@@ -8,6 +10,7 @@ describe('ModalEliminarMiembroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule.withRoutes([]),HttpClientModule, FormsModule],
       declarations: [ ModalEliminarMiembroComponent ]
     })
     .compileComponents();
