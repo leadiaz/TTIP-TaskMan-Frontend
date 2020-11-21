@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { BuscadorComponent } from './buscador.component';
+import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
 
 describe('BuscadorComponent', () => {
   let component: BuscadorComponent;
@@ -8,7 +12,8 @@ describe('BuscadorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuscadorComponent ]
+        imports: [ RouterTestingModule.withRoutes([]),HttpClientModule,FormsModule],
+      declarations: [ BuscadorComponent,NavbarComponentComponent ]
     })
     .compileComponents();
   }));
