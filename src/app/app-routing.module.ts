@@ -10,6 +10,7 @@ import { TareasComponent } from './tareas/tareas.component'
 import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './guards/auth.guard'
 import {BuscadorComponent} from "./buscador/buscador.component";
+import {VerTareasTerminadasComponent} from "./ver-tareas-terminadas/ver-tareas-terminadas.component";
 
 
 const routes: Routes = [
@@ -22,6 +23,8 @@ const routes: Routes = [
 	{path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard]},
 	{path: 'proyecto/:id', component: TareasComponent,canActivate: [AuthGuard]},
   {path: 'buscar/:search', component: BuscadorComponent, canActivate:[AuthGuard]},
+  {path:'verTareasTerminadas', component: VerTareasTerminadasComponent, canActivate: [AuthGuard]},
+
 	{path: '**', component: ErrorComponent}
 
 ];

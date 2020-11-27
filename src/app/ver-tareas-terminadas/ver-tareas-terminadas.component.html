@@ -1,0 +1,54 @@
+<body style="margin-down: 45px;">
+<app-navbar-component></app-navbar-component>
+
+
+
+    <div class="container justify-content-center align-items-center " *ngIf="proyectoService.proyectoActual != undefined" style="margin-top: 45px;">
+
+      <hr>
+      <div class="row">
+        <div class="col-10">
+          <h2 >Mis Tareas Terminadas y Canceladas </h2>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-outline-dark btn-block" (click)="volverAlHome()">
+            <small>Volver al Proyecto</small><i class="fa fa-angle-double-left"></i>
+          </button>
+        </div>
+      </div>
+
+
+      <hr>
+      <div class="row" *ngIf="proyectoService.proyectoActual != undefined">
+        <div class="col-md-3 mt-4"   *ngFor="let tarea of  tareas ">
+
+          <div class="card  text-center">
+            <div class="card-header">
+              <h5 class="card-title">{{tarea.titulo}}</h5>
+              <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
+            </div>
+            <div class="card-body ">
+              <span *ngIf="tarea.asignado.nombre"
+                    class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
+              <br>
+              <span class="card-subtitle mb-2 text-muted" [attr.data-testid]="'estado_' + tarea.id" > <strong>Estado: </strong>{{tarea.estado}}</span>
+              <br>
+              <span *ngIf="tarea.prioridad"
+                    class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
+              <br>
+              <span *ngIf="tarea.fecha_estimada"
+                    class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
+            </div>
+
+            <div class="card-footer">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+
+
+

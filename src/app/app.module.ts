@@ -23,6 +23,7 @@ import { ModalAgregarRolComponent } from './modal-agregar-rol/modal-agregar-rol.
 import { ErrorComponent } from './error/error.component';
 import { ModalEliminarMiembroComponent } from './modal-eliminar-miembro/modal-eliminar-miembro.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { VerTareasTerminadasComponent } from './ver-tareas-terminadas/ver-tareas-terminadas.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { BuscadorComponent } from './buscador/buscador.component';
     ModalAgregarRolComponent,
     ErrorComponent,
     ModalEliminarMiembroComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    VerTareasTerminadasComponent
   ],
   imports: [
     BrowserModule,

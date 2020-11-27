@@ -12,24 +12,16 @@
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoMiembro" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalEliminarMiembro" ><i class="fa fa-minus-circle" aria-hidden="true"></i> Eliminar  Miembro</a>
         <a href="#" class="list-group-item list-group-item-action " data-toggle="modal" data-target="#modalNuevoRol" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Rol</a>
-<!--        <a href="#" class="list-group-item list-group-item-action ">Status</a>-->
+        <a href="#" routerLink="/verTareasTerminadas" class="list-group-item list-group-item-action "><i class="fa fa-bar-chart" aria-hidden="true"></i> Ver tareas Terminadas/Canceladas</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-    <div class="container" *ngIf="proyectoService.proyectoActual != undefined" style="margin-top: 45px;">
-      <div class="row" style="margin-right: 135px; margin-left: 38px;">
-        <div class="col-md-3 mt-4">
-          <div class="card  text-center" style="background: #8aa5e0; width: 200px">
-            <div class="card-header">
-              <h5 class="card-title">Tareas Terminadas</h5>
-              <p class="card-text" style="text-align: center; font-size: small"><strong>Total: </strong>{{proyectoService.proyectoActual.getTareasFinalizadas().length}} / {{proyectoService.proyectoActual.tareas.length}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mt-4">
+    <div class="container" *ngIf="proyectoService.proyectoActual != undefined" style="margin-top: 45px; ">
+      <div class="row" style="margin-left: 100px;">
+        <div class="col-md-4 mt-4">
           <div class="card  text-center" style="background: #ea5656; width: 200px; margin-right: -35px">
             <div class="card-header">
               <h5 class="card-title">Tareas Críticas</h5>
@@ -37,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 mt-4">
+        <div class="col-md-4 mt-4">
           <div class="card  text-center" style="background: #40c550; width: 200px">
             <div class="card-header">
               <h5 class="card-title">Tareas En proceso</h5>
@@ -45,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 mt-4">
+        <div class="col-md-4 mt-4">
           <div class="card  text-center" style="background: #c9e8cd; width: 200px">
             <div class="card-header">
               <h5 class="card-title" >Tareas Creadas</h5>
@@ -54,12 +46,13 @@
           </div>
         </div>
       </div>
-      <hr>
-      <h2 class="">Mis Tareas</h2>
 
       <hr>
+      <h2 >Mis Tareas en curso</h2>
+      <hr>
+
       <div class="row" *ngIf="proyectoService.proyectoActual != undefined">
-        <div class="col-md-3 mt-4"   *ngFor="let tarea of  proyectoService.proyectoActual.tareas ">
+        <div class="col-md-3 mt-4"   *ngFor="let tarea of  proyectoService.tareasAMostrar ">
 
           <div class="card  text-center">
             <div class="card-header">

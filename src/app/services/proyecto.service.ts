@@ -27,6 +27,7 @@ export class ProyectoService implements IProyectoService {
   private tareasSubject = new Subject<any>();
   tareas$ = this.tareasSubject.asObservable();
 
+  tareasAMostrar: Tarea[];
   tareas;
   proyecto;
   proyectoActual : Proyecto;
@@ -47,15 +48,21 @@ export class ProyectoService implements IProyectoService {
                      this.proyectoActual = Proyecto.fromJson(data);
                      this.rolesDelProyecto = this.proyectoActual.rols
                      this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
+                     this.tareasAMostrar = this.filtrarTareas(this.proyectoActual.tareas);
           });
     return proyecto
   }
 
+  filtrarTareas( tareasArray: Tarea[]): Tarea[]{
+  /*filtro las tareas y asi solo muestro todas aquelos con estados diferentes a Cancelado o terminado.*/
+  return tareasArray.filter(t => t.estado != "Cancelada" && t.estado != "Terminada" )
+  }
    async getProyectoAsync(id:number){
       const proyecto =  await this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`).toPromise()
       this.proyectoActual = Proyecto.fromJson(proyecto);
       this.rolesDelProyecto = this.proyectoActual.rols;
       this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
+      this.tareasAMostrar = this.filtrarTareas(this.proyectoActual.tareas);
       return this.proyectoActual
     }
 

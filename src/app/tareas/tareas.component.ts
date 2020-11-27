@@ -24,7 +24,6 @@ export class TareasComponent implements OnInit {
   usuarioEncontrado;
   proyectoActual: Proyecto;
   isCheck = false;
-
   isError: boolean = false;
 
   /**PopUp */
@@ -39,7 +38,7 @@ export class TareasComponent implements OnInit {
   }
 
    async ngOnInit() {
-       await this.proyectoService.getProyectoAsync(this.activatedRoute.snapshot.params.id)
+      await this.proyectoService.getProyectoAsync(this.activatedRoute.snapshot.params.id);
      }
 
 
