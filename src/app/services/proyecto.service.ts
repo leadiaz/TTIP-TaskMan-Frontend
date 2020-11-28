@@ -157,5 +157,11 @@ export class ProyectoService implements IProyectoService {
           return 'CRITICA';
       }
   }
+  async getAllProyectos() {
+    const url = this.url_api + '/proyectos';
+    return await this._http.get<Proyecto []>(url, {headers: this.headers}).toPromise().then(proyectos => {
+      return proyectos.map(proyecto => Proyecto.fromJson(proyecto))
+    });
+  }
 
 }

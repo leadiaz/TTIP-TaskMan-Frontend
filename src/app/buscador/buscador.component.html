@@ -21,6 +21,11 @@
             <span *ngIf="tarea.fecha_estimada"
                   class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
           </div>
+          <div class="card-footer">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button class="button buttonView"  (click)="irAProyecto(tarea.id)">Ir Al Proyecto</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

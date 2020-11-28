@@ -20,7 +20,6 @@ export class Tarea{
 
 
   private static mejorarNombreEstado(estado) {
-	  console.log(estado);
 	  switch (estado) {
       case 'CANCELADA':
         return 'Cancelada';
