@@ -25,17 +25,19 @@ export class PerfilUsuarioComponent implements OnInit {
   passwordNewRep = '';
 
   constructor(public router: Router, private usuarioService: UsuarioService) {
-    this.usuario = this.usuarioService.usuario;
+    // this.usuario = this.usuarioService.usuario;
   }
 
   ngOnInit() {
     document.getElementById('buscador').style.visibility = 'hidden';
+    this.usuario = Usuario.fromJSON(JSON.parse(localStorage.getItem('USUARIO')))
   }
 
   actualizarPerfil(form: NgForm) {
     if (form.valid) {
       this.usuarioService.actualizarPerfilUsuario(this.usuario)
-        .then(() =>{ this.isCheck = true;
+        .then((userData) =>{ this.isCheck = true;
+          localStorage.setItem('USUARIO', JSON.stringify(userData));
                   setTimeout(() => this.isCheck = false, 4000);
                   })
         .catch(() => {

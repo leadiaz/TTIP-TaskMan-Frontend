@@ -41,6 +41,7 @@ export class UsuarioService {
     return this.getLogginUser(usernameOEmail, password).then(
         userData => {
           // resolve(userData)
+          localStorage.setItem('USUARIO', JSON.stringify(userData));
           this.usuario = new Usuario(userData.id,
                                     userData.usuario,
                                     userData.nombre,
@@ -68,7 +69,9 @@ export class UsuarioService {
   }
 
   logout(){
-    localStorage.removeItem('EstaLogueado')
+    localStorage.removeItem('EstaLogueado');
+    localStorage.removeItem('usuarioID');
+    localStorage.removeItem('USUARIO');
     this.route.navigateByUrl('login')
     // return this.authFire.auth.signOut().then((data) =>
   }
@@ -102,8 +105,11 @@ export class UsuarioService {
   }
 
   agregarProyecto(p){
-    this.proyectosActuales.push(p);
-    this.proyectosSubject.next(this.proyectosActuales);
+    this.getProyectosByUserID(parseInt(localStorage.getItem('usuarioID'))).then(proyectoData => {
+      this.proyectosActuales = proyectoData.map( proyecto => Proyecto.fromJson(proyecto))
+      this.proyectosSubject.next(this.proyectosActuales);
+    })
+
   }
 
   actualizarPerfilUsuario(userData: Usuario){

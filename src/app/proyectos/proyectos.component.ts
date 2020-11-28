@@ -40,7 +40,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuarioService.getProyectosByUserID(this.usuarioService.usuario.id).then(data =>{
+    this.usuarioService.getProyectosByUserID(parseInt(localStorage.getItem('usuarioID'))).then(data =>{
       this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto))
       this.usuarioService.proyectos$.subscribe(data => this.proyectos = data.map( proyecto => Proyecto.fromJson(proyecto)))
     } );
@@ -55,6 +55,7 @@ export class ProyectosComponent implements OnInit {
     this.proyectoService.crearProyecto(this.proyecto);
     this.closeBtn.nativeElement.click();
     this.proyecto = '';
+    this.ngOnInit()
   }
   eliminar(id){
     this.proyectoService.delete(id).then(()=> {
