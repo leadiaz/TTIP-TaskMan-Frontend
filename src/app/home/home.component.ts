@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   public app_name = "Home";
 
   async ngOnInit() {
-     await this.usuarioService.getTareasAsignadasAUsuario(this.usuarioService.usuario.id)
+     await this.usuarioService.getTareasAsignadasAUsuario(parseInt(localStorage.getItem('usuarioID')))
      .then(data => {
        this.misTareas = data.map(tarea => Tarea.fromJSON(tarea));
       })

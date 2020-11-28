@@ -17,16 +17,19 @@ export class PerfilUsuarioComponent implements OnInit {
   isError: boolean = false;
 
   constructor(public router: Router, private usuarioService: UsuarioService) {
-    this.usuario = this.usuarioService.usuario;
+    // this.usuario = this.usuarioService.usuario;
   }
 
   ngOnInit() {
     document.getElementById('buscador').style.visibility = 'hidden';
+    this.usuario = Usuario.fromJSON(JSON.parse(localStorage.getItem('USUARIO')))
   }
 
   actualizarPerfil(form: NgForm) {
     if (form.valid) {
-      this.usuarioService.actualizarPerfilUsuario(this.usuario)
+      this.usuarioService.actualizarPerfilUsuario(this.usuario).then(userData => {
+        localStorage.setItem('USUARIO', JSON.stringify(userData));
+      })
         .catch(() => {
           this.isError = true;
           setTimeout(() => this.isError = false, 4000)

@@ -41,6 +41,7 @@ export class UsuarioService {
     return this.getLogginUser(usernameOEmail, password).then(
         userData => {
           // resolve(userData)
+          localStorage.setItem('USUARIO', JSON.stringify(userData));
           this.usuario = new Usuario(userData.id,
                                     userData.usuario,
                                     userData.nombre,
@@ -68,7 +69,9 @@ export class UsuarioService {
   }
 
   logout(){
-    localStorage.removeItem('EstaLogueado')
+    localStorage.removeItem('EstaLogueado');
+    localStorage.removeItem('usuarioID');
+    localStorage.removeItem('USUARIO');
     this.route.navigateByUrl('login')
     // return this.authFire.auth.signOut().then((data) =>
   }

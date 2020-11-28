@@ -85,7 +85,6 @@ export class ProyectoService implements IProyectoService {
       }
 
   crearProyecto(nombre: string){
-    console.log(nombre)
     const url= this.url_api+'/proyecto/'+this.usuarioService.usuario.id;
     let p = this._http.post<Proyecto>(url, {nombre: nombre}, {headers: this.headers}).
     pipe(map(data =>data));
@@ -94,7 +93,6 @@ export class ProyectoService implements IProyectoService {
   }
   modificarProyecto(proyecto: Proyecto,usuarioNameEmail: String, eliminarOAgregar:number){
   /* eliminarOAgregar: este parametro sirve para determinar si se elimina o  agrega el usuario al proyecto en cuestion.*/
-    console.log("modificar")
 
     const url= this.url_api+'/proyecto/'+ usuarioNameEmail+'?eliminarOrAgregarUser='+eliminarOAgregar
     console.log(url)
