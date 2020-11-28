@@ -105,8 +105,11 @@ export class UsuarioService {
   }
 
   agregarProyecto(p){
-    this.proyectosActuales.push(p);
-    this.proyectosSubject.next(this.proyectosActuales);
+    this.getProyectosByUserID(parseInt(localStorage.getItem('usuarioID'))).then(proyectoData => {
+      this.proyectosActuales = proyectoData.map( proyecto => Proyecto.fromJson(proyecto))
+      this.proyectosSubject.next(this.proyectosActuales);
+    })
+
   }
 
   actualizarPerfilUsuario(userData: Usuario){

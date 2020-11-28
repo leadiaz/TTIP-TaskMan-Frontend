@@ -85,7 +85,7 @@ export class ProyectoService implements IProyectoService {
       }
 
   crearProyecto(nombre: string){
-    const url= this.url_api+'/proyecto/'+this.usuarioService.usuario.id;
+    const url= this.url_api+'/proyecto/'+localStorage.getItem('usuarioID');
     let p = this._http.post<Proyecto>(url, {nombre: nombre}, {headers: this.headers}).
     pipe(map(data =>data));
 

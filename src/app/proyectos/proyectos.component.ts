@@ -55,6 +55,7 @@ export class ProyectosComponent implements OnInit {
     this.proyectoService.crearProyecto(this.proyecto);
     this.closeBtn.nativeElement.click();
     this.proyecto = '';
+    this.ngOnInit()
   }
   eliminar(id){
     this.proyectoService.delete(id).then(()=> {
