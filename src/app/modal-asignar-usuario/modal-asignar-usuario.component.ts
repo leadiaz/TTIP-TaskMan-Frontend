@@ -27,15 +27,13 @@ export class ModalAsignarUsuarioComponent implements OnInit {
     let pr = this.proyectoService.refaccionarEstadoDeTareas(this.proyectoService.proyectoActual);
     let response = this.proyectoService.modificarProyecto( pr,this.usuario,1)
     response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
-                                this.proyectoService.rolesDelProyecto = proyectoActualizado.rols
-                                this.proyectoService.miembros = this.proyectoService.obtenerMiembrosDeUnProyecto(proyectoActualizado);
-                                this.proyectoService.proyectoActual = proyectoActualizado;
+                                this.proyectoService.getProyectoAsync(proyectoActualizado.id)
                                 this.btnCloseMiembro.nativeElement.click();
                                 },
                         err => {
                                 this.isError = true;
                                 setTimeout(() => this.isError = false, 4000)
-
+                                this.proyectoService.getProyectoAsync(pr.id);
                             });
   }
 

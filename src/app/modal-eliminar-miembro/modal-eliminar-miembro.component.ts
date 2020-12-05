@@ -24,9 +24,7 @@ export class ModalEliminarMiembroComponent implements OnInit {
 
     let response = this.proyectoService.modificarProyecto( pr,usuarioObject.usuario,0)
     response.subscribe(data => {let proyectoActualizado = Proyecto.fromJson(data);
-                                this.proyectoService.rolesDelProyecto = proyectoActualizado.rols
-                                this.proyectoService.miembros = this.proyectoService.obtenerMiembrosDeUnProyecto(proyectoActualizado);
-                                this.proyectoService.proyectoActual = proyectoActualizado;
+                                this.proyectoService.getProyectoAsync(proyectoActualizado.id)
                                 this.isCheck = true;
                                  setTimeout(() => this.isCheck = false, 4300)
                                 },
