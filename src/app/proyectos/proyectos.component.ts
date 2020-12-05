@@ -30,6 +30,8 @@ export class ProyectosComponent implements OnInit {
 
   public popoverTitle: string = 'Eliminar Proyecto'
   public popoverMessage: string = '¿Esta seguro que desea eliminar este proyecto?'
+  public confirmText: string = 'Confirmar';
+  public cancelText: string = 'Cancelar';
 
   constructor(private route: Router, 
               private proyectoService: ProyectoService,

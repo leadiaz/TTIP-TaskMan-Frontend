@@ -60,6 +60,7 @@ export class ProyectoService implements IProyectoService {
    async getProyectoAsync(id:number){
       const proyecto =  await this._http.get<Proyecto>(`${this.url_api}/proyecto/${id}`).toPromise()
       this.proyectoActual = Proyecto.fromJson(proyecto);
+      this.proyectoSubject.next(this.proyectoActual)
       this.rolesDelProyecto = this.proyectoActual.rols;
       this.miembros = this.obtenerMiembrosDeUnProyecto(this.proyectoActual);
       this.tareasAMostrar = this.filtrarTareas(this.proyectoActual.tareas);

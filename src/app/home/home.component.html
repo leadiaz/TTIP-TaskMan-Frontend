@@ -11,15 +11,34 @@
 
               <div class="card-header">
                 <h5 class="card-title">{{tarea.titulo}}</h5>
+                <p class="card-text" style="text-align: center; font-size: small">{{tarea.descripcion}}</p>
               </div>
               <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">{{tarea.estado}}</h6>
-                <p class="card-text">{{tarea.descripcion}}</p>
+                <span *ngIf="tarea.asignado.nombre"
+                      class="card-subtitle mb-2 text-muted"><strong>Responsable: </strong>{{tarea.asignado?.nombre }}</span>
+                <br>
+                <span *ngIf="tarea.prioridad"
+                      class="card-subtitle mb-2 text-muted"><strong>Prioridad:</strong> {{tarea.prioridad}}</span>
+                <br>
+                <span *ngIf="tarea.fecha_estimada"
+                      class="card-subtitle mb-2 text-muted"><strong>Fecha Estimada:</strong> {{tarea.fecha_estimada}}</span>
+
               </div>
               <div class="card-footer">
                 <div class="row">
                   <button type="button" class="button buttonTerminar" style="margin-right: 10px" (click)="terminar(tarea.id)">Terminar</button>
-                  <button type="button" class="button buttonCancelar"  (click)="cancelar(tarea.id)">Cancelar</button>
+<!--                  <button type="button" class="button buttonCancelar"  (click)="cancelar(tarea.id)">Cancelar</button>-->
+                  <button *ngIf="tarea.isTest != 1" class="button buttonCancelar"
+                          mwlConfirmationPopover
+                          [popoverTitle]="popoverTitle"
+                          [popoverMessage]="popoverMessage"
+                          [confirmText]="confirmText"
+                          [cancelText]="cancelText"
+                          placement="top"
+                          (confirm)="cancelar(tarea.id)"
+                          (cancel)="cancelClicked = true"
+                          style="margin-left: 5px; font-size: 15px; ">Cancelar
+                  </button>
                 </div>
               </div>
             </div>

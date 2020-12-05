@@ -89,10 +89,12 @@
                         mwlConfirmationPopover
                         [popoverTitle]="popoverTitle"
                         [popoverMessage]="popoverMessage"
+                        [confirmText]="confirmText"
+                        [cancelText]="cancelText"
                         placement="top"
                         (confirm)="eliminar(tarea.id)"
                         (cancel)="cancelClicked = true"
-                        style="margin-left: 5px; font-size: 15px; ">Delete
+                        style="margin-left: 5px; font-size: 15px; ">Eliminar
                 </button>
               </div>
 

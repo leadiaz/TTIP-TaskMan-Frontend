@@ -29,6 +29,8 @@ export class TareasComponent implements OnInit {
   /**PopUp */
   public popoverTitle: string = 'Eliminar Tarea'
   public popoverMessage: string = '¿Esta seguro que desea eliminar esta tarea?'
+  public confirmText: string = 'Confirmar';
+  public cancelText: string = 'Cancelar';
 
   constructor(private route: Router,
               private tareaService: TareaService,
@@ -45,7 +47,8 @@ export class TareasComponent implements OnInit {
   eliminar(id) {
     const idPr = this.proyectoService.proyectoActual.id;
     this.tareaService.delete(idPr, id).then(() => {
-      this.proyectoService.proyectoActual.tareas = this.proyectoService.proyectoActual.tareas.filter(tarea => tarea.id != id)
+      this.proyectoService.getProyectoAsync(idPr);
+      // this.proyectoService.proyectoActual.tareas = this.proyectoService.proyectoActual.tareas.filter(tarea => tarea.id != id)
     });
 
   }

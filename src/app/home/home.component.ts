@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit {
   public proyectos;
   misTareas:Array<any>;
   public idUsuario:number;
+  public popoverTitle: string = 'Cancelar Tarea'
+  public popoverMessage: string = '¿Esta seguro que desea cancelar esta tarea?'
+  public confirmText: string = 'Confirmar';
+  public cancelText: string = 'Cancelar';
 
   constructor(private route: Router,
               private usuarioService: UsuarioService,
@@ -39,7 +43,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
      await this.usuarioService.getTareasAsignadasAUsuario(parseInt(localStorage.getItem('usuarioID')))
      .then(data => {
-       this.misTareas = data.map(tarea => Tarea.fromJSON(tarea));
+       this.misTareas = data.map(tarea => Tarea.fromJSON(tarea)).filter(tarea => tarea.estado != 'Terminada');
       })
 
   }
@@ -54,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.tarea.estado = "Terminada"
     await this.tareaService.updateEstado(this.tarea)
     this.tarea = undefined
+    this.misTareas = this.misTareas.filter(tarea => tarea.id != id);
   }
   cancelar(id:number){
     this.filtrarTarea(id);
@@ -61,6 +66,7 @@ export class HomeComponent implements OnInit {
     this.tarea.asignado = undefined
     this.tareaService.updateEstado(this.tarea)
     this.tarea = undefined;
+    this.misTareas = this.misTareas.filter(tarea => tarea.id != id);
   }
 
   filtrarTarea(id:number){

@@ -24,6 +24,8 @@
                     <button class="button buttonEliminar" mwlConfirmationPopover
                     [popoverTitle]="popoverTitle"
                     [popoverMessage]="popoverMessage"
+                    [confirmText]="confirmText"
+                    [cancelText]="cancelText"
                     placement = "top"
                     (confirm)="eliminar(proyecto.id)"
                     (cancel)="cancelClicked = true" >Eliminar</button>
